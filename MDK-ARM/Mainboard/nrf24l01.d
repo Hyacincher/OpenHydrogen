@@ -1,7 +1,5 @@
-mainboard/nrf24l01.o: ..\Driver\NRF24L01.c ..\Driver\NRF24L01.h \
-  ..\User\Inc\includes.h D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\math.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h ..\User\Inc\cpu.h \
-  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
+./mainboard/nrf24l01.o: ..\Driver\NRF24L01.c ..\Driver\NRF24L01.h \
+  ..\User\Inc\cpu.h ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\User\Inc\stm32f4xx_hal_conf.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
@@ -36,4 +34,15 @@ mainboard/nrf24l01.o: ..\Driver\NRF24L01.c ..\Driver\NRF24L01.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
-  ..\User\Inc\includes.h
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
+  ..\User\Inc\includes.h D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\math.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Inc\Mymath.h \
+  ..\User\Inc\Filter.h ..\User\Inc\DbgPrint.h ..\Driver\LORA433.h \
+  ..\Application\Include\Attitude.h ..\User\Inc\includes.h \
+  ..\Driver\MPU6000.h ..\Driver\LSM303D.h \
+  ..\Application\Include\Stabilizer.h ..\Application\Include\PID.h \
+  ..\User\Inc\Mymath.h ..\Application\Include\Attitude.h \
+  ..\Application\Include\Motor.h

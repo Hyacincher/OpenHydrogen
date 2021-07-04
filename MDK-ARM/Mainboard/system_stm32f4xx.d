@@ -1,4 +1,4 @@
-mainboard/system_stm32f4xx.o: ..\User\Src\system_stm32f4xx.c \
+./mainboard/system_stm32f4xx.o: ..\User\Src\system_stm32f4xx.c \
   ..\Hal\CMSIS\Device\stm32f4xx.h ..\Hal\CMSIS\Device\stm32f405xx.h \
   D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\core_cm4.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdint.h \
@@ -33,4 +33,6 @@ mainboard/system_stm32f4xx.o: ..\User\Src\system_stm32f4xx.c \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
-  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h

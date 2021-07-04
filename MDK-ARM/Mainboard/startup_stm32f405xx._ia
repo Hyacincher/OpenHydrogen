@@ -6,5 +6,5 @@
 --pd "_RTE_ SETA 1"
 --pd "STM32F405xx SETA 1"
 --list startup_stm32f405xx.lst
---xref -o mainboard\startup_stm32f405xx.o
---depend mainboard\startup_stm32f405xx.d "..\User\startup_stm32f405xx.s"
+--xref -o .\mainboard\startup_stm32f405xx.o
+--depend .\mainboard\startup_stm32f405xx.d "..\User\startup_stm32f405xx.s"

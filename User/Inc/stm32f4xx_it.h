@@ -26,6 +26,7 @@
  extern "C" {
 #endif
 
+#include "includes.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 

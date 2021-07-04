@@ -15,12 +15,29 @@ int main(void)
     BMP280Init();
     LSM303DInit();
     NRFInit();
+    LORA433Init();
+    
+    AttitudeInit();
+    StabilizerInit();
+    MotorInit();
+    BatteryInit();
+    DbgPrintInit();
+    
+    UART_Start_Receive_IT(&huart4, (INT8U *)g_DbgPrintCtrlMsg.ReceiveBuff, RECEIVE_BUFF_LEN);
     
     while (1)
     {
-        MPU6000pdate();
         BMP280Update();
-        LSM303DUpdate();
-        HAL_Delay(1);
+        
+        
+        AttitudeTask();
+        StabilizerTask();
+        
+        DbgPrintTask();
+        
+        BatteryTask();
+        
+        MotorTask();
+        //HAL_Delay(2);
     }
 }

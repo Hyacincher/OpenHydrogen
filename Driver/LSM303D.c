@@ -77,35 +77,21 @@ void LSM303DUpdate(void)
 {
     INT8U MagBuff[6]={0};
     INT8U AccBuff[6]={0};
-    INT16S Temp;
-    FP64 Az;
     
     LSMReadContinul(LSM_REG_M_OUTX_L, MagBuff, 6);    
     LSMReadContinul(LSM_REG_A_OUTX_L, AccBuff, 6);
     
-    g_LSMCtrLMsg.MagX = (INT16S)MagBuff[0] | ((INT16S)MagBuff[1] << 8);
-    g_LSMCtrLMsg.MagY = (INT16S)MagBuff[2] | ((INT16S)MagBuff[3] << 8);
-    g_LSMCtrLMsg.MagZ = (INT16S)MagBuff[4] | ((INT16S)MagBuff[5] << 8);
+    g_LSMCtrLMsg.RawMag[0] = (INT16S)MagBuff[0] | ((INT16S)MagBuff[1] << 8);
+    g_LSMCtrLMsg.RawMag[1] = (INT16S)MagBuff[2] | ((INT16S)MagBuff[3] << 8);
+    g_LSMCtrLMsg.RawMag[2] = (INT16S)MagBuff[4] | ((INT16S)MagBuff[5] << 8);
 
-    g_LSMCtrLMsg.AccX = (INT16S)AccBuff[0] | ((INT16S)AccBuff[1] << 8);
-    g_LSMCtrLMsg.AccY = (INT16S)AccBuff[2] | ((INT16S)AccBuff[3] << 8);
-    g_LSMCtrLMsg.AccZ = (INT16S)AccBuff[4] | ((INT16S)AccBuff[5] << 8);
+    g_LSMCtrLMsg.RawAcce[0] = (INT16S)AccBuff[0] | ((INT16S)AccBuff[1] << 8);
+    g_LSMCtrLMsg.RawAcce[1] = (INT16S)AccBuff[2] | ((INT16S)AccBuff[3] << 8);
+    g_LSMCtrLMsg.RawAcce[2] = (INT16S)AccBuff[4] | ((INT16S)AccBuff[5] << 8);
     
-    Az = sqrt(((FP64)g_LSMCtrLMsg.AccZ * (FP64)g_LSMCtrLMsg.AccZ) + ((FP64)g_LSMCtrLMsg.AccY * (FP64)g_LSMCtrLMsg.AccY));
-    Az = g_LSMCtrLMsg.AccZ > 0 ? Az : -Az;
-    g_LSMCtrLMsg.Roll = atan2(Az, (FP64)g_LSMCtrLMsg.AccX);
-    g_LSMCtrLMsg.Roll *= 57.295781;
-    g_LSMCtrLMsg.Roll -= 90.0f;
-    g_LSMCtrLMsg.Roll = g_LSMCtrLMsg.Roll < -180 ? (360 + g_LSMCtrLMsg.Roll) : g_LSMCtrLMsg.Roll;//左加右减
-    
-    Az = sqrt(((FP64)g_LSMCtrLMsg.AccZ * (FP64)g_LSMCtrLMsg.AccZ) + ((FP64)g_LSMCtrLMsg.AccX * (FP64)g_LSMCtrLMsg.AccX));
-    Az = g_LSMCtrLMsg.AccZ > 0 ? Az : -Az;
-    g_LSMCtrLMsg.Pitch = atan2(Az, (FP64)g_LSMCtrLMsg.AccY);    
-    g_LSMCtrLMsg.Pitch *= 57.295781;
-    g_LSMCtrLMsg.Pitch -= 90.0f;
-    g_LSMCtrLMsg.Pitch = g_LSMCtrLMsg.Pitch < -180 ? (360 + g_LSMCtrLMsg.Pitch) : g_LSMCtrLMsg.Pitch;//上加下减    
-    
-    g_LSMCtrLMsg.Yaw = atan2(g_LSMCtrLMsg.MagY, g_LSMCtrLMsg.MagX);
-    g_LSMCtrLMsg.Yaw *= 57.295781;
-    g_LSMCtrLMsg.Yaw += 180.0f;//切换到0-360°
+    INT16S Temp;
+    //转换到标准右手坐标系
+    Temp = g_LSMCtrLMsg.RawMag[1];
+    g_LSMCtrLMsg.RawMag[1] = g_LSMCtrLMsg.RawMag[0];
+    g_LSMCtrLMsg.RawMag[0] = -Temp;
 }

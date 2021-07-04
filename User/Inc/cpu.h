@@ -4,6 +4,8 @@
 #include "stm32f4xx_hal.h"
 #include "includes.h"
 
+#include "DbgPrint.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -62,6 +64,11 @@ extern SPI_HandleTypeDef hspi2;
 extern SPI_HandleTypeDef hspi3;
 
 extern TIM_HandleTypeDef htim1;
+
+extern UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart6;
+
+extern volatile INT64U g_SysTickTime;
 
 void HardWareInit(void);
 void SwitchSPITiming(SPI_TypeDef * SPIn, BOOLEAN ClockIdle, BOOLEAN ClockPhase);

@@ -1,5 +1,5 @@
-mainboard/main.o: ..\User\Src\main.c ..\User\Inc\main.h ..\User\Inc\cpu.h \
-  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
+./mainboard/main.o: ..\User\Src\main.c ..\User\Inc\main.h \
+  ..\User\Inc\cpu.h ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\User\Inc\stm32f4xx_hal_conf.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
@@ -34,7 +34,16 @@ mainboard/main.o: ..\User\Src\main.c ..\User\Inc\main.h ..\User\Inc\cpu.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
   ..\User\Inc\includes.h D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\math.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h ..\Driver\MPU6000.h \
-  ..\User\Inc\cpu.h ..\User\Inc\includes.h ..\Driver\BMP280.h \
-  ..\Driver\LSM303D.h ..\Driver\NRF24L01.h
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Inc\Mymath.h \
+  ..\User\Inc\Filter.h ..\User\Inc\DbgPrint.h ..\Driver\LORA433.h \
+  ..\User\Inc\cpu.h ..\Application\Include\Attitude.h \
+  ..\User\Inc\includes.h ..\Driver\MPU6000.h ..\Driver\LSM303D.h \
+  ..\Application\Include\Stabilizer.h ..\Application\Include\PID.h \
+  ..\User\Inc\Mymath.h ..\Application\Include\Attitude.h \
+  ..\Application\Include\Motor.h ..\Driver\BMP280.h ..\Driver\NRF24L01.h \
+  ..\Driver\Battery.h ..\Application\Include\Motor.h

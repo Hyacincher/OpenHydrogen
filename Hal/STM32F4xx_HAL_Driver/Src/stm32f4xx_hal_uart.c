@@ -2558,7 +2558,7 @@ void HAL_UART_IRQHandler(UART_HandleTypeDef *huart)
       return;
     }
   }
-
+  
   /* UART in mode Transmitter ------------------------------------------------*/
   if (((isrflags & USART_SR_TXE) != RESET) && ((cr1its & USART_CR1_TXEIE) != RESET))
   {

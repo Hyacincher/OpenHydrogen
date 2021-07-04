@@ -16,13 +16,27 @@ typedef unsigned long long INT64U;			     /*  Unsigned 64 bit quantity   */
 typedef float          FP32;   			 /*  Single precision floating  point*/
 typedef double         FP64; 			 /*  Double precision floating  point*/
 
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+#include "Mymath.h"
+#include "Filter.h"
 
 #define DEBUG_MODE  1
-//#define ANO_PRINT 1
-#define VISUAL_SCOPE_PRINT  1
 
-#define ATTITUDE_UPDATE_RATE    1000
 
+#define RATE_5_HZ		5
+#define RATE_10_HZ		10
+#define RATE_20_HZ		20
+#define RATE_25_HZ		25
+#define RATE_50_HZ		50
+#define RATE_100_HZ		100
+#define RATE_200_HZ 	200
+#define RATE_250_HZ 	250
+#define RATE_500_HZ 	500
+#define RATE_1000_HZ 	1000
 
 #endif 
 

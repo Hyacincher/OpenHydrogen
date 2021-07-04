@@ -2,7 +2,6 @@
 #define MPU6000_H
 
 #include "cpu.h"
-#include "includes.h"
 
 #define MPU_ENABLE()    GPIOB->ODR &= ~1
 #define MPU_DISABLE()   GPIOB->ODR |= 1
@@ -84,18 +83,14 @@
 
 typedef struct
 {
-    INT16S Gyroscope[3];        //X Y Z
-    INT16S Acceleromeeter[3];   //X Y Z
-    FP32 AccAve[3];
-    FP32 GyroAve[3];
-    FP32 Temperature;         //°„C
-    FP32 Roll;
-    FP32 Pitch;
-    FP32 Yaw;
+    INT16S RawGyro[3];        //X Y Z
+    INT16S RawAcce[3];   //X Y Z
+
+    FP32 Temperature;           //°„C
 }MPUInfo_t;
 
 void MPU6000Init(void);
-void MPU6000pdate(void);
+void MPU6000Update(void);
 
 
 extern MPUInfo_t g_MPUCtrlMsg;

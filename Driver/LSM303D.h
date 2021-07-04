@@ -1,7 +1,6 @@
 #ifndef LSM303D_H
 #define LSM303D_H
 
-#include "includes.h"
 #include "cpu.h"
 
 #define LSM_ENABLE()    GPIOB->ODR &= ~(1<<3)
@@ -77,19 +76,13 @@
 
 typedef struct 
 {
-    INT16S MagX;     //读出的芯片原始数据
-    INT16S MagY;
-    INT16S MagZ;
-    INT16S AccX;
-    INT16S AccY;
-    INT16S AccZ;
-    
-    FP32 Pitch;
-    FP32 Roll;
-    FP32 Yaw;
+    INT16S RawMag[3];     //读出的芯片原始数据
+    INT16S RawAcce[3];
 }LSMInfo_t;
 
 void LSM303DInit(void);
 void LSM303DUpdate(void);
+
+extern LSMInfo_t g_LSMCtrLMsg;
 #endif
 

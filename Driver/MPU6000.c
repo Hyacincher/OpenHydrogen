@@ -55,6 +55,8 @@ void MPU6000Init(void)
 {
     INT8U ID;
 
+    memset(&g_MPUCtrlMsg, 0, sizeof(g_MPUCtrlMsg));
+    
     SPI1->CR1 &= ~(1<<6);  //disable spi
     SPI1->CR1 &= ~(7<<3);   //clear register
     SPI1->CR1 |= (6<<3);    //fclk/128
@@ -110,7 +112,7 @@ void MPU6000Init(void)
     SPI1->CR1 |= (2<<3);    //fclk/8
     SPI1->CR1 |= (1<<6);  //enable spi
     
-    MPU6000pdate();
+    MPU6000Update();
 }
 
 static void MPUSetRate(INT16U Rate)
@@ -148,7 +150,7 @@ static void MPUSetLPF(INT16U Lpf)
 *输入参数： *MPU6000     处理句柄
 *返回参数： none
 */
-void MPU6000pdate(void)
+void MPU6000Update(void)
 {
     INT8U s_ReceiveBuff[14]={0};
     INT8U s_Transmit;
@@ -158,20 +160,20 @@ void MPU6000pdate(void)
     s_Transmit = MPU_ACCEL_XOUTH_REG|MPU9250_READ;
     
     MPU_ENABLE();
-    HAL_SPI_Transmit(&hspi1, &s_Transmit, 1, 1000);
-    HAL_SPI_Receive(&hspi1, s_ReceiveBuff, 14, 1000);
+    HAL_SPI_Transmit(&hspi1, &s_Transmit, 1, 10);
+    HAL_SPI_Receive(&hspi1, s_ReceiveBuff, 14, 10);
     MPU_DISABLE();
     
     for(ii = 0 ; ii < 6 ; ii++)
     {
         if((ii % 2)==0)
         {
-            g_MPUCtrlMsg.Acceleromeeter[ii / 2] = s_ReceiveBuff[ii];
-            g_MPUCtrlMsg.Acceleromeeter[ii / 2] <<= 8;
+            g_MPUCtrlMsg.RawAcce[ii / 2] = s_ReceiveBuff[ii];
+            g_MPUCtrlMsg.RawAcce[ii / 2] <<= 8;
         }
         else
         {
-            g_MPUCtrlMsg.Acceleromeeter[ii / 2] |= s_ReceiveBuff[ii];
+            g_MPUCtrlMsg.RawAcce[ii / 2] |= s_ReceiveBuff[ii];
         }
     }
     
@@ -187,19 +189,33 @@ void MPU6000pdate(void)
             s_Temperature |= s_ReceiveBuff[ii];
         }
     }
-    g_MPUCtrlMsg.Temperature = (FP32)((s_Temperature)/333.87) + 21;
+    
+    FP32 Input;
+    
+    Input = (FP32)((s_Temperature)/333.87) + 21;
+    LowPassFilter(0.2, &Input, &g_MPUCtrlMsg.Temperature);
     
     for(ii = 8 ; ii < 14 ; ii++)
     {
         if((ii % 2)==0)
         {
-            g_MPUCtrlMsg.Gyroscope[(ii - 8)/ 2] = s_ReceiveBuff[ii];
-            g_MPUCtrlMsg.Gyroscope[(ii - 8) / 2] <<= 8;
+            g_MPUCtrlMsg.RawGyro[(ii - 8)/ 2] = s_ReceiveBuff[ii];
+            g_MPUCtrlMsg.RawGyro[(ii - 8) / 2] <<= 8;
         }
         else
         {
-            g_MPUCtrlMsg.Gyroscope[(ii - 8) / 2] |= s_ReceiveBuff[ii];
+            g_MPUCtrlMsg.RawGyro[(ii - 8) / 2] |= s_ReceiveBuff[ii];
         }
     }
+    
+    INT16S Temp;
+    //转换到标准右手坐标系
+    Temp = g_MPUCtrlMsg.RawAcce[1];
+    g_MPUCtrlMsg.RawAcce[1] = -g_MPUCtrlMsg.RawAcce[0];
+    g_MPUCtrlMsg.RawAcce[0] = Temp;
+    
+    Temp = g_MPUCtrlMsg.RawGyro[1];
+    g_MPUCtrlMsg.RawGyro[1] = -g_MPUCtrlMsg.RawGyro[0];
+    g_MPUCtrlMsg.RawGyro[0] = Temp;    
 }
 

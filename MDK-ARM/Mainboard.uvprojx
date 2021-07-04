@@ -49,7 +49,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>Mainboard\</OutputDirectory>
+          <OutputDirectory>.\Mainboard\</OutputDirectory>
           <OutputName>Mainboard</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F405xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\User\Inc;..\Hal\CMSIS\Device;..\Hal\STM32F4xx_HAL_Driver\Inc;..\Hal\STM32F4xx_HAL_Driver\Inc\Legacy;..\Driver</IncludePath>
+              <IncludePath>..\User\Inc;..\Hal\CMSIS\Device;..\Hal\STM32F4xx_HAL_Driver\Inc;..\Hal\STM32F4xx_HAL_Driver\Inc\Legacy;..\Driver;..\Application\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -402,6 +402,91 @@
               <FileName>stm32f4xx_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Src\stm32f4xx_it.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Task</GroupName>
+          <Files>
+            <File>
+              <FileName>DbgPrint.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\DbgPrint.c</FilePath>
+            </File>
+            <File>
+              <FileName>Motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\Motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>Attitude.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\Attitude.c</FilePath>
+            </File>
+            <File>
+              <FileName>Stabilizer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\Stabilizer.c</FilePath>
+            </File>
+            <File>
+              <FileName>Battery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\Battery.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Algorithm</GroupName>
+          <Files>
+            <File>
+              <FileName>FFT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\FFT.c</FilePath>
+            </File>
+            <File>
+              <FileName>Filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\Filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>Mymath.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\Mymath.c</FilePath>
+            </File>
+            <File>
+              <FileName>PID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\PID.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Driver</GroupName>
+          <Files>
+            <File>
+              <FileName>MPU6000.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\MPU6000.c</FilePath>
+            </File>
+            <File>
+              <FileName>BMP280.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\BMP280.c</FilePath>
+            </File>
+            <File>
+              <FileName>LSM303D.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\LSM303D.c</FilePath>
+            </File>
+            <File>
+              <FileName>NRF24L01.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\NRF24L01.c</FilePath>
+            </File>
+            <File>
+              <FileName>LORA433.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\LORA433.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -572,31 +657,6 @@
               <FileName>stm32f4xx_hal_wwdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hal\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_wwdg.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Driver</GroupName>
-          <Files>
-            <File>
-              <FileName>MPU6000.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\MPU6000.c</FilePath>
-            </File>
-            <File>
-              <FileName>BMP280.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\BMP280.c</FilePath>
-            </File>
-            <File>
-              <FileName>LSM303D.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\LSM303D.c</FilePath>
-            </File>
-            <File>
-              <FileName>NRF24L01.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\NRF24L01.c</FilePath>
             </File>
           </Files>
         </Group>

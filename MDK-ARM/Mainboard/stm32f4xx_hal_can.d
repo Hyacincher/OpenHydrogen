@@ -1,4 +1,4 @@
-mainboard/stm32f4xx_hal_can.o: \
+./mainboard/stm32f4xx_hal_can.o: \
   ..\Hal\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\User\Inc\stm32f4xx_hal_conf.h \
@@ -34,4 +34,6 @@ mainboard/stm32f4xx_hal_can.o: \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
-  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
