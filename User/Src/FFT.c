@@ -2,15 +2,15 @@
 
 
 /*
-*º¯ÊýÃû£ºFFT
-*¹¦  ÄÜ£º¿ìËÙ¸µÀïÒ¶±ä»»
-*ÊäÈë²ÎÊý£º
-    FP32 pr[n]	´æ·Ån¸ö²ÉÑùÊäÈëµÄÊµ²¿£¬·µ»ØÀëÉ¢¸µÀïÒ¶±ä»»µÄÃþ
-    FP32 pi[n]	´æ·Ån¸ö²ÉÑùÊäÈëµÄÐé²¿
-    FP32 fr[n]	·µ»ØÀëÉ¢¸µÀïÒ¶±ä»»µÄn¸öÊµ²¿
-    FP32 fi[n]	·µ»ØÀëÉ¢¸µÀïÒ¶±ä»»µÄn¸öÐé²¿
-    int n	²ÉÑùµãÊý
-*·µ»Ø²ÎÊý£ºNone
+*å‡½æ•°åï¼šFFT
+*åŠŸ  èƒ½ï¼šå¿«é€Ÿå‚…é‡Œå¶å˜æ¢
+*è¾“å…¥å‚æ•°ï¼š
+    FP32 pr[n]	å­˜æ”¾nä¸ªé‡‡æ ·è¾“å…¥çš„å®žéƒ¨ï¼Œè¿”å›žç¦»æ•£å‚…é‡Œå¶å˜æ¢çš„æ‘¸
+    FP32 pi[n]	å­˜æ”¾nä¸ªé‡‡æ ·è¾“å…¥çš„è™šéƒ¨
+    FP32 fr[n]	è¿”å›žç¦»æ•£å‚…é‡Œå¶å˜æ¢çš„nä¸ªå®žéƒ¨
+    FP32 fi[n]	è¿”å›žç¦»æ•£å‚…é‡Œå¶å˜æ¢çš„nä¸ªè™šéƒ¨
+    int n	é‡‡æ ·ç‚¹æ•°
+*è¿”å›žå‚æ•°ï¼šNone
 */
 void FFT(FP32 *pr , FP32 *pi , INT32U n , FP32 *fr , FP32 *fi)
 {
@@ -18,7 +18,7 @@ void FFT(FP32 *pr , FP32 *pi , INT32U n , FP32 *fr , FP32 *fi)
     FP32 k = (log(n) / log(2));
     FP32 p,q,s,vr,vi,poddr,poddi;
 
-    for (it=0; it<=n-1; it++)  //½«pr[0]ºÍpi[0]Ñ­»·¸³Öµ¸øfr[]ºÍfi[]
+    for (it=0; it<=n-1; it++)  //å°†pr[0]å’Œpi[0]å¾ªçŽ¯èµ‹å€¼ç»™fr[]å’Œfi[]
     {
 		m=it;
 		is=0;
@@ -35,10 +35,10 @@ void FFT(FP32 *pr , FP32 *pi , INT32U n , FP32 *fr , FP32 *fi)
     pr[0]=1.0;
     pi[0]=0.0;
     p=6.283185306/(1.0*n);
-    pr[1]=cos(p); //½«w=e^-j2pi/nÓÃÅ·À­¹«Ê½±íÊ¾
+    pr[1]=cos(p); //å°†w=e^-j2pi/nç”¨æ¬§æ‹‰å…¬å¼è¡¨ç¤º
     pi[1]=-sin(p);
 
-    for (i=2; i<=n-1; i++)  //¼ÆËãpr[]
+    for (i=2; i<=n-1; i++)  //è®¡ç®—pr[]
     {
 		p=pr[i-1]*pr[1];
 		q=pi[i-1]*pi[1];
@@ -56,7 +56,7 @@ void FFT(FP32 *pr , FP32 *pi , INT32U n , FP32 *fr , FP32 *fi)
     }
 	m=n/2;
 	nv=2;
-    for (l0=k-2; l0>=0; l0--) //ºûµû²Ù×÷
+    for (l0=k-2; l0>=0; l0--) //è´è¶æ“ä½œ
     {
 		m=m/2;
 		nv=2*nv;
@@ -81,29 +81,29 @@ void FFT(FP32 *pr , FP32 *pi , INT32U n , FP32 *fr , FP32 *fi)
 
 
 /*
-*º¯ÊýÃû£ºGetAmplitude
-*¹¦  ÄÜ£ºÈ¡µÃ¸µÀïÒ¶±ä»¯½á¹ûµÄ·ùÖµ
-*ÊäÈë²ÎÊý£º
-    FP32 amplitude    ´¢´æ¸µÀïÒ¶±ä»»µÄ·ùÖµ
-    int    n            ²ÉÑùµãÊý
-    FP32 fr[n]	    ÀëÉ¢¸µÀïÒ¶±ä»»µÄn¸öÊµ²¿
-    FP32 fi[n]	    ÀëÉ¢¸µÀïÒ¶±ä»»µÄn¸öÐé²¿
-*·µ»Ø²ÎÊý£ºNone
+*å‡½æ•°åï¼šGetAmplitude
+*åŠŸ  èƒ½ï¼šå–å¾—å‚…é‡Œå¶å˜åŒ–ç»“æžœçš„å¹…å€¼
+*è¾“å…¥å‚æ•°ï¼š
+    FP32 amplitude    å‚¨å­˜å‚…é‡Œå¶å˜æ¢çš„å¹…å€¼
+    int    n            é‡‡æ ·ç‚¹æ•°
+    FP32 fr[n]	    ç¦»æ•£å‚…é‡Œå¶å˜æ¢çš„nä¸ªå®žéƒ¨
+    FP32 fi[n]	    ç¦»æ•£å‚…é‡Œå¶å˜æ¢çš„nä¸ªè™šéƒ¨
+*è¿”å›žå‚æ•°ï¼šNone
 */
 FP32 GetAmplitude(FP32 fr, FP32 fi)
 {
-    return sqrt(fr*fr+fi*fi);  //·ùÖµ¼ÆËã
+    return sqrt(fr*fr+fi*fi);  //å¹…å€¼è®¡ç®—
 }
 
 /*
-*º¯ÊýÃû£ºGetPhase
-*¹¦  ÄÜ£ºÈ¡µÃ¸µÀïÒ¶±ä»¯½á¹ûµÄÏàÎ»
-*ÊäÈë²ÎÊý£º
-    FP32 phase        ´¢´æ¸µÀïÒ¶±ä»»µÄÏàÎ»
-    int    n            ²ÉÑùµãÊý
-    FP32 fr[n]	    ÀëÉ¢¸µÀïÒ¶±ä»»µÄn¸öÊµ²¿
-    FP32 fi[n]	    ÀëÉ¢¸µÀïÒ¶±ä»»µÄn¸öÐé²¿
-*·µ»Ø²ÎÊý£ºNone
+*å‡½æ•°åï¼šGetPhase
+*åŠŸ  èƒ½ï¼šå–å¾—å‚…é‡Œå¶å˜åŒ–ç»“æžœçš„ç›¸ä½
+*è¾“å…¥å‚æ•°ï¼š
+    FP32 phase        å‚¨å­˜å‚…é‡Œå¶å˜æ¢çš„ç›¸ä½
+    int    n            é‡‡æ ·ç‚¹æ•°
+    FP32 fr[n]	    ç¦»æ•£å‚…é‡Œå¶å˜æ¢çš„nä¸ªå®žéƒ¨
+    FP32 fi[n]	    ç¦»æ•£å‚…é‡Œå¶å˜æ¢çš„nä¸ªè™šéƒ¨
+*è¿”å›žå‚æ•°ï¼šNone
 */
 FP32 GetPhase(FP32 fr, FP32 fi)
 {
@@ -117,11 +117,11 @@ FP32 GetPhase(FP32 fr, FP32 fi)
 
 
 /*
-**º¯ÊýÐÅÏ¢      FindMaxMag
-**¹¦ÄÜÃèÊö      Ñ°ÕÒ×î´óµÄ·ùÖµµã
-**ÊäÈë²ÎÊý      Mag     ·ùÖµÊý×é
-                Len     Êý×é³¤¶È
-**Êä³ö²ÎÊý      ×î´ó·ùÖµÎ»ÖÃ
+**å‡½æ•°ä¿¡æ¯      FindMaxMag
+**åŠŸèƒ½æè¿°      å¯»æ‰¾æœ€å¤§çš„å¹…å€¼ç‚¹
+**è¾“å…¥å‚æ•°      Mag     å¹…å€¼æ•°ç»„
+                Len     æ•°ç»„é•¿åº¦
+**è¾“å‡ºå‚æ•°      æœ€å¤§å¹…å€¼ä½ç½®
 */
 INT16U FindMaxMag(FP32 *Mag,INT16U Len)
 {
@@ -141,15 +141,15 @@ INT16U FindMaxMag(FP32 *Mag,INT16U Len)
 }
 
 /*
-*º¯ÊýÃû£ºapFFT
-*¹¦  ÄÜ£ºÈ«ÏàÎ»¸µÀïÒ¶±ä»»
-*ÊäÈë²ÎÊý£º
-        FP32 *pr        Êµ²¿ÊäÈë
-        FP32 *pi        Ðé²¿ÊäÈë
-        INT32U n        Êä³öµãÊý£¨ÊäÈëµãÊýÊÇÊä³öµÄÁ½±¶£©
-        FP32 *fr        Êä³öÊµ²¿
-        FP32 *fi        Êä³öÊµ²¿
-*·µ»Ø²ÎÊý£ºNone
+*å‡½æ•°åï¼šapFFT
+*åŠŸ  èƒ½ï¼šå…¨ç›¸ä½å‚…é‡Œå¶å˜æ¢
+*è¾“å…¥å‚æ•°ï¼š
+        FP32 *pr        å®žéƒ¨è¾“å…¥
+        FP32 *pi        è™šéƒ¨è¾“å…¥
+        INT32U n        è¾“å‡ºç‚¹æ•°ï¼ˆè¾“å…¥ç‚¹æ•°æ˜¯è¾“å‡ºçš„ä¸¤å€ï¼‰
+        FP32 *fr        è¾“å‡ºå®žéƒ¨
+        FP32 *fi        è¾“å‡ºå®žéƒ¨
+*è¿”å›žå‚æ•°ï¼šNone
 */
 void apFFT(FP32 *pr , FP32 *pi , INT32U n , FP32 *fr , FP32 *fi)
 {
@@ -178,11 +178,11 @@ void apFFT(FP32 *pr , FP32 *pi , INT32U n , FP32 *fr , FP32 *fi)
 
 
 /*
-**º¯ÊýÐÅÏ¢      CalculateDiffPhase
-**¹¦ÄÜÃèÊö      ¼ÆËã³õÄ©ÏàÎ»²î
-**ÊäÈë²ÎÊý      StartPhase      ³õÏàÎ»
-                EndPhase        Ä©ÏàÎ»
-**Êä³ö²ÎÊý      ÏàÎ»²î
+**å‡½æ•°ä¿¡æ¯      CalculateDiffPhase
+**åŠŸèƒ½æè¿°      è®¡ç®—åˆæœ«ç›¸ä½å·®
+**è¾“å…¥å‚æ•°      StartPhase      åˆç›¸ä½
+                EndPhase        æœ«ç›¸ä½
+**è¾“å‡ºå‚æ•°      ç›¸ä½å·®
 */
 FP32 CalculateDiffPhase(FP32 StartPhase, FP32 EndPhase)
 {
@@ -216,15 +216,15 @@ FP32 CalculateDiffPhase(FP32 StartPhase, FP32 EndPhase)
 
 
 /*
-**º¯ÊýÐÅÏ¢      CalculateAvePhase
-**¹¦ÄÜÃèÊö      ¼ÆËãÏàÎ»µÄÆ½¾ù
-**ÊäÈë²ÎÊý      Phase       ÏàÎ»Êý×é
-                Len         Êý×é³¤¶È
-                AveMode     Æ½»¬·½Ê½
-                    1Ö±½ÓÆ½¾ù
-                    2È¥µô×î¸ß×îµÍÇóÆ½¾ù
-                    3È¥µô×î¸ß×îµÍÈ¡ÖÐÖµ£¬È»ºó³ý¿ª×î¸ß×îµÍÖµ½øÐÐµÍÍ¨ÂË²¨
-**Êä³ö²ÎÊý      ÏàÎ»Æ½¾ù
+**å‡½æ•°ä¿¡æ¯      CalculateAvePhase
+**åŠŸèƒ½æè¿°      è®¡ç®—ç›¸ä½çš„å¹³å‡
+**è¾“å…¥å‚æ•°      Phase       ç›¸ä½æ•°ç»„
+                Len         æ•°ç»„é•¿åº¦
+                AveMode     å¹³æ»‘æ–¹å¼
+                    1ç›´æŽ¥å¹³å‡
+                    2åŽ»æŽ‰æœ€é«˜æœ€ä½Žæ±‚å¹³å‡
+                    3åŽ»æŽ‰æœ€é«˜æœ€ä½Žå–ä¸­å€¼ï¼Œç„¶åŽé™¤å¼€æœ€é«˜æœ€ä½Žå€¼è¿›è¡Œä½Žé€šæ»¤æ³¢
+**è¾“å‡ºå‚æ•°      ç›¸ä½å¹³å‡
 */
 FP32 CalculateAvePhase(FP32 *Phase, INT16U Len, INT8U AveMode)
 {
@@ -252,7 +252,7 @@ FP32 CalculateAvePhase(FP32 *Phase, INT16U Len, INT8U AveMode)
             }
         }
     }
-    if((Pos == 0) || (Neg == 0))//È«ÎªÕý»ò¸º£¬Êý¾Ý²»ÔÚÁÙ½ç£¬»òÕß¾ÍÔÚ0¸½½ü
+    if((Pos == 0) || (Neg == 0))//å…¨ä¸ºæ­£æˆ–è´Ÿï¼Œæ•°æ®ä¸åœ¨ä¸´ç•Œï¼Œæˆ–è€…å°±åœ¨0é™„è¿‘
     {
         for(ii = 0 ; ii < Len ; ii++)
         {
@@ -285,11 +285,11 @@ FP32 CalculateAvePhase(FP32 *Phase, INT16U Len, INT8U AveMode)
         }        
     }
     
-    if(AveMode == 0)//Ö±½ÓÆ½¾ù
+    if(AveMode == 0)//ç›´æŽ¥å¹³å‡
     {
         Average /= Len;        
     }
-    else if(AveMode == 1)//È¥³ý×î¸ß×îµÍÆ½¾ù
+    else if(AveMode == 1)//åŽ»é™¤æœ€é«˜æœ€ä½Žå¹³å‡
     {
         Average = 0;
         BubbleSortFP32(Phase, Len);
@@ -311,12 +311,12 @@ FP32 CalculateAvePhase(FP32 *Phase, INT16U Len, INT8U AveMode)
             Average /= Len - 2;            
         }
     }
-    else if(AveMode == 2)//È¡ÖÐÖµ²¢µÍÍ¨(ÅÅ³ý×î¸ß×îµÍ)
+    else if(AveMode == 2)//å–ä¸­å€¼å¹¶ä½Žé€š(æŽ’é™¤æœ€é«˜æœ€ä½Ž)
     {
         Average = 0;
         BubbleSortFP32(Phase, Len);
         
-        if((Len % 2) == 0)//Ë«Êý
+        if((Len % 2) == 0)//åŒæ•°
         {
             Average += Phase[Len / 2];
             Average += Phase[(Len / 2) - 1];   
@@ -340,11 +340,11 @@ FP32 CalculateAvePhase(FP32 *Phase, INT16U Len, INT8U AveMode)
 
 
 /*
-**º¯ÊýÐÅÏ¢      CalculateDistance
-**¹¦ÄÜÃèÊö      ¼ÆËã¾àÀë
-**ÊäÈë²ÎÊý      Freq        ²â³ßÆµÂÊ
-                DisPhase    ÏàÎ»²î
-**Êä³ö²ÎÊý      ¾àÀë
+**å‡½æ•°ä¿¡æ¯      CalculateDistance
+**åŠŸèƒ½æè¿°      è®¡ç®—è·ç¦»
+**è¾“å…¥å‚æ•°      Freq        æµ‹å°ºé¢‘çŽ‡
+                DisPhase    ç›¸ä½å·®
+**è¾“å‡ºå‚æ•°      è·ç¦»
 */
 FP32 CalculateDistance(INT32U Freq, FP32 DisPhase)
 {

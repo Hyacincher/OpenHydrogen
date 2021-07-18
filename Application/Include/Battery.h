@@ -3,6 +3,7 @@
 
 #include "stm32f4xx_hal.h"
 #include "cpu.h"
+#include "Motor.h"
 
 #define UNVOLT_UP       11
 #define UNVOLT_DOWN     10.8
@@ -22,8 +23,7 @@ typedef struct
 
 
 void BatteryInit(void);
-void UpdateBattery(BatteryInfo *Battery);
-void BatteryProtect(BatteryInfo *Battery);
+void BatteryTask(void);
 
 extern BatteryInfo BatteryCtrlMsg;
 

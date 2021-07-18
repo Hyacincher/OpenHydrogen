@@ -17,13 +17,13 @@ void LORA433Init(void)
         LORASendAT((INT8U *)"AT+RESET\r\n", (INT8U *)"OK");
         LORA_DelayMS(15);
         
-        State = LORASendAT((INT8U *)"AT+FLASH=0\r\n", (INT8U *)"OK");   //≤ª±£¥Ê
-        State = LORASendAT((INT8U *)"AT+ADDR=00,00\r\n", (INT8U *)"OK");//µÿ÷∑0
-        State = LORASendAT((INT8U *)"AT+TPOWER=3\r\n", (INT8U *)"OK");  //◊Ó¥Ûπ¶¬ 
-        State = LORASendAT((INT8U *)"AT+CWMODE=0\r\n", (INT8U *)"OK");  //“ª∞„ƒ£ Ω
-        State = LORASendAT((INT8U *)"AT+TMODE=0\r\n", (INT8U *)"OK");   //Õ∏√˜¥´ ‰
-        State = LORASendAT((INT8U *)"AT+WLRATE=23,5\r\n", (INT8U *)"OK");//ø’ÀŸ19.2K£¨433mhz
-        State = LORASendAT((INT8U *)"AT+UART=7,0\r\n", (INT8U *)"OK");  //¥Æø⁄115200Œﬁ–£—È
+        State = LORASendAT((INT8U *)"AT+FLASH=0\r\n", (INT8U *)"OK");   //‰∏ç‰øùÂ≠ò
+        State = LORASendAT((INT8U *)"AT+ADDR=00,00\r\n", (INT8U *)"OK");//Âú∞ÂùÄ0
+        State = LORASendAT((INT8U *)"AT+TPOWER=3\r\n", (INT8U *)"OK");  //ÊúÄÂ§ßÂäüÁéá
+        State = LORASendAT((INT8U *)"AT+CWMODE=0\r\n", (INT8U *)"OK");  //‰∏ÄËà¨Ê®°Âºè
+        State = LORASendAT((INT8U *)"AT+TMODE=0\r\n", (INT8U *)"OK");   //ÈÄèÊòé‰º†Ëæì
+        State = LORASendAT((INT8U *)"AT+WLRATE=23,5\r\n", (INT8U *)"OK");//Á©∫ÈÄü19.2KÔºå433mhz
+        State = LORASendAT((INT8U *)"AT+UART=7,0\r\n", (INT8U *)"OK");  //‰∏≤Âè£115200Êó†Ê†°È™å
         
         LORA_MD0_LOW();
         LORA_DelayMS(1);

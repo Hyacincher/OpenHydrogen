@@ -3,11 +3,11 @@
 
 #include "includes.h"
 
-/*Êı¾İ½ÃÕıÁÙ½çÇø¼ä*/
-#define NEG_CRITICAL_PI   -3.0415926535     //ÏàÎ»Æ½¾ùÏÂ±ß½ç
-#define POS_CRITICAL_PI   3.0415926535      //ÏàÎ»Æ½¾ùÉÏ±ß½ç
+/*æ•°æ®çŸ«æ­£ä¸´ç•ŒåŒºé—´*/
+#define NEG_CRITICAL_PI   -3.0415926535     //ç›¸ä½å¹³å‡ä¸‹è¾¹ç•Œ
+#define POS_CRITICAL_PI   3.0415926535      //ç›¸ä½å¹³å‡ä¸Šè¾¹ç•Œ
 
-/*GoerttzelËã·¨*/
+/*Goerttzelç®—æ³•*/
 #define SIGNAL_FREQ     5000        //signal frequency
 
 #define K_COEF      (SIGNAL_FREQ*SAMPLE_POINT_SIZE/SAMPLE_RATE) //Goertzel coefficent - MUST be integer, or quality fall

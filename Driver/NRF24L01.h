@@ -14,6 +14,11 @@
 
 #define NRF_DelayMS(x)      HAL_Delay(x)
 
+#define TX_PLOAD_WIDTH 32
+#define RX_PLOAD_WIDTH 32
+#define TX_ADR_WIDTH   5
+#define RX_ADR_WIDTH   5
+
 
 #define NRF_READ_REG 0x00 // Define read command to register
 #define NRF_WRITE_REG 0x20 // Define write command to register
@@ -77,8 +82,8 @@ typedef struct
 
 extern NRFInfo g_NRFCtrlMsg;
 void NRFInit(void);
-void NRFReceiveData(NRFInfo *NRF);
-void NRFTransmitData(NRFInfo *NRF);
+void NRFReceiveData(void);
+void NRFTransmitData(void);
 INT16U GetRemoteCtrlMsg(INT8U Channel);
 
 #endif

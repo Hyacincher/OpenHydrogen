@@ -76,7 +76,7 @@
 
 typedef struct 
 {
-    INT16S RawMag[3];     //¶Á³öµÄĞ¾Æ¬Ô­Ê¼Êı¾İ
+    INT16S RawMag[3];     //è¯»å‡ºçš„èŠ¯ç‰‡åŸå§‹æ•°æ®
     INT16S RawAcce[3];
 }LSMInfo_t;
 

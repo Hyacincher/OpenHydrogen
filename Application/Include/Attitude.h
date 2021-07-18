@@ -4,42 +4,43 @@
 #include "includes.h"
 #include "MPU6000.h"
 #include "LSM303D.h"
+#include "BMP280.h"
 
-#define DEG2RAD		0.017453293f	/* ¶È×ª»¡¶È ¦Ğ/180 */
-#define RAD2DEG		57.29578f		/* »¡¶È×ª¶È 180/¦Ğ */
+#define DEG2RAD                 0.017453293f	/* åº¦è½¬å¼§åº¦ Ï€/180 */
+#define RAD2DEG		            57.29578f		/* å¼§åº¦è½¬åº¦ 180/Ï€ */
 
-#define GYRO_SCALE  16.384f  //32768/×ÜÁ¿³Ì
+#define GYRO_SCALE              16.384f  //32768/æ€»é‡ç¨‹
 #define GYRO_LPF_CUTOFF_FREQ  	80.0f
 
-#define ACCE_SCALE  4096.0f  //
+#define ACCE_SCALE              4096.0f  //é‡åŠ›åŠ é€Ÿåº¦åˆ†åº¦
 #define ACCE_LPF_CUTOFF_FREQ 	15.0f
 
-#define IMU_AXIS_NUM    3
-#define IMU_AXIS_X      0
-#define IMU_AXIS_Y      1
-#define IMU_AXIS_Z      2
+#define IMU_AXIS_NUM            3
+#define IMU_AXIS_X              0
+#define IMU_AXIS_Y              1
+#define IMU_AXIS_Z              2
 
-#define GYRO_UPDATE_RATE    RATE_500_HZ
-#define ACCE_UPDATE_RATE    RATE_500_HZ
+#define GYRO_UPDATE_RATE        RATE_500_HZ
+#define ACCE_UPDATE_RATE        RATE_500_HZ
 
-#define ATTITUDE_ESTIMAT_RATE	RATE_500_HZ				//×ËÌ¬½âËãËÙÂÊ
+#define ATTITUDE_ESTIMAT_RATE	RATE_500_HZ				//å§¿æ€è§£ç®—é€Ÿç‡
 #define ATTITUDE_ESTIMAT_DT		(1.0/ATTITUDE_ESTIMAT_RATE)
 
-#define DCM_KP_ACC			0.600f		//¼ÓËÙ¶È²¹³¥ÍÓÂİÒÇPI²ÎÊı
-#define DCM_KI_ACC			0.005f
+#define DCM_KP_ACC			    0.600f		//åŠ é€Ÿåº¦è¡¥å¿é™€èºä»ªPIå‚æ•°
+#define DCM_KI_ACC			    0.005f
 
-#define DCM_KP_MAG			1.000f		//´ÅÁ¦¼Æ²¹³¥ÍÓÂİÒÇPI²ÎÊı
-#define DCM_KI_MAG			0.000f
+#define DCM_KP_MAG			    1.000f		//ç£åŠ›è®¡è¡¥å¿é™€èºä»ªPIå‚æ•°
+#define DCM_KI_MAG			    0.000f
 
-#define RAD    (PI / 180.0f)
-#define DEGREES_TO_RADIANS(angle) ((angle) * RAD)
-#define RADIANS_TO_DEGREES(angle) ((angle) / RAD)
+#define RAD                     (PI / 180.0f)
+#define DEGREES_TO_RADIANS(angle)   ((angle) * RAD)
+#define RADIANS_TO_DEGREES(angle)   ((angle) / RAD)
 
-#define SPIN_RATE_LIMIT     20			//Ğı×ªËÙÂÊ
+#define SPIN_RATE_LIMIT         20			//æ—‹è½¬é€Ÿç‡
 
 typedef struct
 {
-    FP32 NormailAcce[IMU_AXIS_NUM];    //¹éÒ»»¯ºóµÄXYZÊı¾İ
+    FP32 NormailAcce[IMU_AXIS_NUM];    //å½’ä¸€åŒ–åçš„XYZæ•°æ®
     FP32 NormailGyro[IMU_AXIS_NUM];    
     FP32 NormailMag[IMU_AXIS_NUM];
 

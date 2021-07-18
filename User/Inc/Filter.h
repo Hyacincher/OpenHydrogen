@@ -10,15 +10,15 @@
 
 typedef struct
 {
-    //ÂË²¨²ÎÊı
-    volatile FP32 dt;   //¿¨¶ûÂü²ÉÑùÊ±¼ä
+    //æ»¤æ³¢å‚æ•°
+    volatile FP32 dt;   //å¡å°”æ›¼é‡‡æ ·æ—¶é—´
     volatile FP32 P[2][2];
     volatile FP32 Pdot[4];
-    volatile FP32 Q_angle;//½Ç¶ÈÊı¾İÖÃĞÅ¶È,ÍÓÂİÒÇĞ­·½²î
-    volatile FP32 Q_gyro;     //½ÇËÙ¶ÈÊı¾İÖÃĞÅ¶È£¬ÍÓÂİÒÇÆ®ÒÆÔëÉùĞ­·½²î
-    volatile FP32 R_angle;    //¼ÓËÙ¶È¼ÆĞ­·½²î
+    volatile FP32 Q_angle;//è§’åº¦æ•°æ®ç½®ä¿¡åº¦,é™€èºä»ªåæ–¹å·®
+    volatile FP32 Q_gyro;     //è§’é€Ÿåº¦æ•°æ®ç½®ä¿¡åº¦ï¼Œé™€èºä»ªé£˜ç§»å™ªå£°åæ–¹å·®
+    volatile FP32 R_angle;    //åŠ é€Ÿåº¦è®¡åæ–¹å·®
     volatile INT8U   C_0;
-    volatile FP32 q_bias,angle_err; //q_biasÎªÍÓÂİÒÇÆ®ÒÆ
+    volatile FP32 q_bias,angle_err; //q_biasä¸ºé™€èºä»ªé£˜ç§»
     volatile FP32 PCt_0,PCt_1,E;
     volatile FP32 K_0,K_1,t_0,t_1;
     volatile FP32 kalman_filter_angle, kalman_filter_angle_dot;

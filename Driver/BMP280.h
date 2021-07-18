@@ -67,7 +67,7 @@ typedef struct
 {
     BMPCaliInfo_t BmpCali;
 
-    INT32S RawPressure;     //¶Á³öµÄĞ¾Æ¬Ô­Ê¼Êı¾İ
+    INT32S RawPressure;     //è¯»å‡ºçš„èŠ¯ç‰‡åŸå§‹æ•°æ®
     INT32S RawTemperature;
     
     
@@ -78,6 +78,8 @@ typedef struct
 
 void BMP280Init(void);
 void BMP280Update(void);
+
+extern BMPInfo_t  g_BMPCtrlMsg;
 #endif
 
 

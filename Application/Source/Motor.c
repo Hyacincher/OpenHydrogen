@@ -1,11 +1,10 @@
 #include "Motor.h"
 
 /*
-×óÇ°MOTOR4    ÓÒÇ°MOTOR2
-×óºóMOTOR3    ÓÒºóMOTOR1
+å·¦å‰MOTOR4    å³å‰MOTOR2
+å·¦åŽMOTOR3    å³åŽMOTOR1
 */
 MotorInfo   g_MotorCtrlMsg;
-
 
 static void MotorOpen(INT32U Channel);
 static void MotorClose(INT32U Channel);
@@ -14,33 +13,38 @@ void MotorInit(void)
 {
     memset(&g_MotorCtrlMsg, 0, sizeof(g_MotorCtrlMsg));
     
-    MotorUnLock();
+    MotorLock();
     HAL_TIM_Base_Start(&htim1);
     
-    TIM1->CCR1 = 2000;
-    TIM1->CCR2 = 2000;
-    TIM1->CCR3 = 2000;
-    TIM1->CCR4 = 2000;
+    TIM1->CCR1 = MOTOR_OUT_MIN;
+    TIM1->CCR2 = MOTOR_OUT_MIN;
+    TIM1->CCR3 = MOTOR_OUT_MIN;
+    TIM1->CCR4 = MOTOR_OUT_MIN;
     
-    g_MotorCtrlMsg.Motor1 = 2000;
-    g_MotorCtrlMsg.Motor2 = 2000;
-    g_MotorCtrlMsg.Motor3 = 2000;
-    g_MotorCtrlMsg.Motor4 = 2000;
-    
-    HAL_Delay(1000);
+    g_MotorCtrlMsg.Motor1 = MOTOR_OUT_MIN;
+    g_MotorCtrlMsg.Motor2 = MOTOR_OUT_MIN;
+    g_MotorCtrlMsg.Motor3 = MOTOR_OUT_MIN;
+    g_MotorCtrlMsg.Motor4 = MOTOR_OUT_MIN;
 }
 
-void MotorTask(void)
+void MotorLockCtrl(void)
 {
     if(g_MotorCtrlMsg.State.Change)
     {
         g_MotorCtrlMsg.State.Change = 0;
         if(g_MotorCtrlMsg.State.Unlock)
         {
+            TIM1->CCR1 = MOTOR_OUT_MIN;
+            TIM1->CCR2 = MOTOR_OUT_MIN;
+            TIM1->CCR3 = MOTOR_OUT_MIN;
+            TIM1->CCR4 = MOTOR_OUT_MIN;
+            
             MotorOpen(1);
             MotorOpen(2);
             MotorOpen(3);
             MotorOpen(4);
+            
+            HAL_Delay(1500);
         }
         else
         {

@@ -5,15 +5,14 @@ BiquadFilterInfo g_GyroLFPFilter[IMU_AXIS_NUM];
 BiquadFilterInfo g_AcceLFPFilter[IMU_AXIS_NUM];
 
 /**	
- * ×ËÌ¬½âËã¹æÔòÈçÏÂ£º
- *     ROLL  = ÈÆXÖáĞı×ª£¬ÓÒÊÖ¶¨Ôò£¬ÄæÊ±ÕëÎªÕıË³Ê±ÕëÎª¸º¡£
- *     PITCH = ÈÆYÖáĞı×ª£¬ÓÒÊÖ¶¨Ôò£¬ÄæÊ±ÕëÎªÕıË³Ê±ÕëÎª¸º¡£
- *     YAW   = ÈÆZÖáĞı×ª£¬ÓÒÊÖ¶¨Ôò£¬ÄæÊ±ÕëÎªÕıË³Ê±ÕëÎª¸º¡£
+ * å§¿æ€è§£ç®—è§„åˆ™å¦‚ä¸‹ï¼š
+ *     ROLL  = ç»•Xè½´æ—‹è½¬ï¼Œå³æ‰‹å®šåˆ™ï¼Œé€†æ—¶é’ˆä¸ºæ­£é¡ºæ—¶é’ˆä¸ºè´Ÿã€‚
+ *     PITCH = ç»•Yè½´æ—‹è½¬ï¼Œå³æ‰‹å®šåˆ™ï¼Œé€†æ—¶é’ˆä¸ºæ­£é¡ºæ—¶é’ˆä¸ºè´Ÿã€‚
+ *     YAW   = ç»•Zè½´æ—‹è½¬ï¼Œå³æ‰‹å®šåˆ™ï¼Œé€†æ—¶é’ˆä¸ºæ­£é¡ºæ—¶é’ˆä¸ºè´Ÿã€‚
  */
  
-static float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;//ËÄÔªÊı
-static float rMat[3][3];//ËÄÔªÊıµÄĞı×ª¾ØÕó		
-static float smallAngleCosZ;//Ë®Æ½×îĞ¡½ÇÓàÏÒÖµ
+static float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;//å››å…ƒæ•°
+static float rMat[3][3];//å››å…ƒæ•°çš„æ—‹è½¬çŸ©é˜µ
 
 static void NormailAttitude(void);
 static void CalculateAttitude(void);
@@ -23,11 +22,16 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
 								BOOLEAN useMag,FP32 dt);
 static void imuUpdateEulerAngles(void);
 
+
 void AttitudeInit(void)
 {
     memset(&g_AttitudeCtrlMsg, 0, sizeof(g_AttitudeCtrlMsg));
     
-	//³õÊ¼»¯¶ş½×µÍÍ¨ÂË²¨
+    MPU6000Init();
+    LSM303DInit();
+    BMP280Init();
+    
+	//åˆå§‹åŒ–äºŒé˜¶ä½é€šæ»¤æ³¢
 	for (INT16U axis = 0; axis < 3; axis++)
 	{
 		BiquadFilterInitLPF(&g_GyroLFPFilter[axis], GYRO_UPDATE_RATE, GYRO_LPF_CUTOFF_FREQ);
@@ -36,7 +40,8 @@ void AttitudeInit(void)
 }
 
 void AttitudeTask(void)
-{/*Ö±½ÓÅ·À­½Ç½âËã»áÓĞºÜ¶à¶¯Ì¬ÎÊÌâ£¬Ê¹ÓÃËÄÔªÊı*/
+{
+    /*æš‚æ—¶ä½¿ç”¨å››å…ƒæ•°ï¼Œå¯èƒ½å¯ä»¥äºŒé˜¶å·´ç‰¹æ²ƒæ–¯+å¡å°”æ›¼èåˆç›´æ¥è§£ç®—*/
     static INT64U s_SystemTime = 0;
     static INT8U s_AttitudeStage = 0;
     
@@ -44,8 +49,9 @@ void AttitudeTask(void)
     {
         case 0:
             s_SystemTime = g_SysTickTime;
-            NormailAttitude();//500hz
+            NormailAttitude();  //500hz
             CalculateAttitude();//500hz
+            BMP280Update();     //500hz //åé¢åŠ å…¥å§¿æ€è§£ç®—ä¸€èµ·ï¼Œç›´æ¥10dofæ•°æ®
             s_AttitudeStage++;
             break;
         case 1:
@@ -60,7 +66,7 @@ void AttitudeTask(void)
     }
 }
 
-//¹éÒ»»¯6ÖáÊı¾İ,²¢ÇÒ½øĞĞµÍÍ¨ÂË²¨
+//å½’ä¸€åŒ–6è½´æ•°æ®,å¹¶ä¸”è¿›è¡Œä½é€šæ»¤æ³¢
 static void NormailAttitude(void)
 {
     INT16U ii;
@@ -70,7 +76,7 @@ static void NormailAttitude(void)
     LSM303DUpdate();
 
     for(ii = 0 ; ii < 3 ; ii++)
-    {//ÏÈ¹éÒ»»¯
+    {//å…ˆå½’ä¸€åŒ–
         Acce[ii] = g_MPUCtrlMsg.RawAcce[ii] / ACCE_SCALE;    //+-8g
         Gyro[ii] = g_MPUCtrlMsg.RawGyro[ii] / GYRO_SCALE;    //+-2000
     }
@@ -78,7 +84,7 @@ static void NormailAttitude(void)
 	for (INT16U axis = 0; axis < 3; axis++) 
 	{
 		g_AttitudeCtrlMsg.NormailGyro[axis] = BiquadLPFFilter(&g_GyroLFPFilter[axis], Gyro[axis]);
-        g_AttitudeCtrlMsg.NormailGyro[axis] *= DEG2RAD;//½ÇËÙ¶Èµ¥Î»ÓÉ¶È×ªÎª»¡¶È
+        g_AttitudeCtrlMsg.NormailGyro[axis] *= DEG2RAD;//è§’é€Ÿåº¦å•ä½ç”±åº¦è½¬ä¸ºå¼§åº¦
         g_AttitudeCtrlMsg.NormailAcce[axis] = BiquadLPFFilter(&g_AcceLFPFilter[axis], Acce[axis]);
         g_AttitudeCtrlMsg.NormailMag[axis] = g_LSMCtrLMsg.RawMag[axis];
 	}
@@ -93,15 +99,15 @@ static void CalculateAttitude(void)
                         g_AttitudeCtrlMsg.NormailMag[0], g_AttitudeCtrlMsg.NormailMag[1], g_AttitudeCtrlMsg.NormailMag[2],
                         1, ATTITUDE_ESTIMAT_DT);
     
-    //¼ÆËãÅ·À­½Ç               
+    //è®¡ç®—æ¬§æ‹‰è§’               
     imuUpdateEulerAngles();    
 }
 
-//´ÅÁ¦¼Æ¿ìËÙÔöÒæ
+//ç£åŠ›è®¡å¿«é€Ÿå¢ç›Š
 static float imuMagFastPGainSaleFactor(void)
 {
-	//ËÄÖáÉÏµçºó´ÅÁ¦¼ÆÈÚºÏĞèÒªÒ»¶ÎÊ±¼ä
-	//ÎªÁË¿ìËÙÈÚºÏ£¬Ç°100´ÎÊ¹ÓÃ¿ìËÙÔöÒæ
+	//å››è½´ä¸Šç”µåç£åŠ›è®¡èåˆéœ€è¦ä¸€æ®µæ—¶é—´
+	//ä¸ºäº†å¿«é€Ÿèåˆï¼Œå‰100æ¬¡ä½¿ç”¨å¿«é€Ÿå¢ç›Š
 	static INT32U magFastPGainCount = 100;
 	
 	if ((magFastPGainCount--))  //!ARMING_FLAG(ARMED) && 
@@ -146,11 +152,11 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
                                 FP32 mx, FP32 my, FP32 mz,
 								BOOLEAN useMag,FP32 dt)
 {
-	static float integralAccX = 0.0f,  integralAccY = 0.0f, integralAccZ = 0.0f;    //¼ÓËÙ¶È»ı·ÖÎó²î
-	static float integralMagX = 0.0f,  integralMagY = 0.0f, integralMagZ = 0.0f;    //´ÅÁ¦¼Æ»ı·ÖÎó²î
+	static float integralAccX = 0.0f,  integralAccY = 0.0f, integralAccZ = 0.0f;    //åŠ é€Ÿåº¦ç§¯åˆ†è¯¯å·®
+	static float integralMagX = 0.0f,  integralMagY = 0.0f, integralMagZ = 0.0f;    //ç£åŠ›è®¡ç§¯åˆ†è¯¯å·®
 	float ex, ey, ez;
 
-    //¼ÆËãĞı×ªËÙÂÊ(rad/s)
+    //è®¡ç®—æ—‹è½¬é€Ÿç‡(rad/s)
     const float spin_rate_sq = sq(gx) + sq(gy) + sq(gz);
 
     //Step 1: Yaw correction
@@ -161,21 +167,21 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
 		
 		if (magMagnitudeSq > 0.01f) 
 		{
-			//µ¥Î»»¯´ÅÁ¦¼Æ²âÁ¿Öµ
+			//å•ä½åŒ–ç£åŠ›è®¡æµ‹é‡å€¼
 			const float magRecipNorm = invSqrt(magMagnitudeSq);
 			mx *= magRecipNorm;
 			my *= magRecipNorm;
 			mz *= magRecipNorm;
 		
-			//¼ÆËãX\Y·½ÏòµÄ´ÅÍ¨£¬´Å±±·½Ïò´ÅÍ¨
+			//è®¡ç®—X\Yæ–¹å‘çš„ç£é€šï¼Œç£åŒ—æ–¹å‘ç£é€š
 			const float hx = rMat[0][0] * mx + rMat[0][1] * my + rMat[0][2] * mz;
 			const float hy = rMat[1][0] * mx + rMat[1][1] * my + rMat[1][2] * mz;
 			const float bx = sqrtf(hx * hx + hy * hy);
 
-			//´ÅÁ¦¼ÆÎó²îÊÇ¹À¼Æ´Å±±ºÍ²âÁ¿´Å±±Ö®¼äµÄ½»²æ³Ë»ı
+			//ç£åŠ›è®¡è¯¯å·®æ˜¯ä¼°è®¡ç£åŒ—å’Œæµ‹é‡ç£åŒ—ä¹‹é—´çš„äº¤å‰ä¹˜ç§¯
 			const float ez_ef = -(hy * bx);
 
-			//Ğı×ªÎó²îµ½»úÌå×ø±êÏµ
+			//æ—‹è½¬è¯¯å·®åˆ°æœºä½“åæ ‡ç³»
 			ex = rMat[2][0] * ez_ef;
 			ey = rMat[2][1] * ez_ef;
 			ez = rMat[2][2] * ez_ef;
@@ -187,10 +193,10 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
 			ez = 0;
 		}
 
-		//ÀÛ¼ÆÎó²î²¹³¥
+		//ç´¯è®¡è¯¯å·®è¡¥å¿
 		if (DCM_KI_MAG > 0.0f) 
 		{
-			//Èç¹ûĞı×ªËÙÂÊ´óÓÚÏŞÖÆÖµÔòÍ£Ö¹»ı·Ö
+			//å¦‚æœæ—‹è½¬é€Ÿç‡å¤§äºé™åˆ¶å€¼åˆ™åœæ­¢ç§¯åˆ†
 			if (spin_rate_sq < sq(DEGREES_TO_RADIANS(SPIN_RATE_LIMIT))) 
 			{
 				integralMagX += DCM_KI_MAG * ex * dt;
@@ -203,7 +209,7 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
 			}
 		}
 		
-		//Îó²î²¹³¥
+		//è¯¯å·®è¡¥å¿
 		gx += kpMag * ex;
 		gy += kpMag * ey;
 		gz += kpMag * ez;
@@ -213,21 +219,21 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
     //Step 2: Roll and pitch correction
 	if(!((ax == 0.0f) && (ay == 0.0f) && (az == 0.0f)))
 	{
-		//µ¥Î»»¯¼ÓËÙ¼Æ²âÁ¿Öµ
+		//å•ä½åŒ–åŠ é€Ÿè®¡æµ‹é‡å€¼
 		const float accRecipNorm = invSqrt(ax * ax + ay * ay + az * az);
 		ax *= accRecipNorm;
 		ay *= accRecipNorm;
 		az *= accRecipNorm;
 
-		//¼ÓËÙ¼Æ¶ÁÈ¡µÄ·½ÏòÓëÖØÁ¦¼ÓËÙ¼Æ·½ÏòµÄ²îÖµ£¬ÓÃÏòÁ¿²æ³Ë¼ÆËã
+		//åŠ é€Ÿè®¡è¯»å–çš„æ–¹å‘ä¸é‡åŠ›åŠ é€Ÿè®¡æ–¹å‘çš„å·®å€¼ï¼Œç”¨å‘é‡å‰ä¹˜è®¡ç®—
 		ex = (ay * rMat[2][2] - az * rMat[2][1]);
 		ey = (az * rMat[2][0] - ax * rMat[2][2]);
 		ez = (ax * rMat[2][1] - ay * rMat[2][0]);
 
-		//ÀÛ¼ÆÎó²î²¹³¥
+		//ç´¯è®¡è¯¯å·®è¡¥å¿
 		if (DCM_KI_ACC > 0.0f) 
 		{
-			//Èç¹ûĞı×ªËÙÂÊ´óÓÚÏŞÖÆÖµÔòÍ£Ö¹»ı·Ö
+			//å¦‚æœæ—‹è½¬é€Ÿç‡å¤§äºé™åˆ¶å€¼åˆ™åœæ­¢ç§¯åˆ†
 			if (spin_rate_sq < sq(DEGREES_TO_RADIANS(SPIN_RATE_LIMIT)))
 			{
 				integralAccX += DCM_KI_ACC * ex * dt;
@@ -240,13 +246,13 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
 			}
 		}
 
-		//Îó²î²¹³¥
+		//è¯¯å·®è¡¥å¿
 		gx += DCM_KP_ACC * ex;
 		gy += DCM_KP_ACC * ey;
 		gz += DCM_KP_ACC * ez;
 	}
 	
-	//Ò»½×½üËÆËã·¨£¬ËÄÔªÊıÔË¶¯Ñ§·½³ÌµÄÀëÉ¢»¯ĞÎÊ½ºÍ»ı·Ö
+	//ä¸€é˜¶è¿‘ä¼¼ç®—æ³•ï¼Œå››å…ƒæ•°è¿åŠ¨å­¦æ–¹ç¨‹çš„ç¦»æ•£åŒ–å½¢å¼å’Œç§¯åˆ†
     gx *= (0.5f * dt);
     gy *= (0.5f * dt);
     gz *= (0.5f * dt);
@@ -259,27 +265,27 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
     q2 += (qa * gy - qb * gz + q3 * gx);
     q3 += (qa * gz + qb * gy - qc * gx);
 
-	//µ¥Î»»¯ËÄÔªÊı
+	//å•ä½åŒ–å››å…ƒæ•°
     const float quatRecipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
     q0 *= quatRecipNorm;
     q1 *= quatRecipNorm;
     q2 *= quatRecipNorm;
     q3 *= quatRecipNorm;
     
-    //¼ÆËãËÄÔªÊıµÄĞı×ª¾ØÕó
+    //è®¡ç®—å››å…ƒæ•°çš„æ—‹è½¬çŸ©é˜µ
     imuComputeRotationMatrix();
 }
 
 
-//¸üĞÂÅ·À­½Ç
+//æ›´æ–°æ¬§æ‹‰è§’
 static void imuUpdateEulerAngles(void)
 {
 	g_AttitudeCtrlMsg.Roll = RADIANS_TO_DEGREES(MyAtan2Approx(rMat[2][1], rMat[2][2]));//+-180
 	g_AttitudeCtrlMsg.Pitch = RADIANS_TO_DEGREES((0.5f * PI) - MyAcosApprox(-rMat[2][0]));//arcsin = 0.5PI - arccos//+-90
 	g_AttitudeCtrlMsg.Yaw = RADIANS_TO_DEGREES(MyAtan2Approx(rMat[1][0], rMat[0][0]));//+-180
 
-	if (g_AttitudeCtrlMsg.Yaw < 0.0f)//×ª»»Î»0~360
+	if (g_AttitudeCtrlMsg.Yaw < 0.0f)//è½¬æ¢ä½0~360
 		g_AttitudeCtrlMsg.Yaw += 360.0f;
 
-	//¸üĞÂ×îĞ¡Çã½Ç×´Ì¬
+	//æ›´æ–°æœ€å°å€¾è§’çŠ¶æ€
 }

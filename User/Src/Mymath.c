@@ -57,28 +57,28 @@ FP64 Myatan2(FP64 Y, FP64 X)
 }
 
 /*
-*º¯ÊıÃû£ºconvolution
-*¹¦  ÄÜ£ºÇóÁ½¸öÊäÈë¾í»ı
-*ÊäÈë²ÎÊı£º
-    FP64 *Input1        ÊäÈë1Êı×é
-    FP64 *Input2        ÊäÈë2Êı×é
-    INT16U Number1      ÊäÈë1µãÊı
-    INT16U Number2      ÊäÈë2µãÊı
-    FP64* Output        Êä³öÊı×é£¨³¤¶ÈÎªNUM1+NUM2-1£©
-*·µ»Ø²ÎÊı£ºNone
+*å‡½æ•°åï¼šconvolution
+*åŠŸ  èƒ½ï¼šæ±‚ä¸¤ä¸ªè¾“å…¥å·ç§¯
+*è¾“å…¥å‚æ•°ï¼š
+    FP64 *Input1        è¾“å…¥1æ•°ç»„
+    FP64 *Input2        è¾“å…¥2æ•°ç»„
+    INT16U Number1      è¾“å…¥1ç‚¹æ•°
+    INT16U Number2      è¾“å…¥2ç‚¹æ•°
+    FP64* Output        è¾“å‡ºæ•°ç»„ï¼ˆé•¿åº¦ä¸ºNUM1+NUM2-1ï¼‰
+*è¿”å›å‚æ•°ï¼šNone
 */
 void Convolution(FP32* input1, FP32* input2, FP32* output, INT16U mm, INT16U nn)
 {
-	//´æ´¢µØÖ·
+	//å­˜å‚¨åœ°å€
 	FP32* xx = (FP32*)malloc(sizeof(FP32) * (mm + nn - 1));
-	//¿ªÊ¼¾í»ı
+	//å¼€å§‹å·ç§¯
 	for (INT16U i = 0; i < mm + nn - 1; i++)
 	{
 		xx[i] = 0;
-		//ÒÔÎ»Êı×îÉÙµÄ¾í»ı×÷Îª¾í»ı´ÎÊı
+		//ä»¥ä½æ•°æœ€å°‘çš„å·ç§¯ä½œä¸ºå·ç§¯æ¬¡æ•°
 		for (INT16U j = 0; j < MyFP32Min(mm,nn) ; j++)
         {
-            //µÚÒ»¸ö¾í»ı±ÈµÚ¶ş¸ö¾íÊı»ıÉÙÖ´ĞĞ
+            //ç¬¬ä¸€ä¸ªå·ç§¯æ¯”ç¬¬äºŒä¸ªå·æ•°ç§¯å°‘æ‰§è¡Œ
             if (mm <= nn)
             {
 				if (i - j >= 0 && i - j < MyFP32Max(mm, nn))
@@ -86,7 +86,7 @@ void Convolution(FP32* input1, FP32* input2, FP32* output, INT16U mm, INT16U nn)
 					xx[i] += input1[j] * input2[i - j];
 				}
 			}
-			//µÚÒ»¸ö¾í»ı±ÈµÚ¶ş¸ö¾í»ıÊı¶àÖ´ĞĞ
+			//ç¬¬ä¸€ä¸ªå·ç§¯æ¯”ç¬¬äºŒä¸ªå·ç§¯æ•°å¤šæ‰§è¡Œ
 			else
 			{
 				if (i - j >= 0 && i - j < MyFP32Max(mm, nn))
@@ -105,7 +105,7 @@ void Convolution(FP32* input1, FP32* input2, FP32* output, INT16U mm, INT16U nn)
 
 
 /*
-È¡µÃÄ³Ò»Î»µÄÊı×Ö£¬Ê®½øÖÆ
+å–å¾—æŸä¸€ä½çš„æ•°å­—ï¼Œåè¿›åˆ¶
 */
 INT16U GetDigit(INT32U Number, INT8U Digit)
 {
@@ -117,7 +117,7 @@ INT16U GetDigit(INT32U Number, INT8U Digit)
 }
 
 /*
-ÉèÖÃÄ³Ò»Î»µÄÊı×Ö£¬Ê®½øÖÆ
+è®¾ç½®æŸä¸€ä½çš„æ•°å­—ï¼Œåè¿›åˆ¶
 */
 void SetDigit(INT32U *Number, INT8U Digit, INT8U Value)
 {
@@ -193,10 +193,10 @@ INT32U MyPow(INT32U X, INT32U Y)
 }
 
 /**
-* @brief ËÄÉáÎåÈë±£ÁôĞ¡Êı
-* @param Keep   Òª±£ÁôµÄÎ»Êı
-* @param Data   ÊäÈëÊı¾İ
-* @return ±£ÁôºóµÄĞ¡Êı
+* @brief å››èˆäº”å…¥ä¿ç•™å°æ•°
+* @param Keep   è¦ä¿ç•™çš„ä½æ•°
+* @param Data   è¾“å…¥æ•°æ®
+* @return ä¿ç•™åçš„å°æ•°
 */
 FP32 KeepDecimals(INT8U Keep, FP32 Data)
 {
@@ -281,7 +281,7 @@ FP32 MyAcosApprox(FP32 x)
 }
 
 
-//ÖµÏŞ·ù
+//å€¼é™å¹…
 FP32 MyConstrainF(FP32 Value, FP32 Min, FP32 Max)
 {
     if(Value < Min)

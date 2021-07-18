@@ -6,11 +6,11 @@ static void MPUSetRate(INT16U Rate);
 static void MPUSetLPF(INT16U Lpf);
 
 /*
-*º¯ÊıÃû£º   MPUWriteReg
-*¹¦  ÄÜ£º   MPU6000Ğ´¼Ä´æÆ÷
-*ÊäÈë²ÎÊı£º Reg         ¼Ä´æÆ÷µØÖ·
-            Data        ´ıĞ´ÈëÊı¾İ
-*·µ»Ø²ÎÊı£º none
+*å‡½æ•°åï¼š   MPUWriteReg
+*åŠŸ  èƒ½ï¼š   MPU6000å†™å¯„å­˜å™¨
+*è¾“å…¥å‚æ•°ï¼š Reg         å¯„å­˜å™¨åœ°å€
+            Data        å¾…å†™å…¥æ•°æ®
+*è¿”å›å‚æ•°ï¼š none
 */
 void MPUWriteReg(INT8U Reg, INT8U Data)
 {
@@ -26,10 +26,10 @@ void MPUWriteReg(INT8U Reg, INT8U Data)
 }
 
 /*
-*º¯ÊıÃû£º   MPUReadReg
-*¹¦  ÄÜ£º   MPU6000¶Á¼Ä´æÆ÷
-*ÊäÈë²ÎÊı£º Reg         ¼Ä´æÆ÷µØÖ·
-*·µ»Ø²ÎÊı£º ¶Á³öÊı¾İ
+*å‡½æ•°åï¼š   MPUReadReg
+*åŠŸ  èƒ½ï¼š   MPU6000è¯»å¯„å­˜å™¨
+*è¾“å…¥å‚æ•°ï¼š Reg         å¯„å­˜å™¨åœ°å€
+*è¿”å›å‚æ•°ï¼š è¯»å‡ºæ•°æ®
 */
 INT8U MPUReadReg(INT8U Reg)
 {
@@ -46,10 +46,10 @@ INT8U MPUReadReg(INT8U Reg)
 }
 
 /*
-*º¯ÊıÃû£º   MPU6000Init
-*¹¦  ÄÜ£º   ¸´Î»MPU6000¼Ä´æÆ÷
-*ÊäÈë²ÎÊı£º none
-*·µ»Ø²ÎÊı£º none
+*å‡½æ•°åï¼š   MPU6000Init
+*åŠŸ  èƒ½ï¼š   å¤ä½MPU6000å¯„å­˜å™¨
+*è¾“å…¥å‚æ•°ï¼š none
+*è¿”å›å‚æ•°ï¼š none
 */
 void MPU6000Init(void)
 {
@@ -62,44 +62,44 @@ void MPU6000Init(void)
     SPI1->CR1 |= (6<<3);    //fclk/128
     SPI1->CR1 |= (1<<6);  //enable spi
     
-	MPUWriteReg(MPU_PWR_MGMT1_REG, 0X80);       //¸´Î»MPU6050
+	MPUWriteReg(MPU_PWR_MGMT1_REG, 0X80);       //å¤ä½MPU6050
     MPU_DelayMS(50);
-	MPUWriteReg(MPU_SIGPATH_RST_REG, 3|2|1);    //»½ĞÑMPU6050
+	MPUWriteReg(MPU_SIGPATH_RST_REG, 3|2|1);    //å”¤é†’MPU6050
     MPU_DelayMS(50);
     
-	MPUWriteReg(MPU_PWR_MGMT1_REG, 0X80);       //¸´Î»MPU6050
+	MPUWriteReg(MPU_PWR_MGMT1_REG, 0X80);       //å¤ä½MPU6050
     MPU_DelayMS(50);
-	MPUWriteReg(MPU_SIGPATH_RST_REG, 3|2|1);	//»½ĞÑMPU6050
+	MPUWriteReg(MPU_SIGPATH_RST_REG, 3|2|1);	//å”¤é†’MPU6050
     MPU_DelayMS(50);
     
     ID = MPUReadReg(MPU_DEVICE_ID_REG);
     
     if(ID == MPU_DEVICE_ID)
     {
-        MPUWriteReg(MPU_PWR_MGMT1_REG, 0x01);   //ÉèÖÃXÖáÍÓÂİ×÷ÎªÊ±ÖÓ 
+        MPUWriteReg(MPU_PWR_MGMT1_REG, 0x01);   //è®¾ç½®Xè½´é™€èºä½œä¸ºæ—¶é’Ÿ 
         MPU_DelayMS(15);
         
-        MPUWriteReg(MPU_USER_CTRL_REG, 0x10);   //½ûÖ¹I2C½Ó¿Ú
+        MPUWriteReg(MPU_USER_CTRL_REG, 0x10);   //ç¦æ­¢I2Cæ¥å£
         MPU_DelayMS(15);
         
         MPUWriteReg(MPU_PWR_MGMT2_REG, 0x00);   
         MPU_DelayMS(15);
         
-        MPUWriteReg(MPU_SAMPLE_RATE_REG, 0x00); //ÉèÖÃ²ÉÑùÂÊ
+        MPUWriteReg(MPU_SAMPLE_RATE_REG, 0x00); //è®¾ç½®é‡‡æ ·ç‡
         MPU_DelayMS(15);
         // Accel Sample Rate 1kHz
 		// Gyroscope Output Rate =  1kHz when the DLPF is enabled
         
-        MPUWriteReg(MPU_GYRO_CFG_REG, 3<<3);    //ÉèÖÃÍÓÂİÒÇ +/- 2000 DPSÁ¿³Ì
+        MPUWriteReg(MPU_GYRO_CFG_REG, 3<<3);    //è®¾ç½®é™€èºä»ª +/- 2000 DPSé‡ç¨‹
         MPU_DelayMS(15);
         
-        MPUWriteReg(MPU_ACCEL_CFG_REG, 2<<3);   //ÉèÖÃ¼ÓËÙ¶È +/- 8 G Á¿³Ì
+        MPUWriteReg(MPU_ACCEL_CFG_REG, 2<<3);   //è®¾ç½®åŠ é€Ÿåº¦ +/- 8 G é‡ç¨‹
         MPU_DelayMS(15);
         
-        MPUWriteReg(MPU_INTBP_CFG_REG, 0);      //ÉèÖÃÖĞ¶ÏÒı½Å¹¦ÄÜ
+        MPUWriteReg(MPU_INTBP_CFG_REG, 0);      //è®¾ç½®ä¸­æ–­å¼•è„šåŠŸèƒ½
         MPU_DelayMS(15);
         
-        MPUWriteReg(MPU_CFG_REG, 0x02);         //ÉèÖÃµÍÍ¨ÂË²¨´ø¿í98hz
+        MPUWriteReg(MPU_CFG_REG, 0x02);         //è®¾ç½®ä½é€šæ»¤æ³¢å¸¦å®½98hz
         MPU_DelayMS(1);
     }
     else
@@ -122,15 +122,15 @@ static void MPUSetRate(INT16U Rate)
 	if(Rate>1000)Rate=1000;
 	if(Rate<4)Rate=4;
 	data=1000/Rate-1;
-	MPUWriteReg(MPU_SAMPLE_RATE_REG,data);	//ÉèÖÃÊı×ÖµÍÍ¨ÂË²¨Æ÷
+	MPUWriteReg(MPU_SAMPLE_RATE_REG,data);	//è®¾ç½®æ•°å­—ä½é€šæ»¤æ³¢å™¨
     
- 	MPUSetLPF(Rate/2);	//×Ô¶¯ÉèÖÃLPFÎª²ÉÑùÂÊµÄÒ»°ë
+ 	MPUSetLPF(Rate/2);	//è‡ªåŠ¨è®¾ç½®LPFä¸ºé‡‡æ ·ç‡çš„ä¸€åŠ
 }
 
-//ÉèÖÃMPU6050µÄÊı×ÖµÍÍ¨ÂË²¨Æ÷
-//lpf:Êı×ÖµÍÍ¨ÂË²¨ÆµÂÊ(Hz)
-//·µ»ØÖµ:0,ÉèÖÃ³É¹¦
-//    ÆäËû,ÉèÖÃÊ§°Ü 
+//è®¾ç½®MPU6050çš„æ•°å­—ä½é€šæ»¤æ³¢å™¨
+//lpf:æ•°å­—ä½é€šæ»¤æ³¢é¢‘ç‡(Hz)
+//è¿”å›å€¼:0,è®¾ç½®æˆåŠŸ
+//    å…¶ä»–,è®¾ç½®å¤±è´¥ 
 static void MPUSetLPF(INT16U Lpf)
 {
 	INT8U data=0;
@@ -141,14 +141,14 @@ static void MPUSetLPF(INT16U Lpf)
 	else if(Lpf>=20)data=4;
 	else if(Lpf>=10)data=5;
 	else data=6; 
-	MPUWriteReg(MPU_CFG_REG,data);//ÉèÖÃÊı×ÖµÍÍ¨ÂË²¨Æ÷
+	MPUWriteReg(MPU_CFG_REG,data);//è®¾ç½®æ•°å­—ä½é€šæ»¤æ³¢å™¨
 }
 
 /*
-*º¯ÊıÃû£º   MPUUpdateData
-*¹¦  ÄÜ£º   ¸üĞÂMPU6000¶ÁÊı
-*ÊäÈë²ÎÊı£º *MPU6000     ´¦Àí¾ä±ú
-*·µ»Ø²ÎÊı£º none
+*å‡½æ•°åï¼š   MPUUpdateData
+*åŠŸ  èƒ½ï¼š   æ›´æ–°MPU6000è¯»æ•°
+*è¾“å…¥å‚æ•°ï¼š *MPU6000     å¤„ç†å¥æŸ„
+*è¿”å›å‚æ•°ï¼š none
 */
 void MPU6000Update(void)
 {
@@ -209,7 +209,7 @@ void MPU6000Update(void)
     }
     
     INT16S Temp;
-    //×ª»»µ½±ê×¼ÓÒÊÖ×ø±êÏµ
+    //è½¬æ¢åˆ°æ ‡å‡†å³æ‰‹åæ ‡ç³»
     Temp = g_MPUCtrlMsg.RawAcce[1];
     g_MPUCtrlMsg.RawAcce[1] = -g_MPUCtrlMsg.RawAcce[0];
     g_MPUCtrlMsg.RawAcce[0] = Temp;

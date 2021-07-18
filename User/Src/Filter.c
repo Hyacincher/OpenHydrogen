@@ -3,14 +3,14 @@
 static INT16U GetArrayNumber(INT16S Number, INT16U Max);
 
 /*
-**º¯ÊıĞÅÏ¢      KalmanFilter
-**¹¦ÄÜÃèÊö      ¿¨¶ûÂüÂË²¨
-**ÊäÈë²ÎÊı      Input       ÊäÈëÊı×é
-                Len         Êı×é³¤¶È
-                Output      Êä³ö»º³å
-                Q           ¿¨¶ûÂü²ÎÊıQ      QÔ½Ğ¡Ô½ĞÅÀµÄ£ĞÍ
-                R           ¿¨¶ûÂü²ÎÊıR
-**Êä³ö²ÎÊı      none
+**å‡½æ•°ä¿¡æ¯      KalmanFilter
+**åŠŸèƒ½æè¿°      å¡å°”æ›¼æ»¤æ³¢
+**è¾“å…¥å‚æ•°      Input       è¾“å…¥æ•°ç»„
+                Len         æ•°ç»„é•¿åº¦
+                Output      è¾“å‡ºç¼“å†²
+                Q           å¡å°”æ›¼å‚æ•°Q      Qè¶Šå°è¶Šä¿¡èµ–æ¨¡å‹
+                R           å¡å°”æ›¼å‚æ•°R
+**è¾“å‡ºå‚æ•°      none
 */
 void KalmanFilter(volatile INT16U *Input, INT16U Len, INT16U *Output, FP32 Q, FP32 R)
 {
@@ -30,8 +30,8 @@ void KalmanFilter(volatile INT16U *Input, INT16U Len, INT16U *Output, FP32 Q, FP
         x_mid = x_last;
         p_mid = p_last + Q;
         kg = p_mid / (p_mid + R);
-        x_now = x_mid + kg*((FP32)Input[ii] - x_mid);//¹À¼Æ³öµÄ×îÓĞÖµ
-        p_now = (1 - kg)*p_mid;//×îÓÅÖµ¶ÔÓ¦µÄĞ­·½²î
+        x_now = x_mid + kg*((FP32)Input[ii] - x_mid);//ä¼°è®¡å‡ºçš„æœ€æœ‰å€¼
+        p_now = (1 - kg)*p_mid;//æœ€ä¼˜å€¼å¯¹åº”çš„åæ–¹å·®
 
         p_last = p_now;
         x_last = x_now;
@@ -42,16 +42,16 @@ void KalmanFilter(volatile INT16U *Input, INT16U Len, INT16U *Output, FP32 Q, FP
 
 
 /*
-*º¯ÊıÃû£º   Kalman_filter
-*¹¦  ÄÜ£º   ¿¨¶ûÂüÊı¾İÈÚºÏ
-*ÊäÈë²ÎÊı£º *Kalman          ¿¨¶ûÂü¾ä±ú
-            Angle_m          Êı¾İ1
-            Gyro_m           Êı¾İ2
-*·µ»Ø²ÎÊı£º none
+*å‡½æ•°åï¼š   Kalman_filter
+*åŠŸ  èƒ½ï¼š   å¡å°”æ›¼æ•°æ®èåˆ
+*è¾“å…¥å‚æ•°ï¼š *Kalman          å¡å°”æ›¼å¥æŸ„
+            Angle_m          æ•°æ®1
+            Gyro_m           æ•°æ®2
+*è¿”å›å‚æ•°ï¼š none
 */
 FP32 KalmanFusion(KalmanInfo* Kalman, FP32 Angle_m, FP32 Gyro_m)
 {
-    Kalman->kalman_filter_angle += (Gyro_m - Kalman->q_bias) * Kalman->dt;    //¿¨¶ûÂüÔ¤²â·½³Ì£¬ÈÏÎªÃ¿´ÎÆ®ÒÆÏàÍ¬£¬
+    Kalman->kalman_filter_angle += (Gyro_m - Kalman->q_bias) * Kalman->dt;    //å¡å°”æ›¼é¢„æµ‹æ–¹ç¨‹ï¼Œè®¤ä¸ºæ¯æ¬¡é£˜ç§»ç›¸åŒï¼Œ
 
     Kalman->Pdot[0]=Kalman->Q_angle - Kalman->P[0][1] - Kalman->P[1][0];
     Kalman->Pdot[1]= -(Kalman->P[1][1]);
@@ -63,20 +63,20 @@ FP32 KalmanFusion(KalmanInfo* Kalman, FP32 Angle_m, FP32 Gyro_m)
     Kalman->P[1][0] += Kalman->Pdot[2] * Kalman->dt;
     Kalman->P[1][1] += Kalman->Pdot[3] * Kalman->dt;
 
-    Kalman->PCt_0 = Kalman->C_0 * Kalman->P[0][0];     //¾ØÕó³Ë·¨ÖĞ¼ä±äÁ¿
+    Kalman->PCt_0 = Kalman->C_0 * Kalman->P[0][0];     //çŸ©é˜µä¹˜æ³•ä¸­é—´å˜é‡
     Kalman->PCt_1 = Kalman->C_0 * Kalman->P[1][0];
 
-    Kalman->E = Kalman->R_angle + Kalman->C_0 * Kalman->PCt_0;     //·ÖÄ¸
+    Kalman->E = Kalman->R_angle + Kalman->C_0 * Kalman->PCt_0;     //åˆ†æ¯
 
-    Kalman->K_0 = Kalman->PCt_0 / Kalman->E;   //ÔöÒæÖµ
+    Kalman->K_0 = Kalman->PCt_0 / Kalman->E;   //å¢ç›Šå€¼
     Kalman->K_1 = Kalman->PCt_1 / Kalman->E;
 
     Kalman->angle_err = Angle_m - Kalman->kalman_filter_angle;    
-    Kalman->kalman_filter_angle += Kalman->K_0 * Kalman->angle_err; //¶Ô×´Ì¬µÄ¿¨¶ûÂü¹À¼Æ£¬×îÓÅ½Ç¶È
+    Kalman->kalman_filter_angle += Kalman->K_0 * Kalman->angle_err; //å¯¹çŠ¶æ€çš„å¡å°”æ›¼ä¼°è®¡ï¼Œæœ€ä¼˜è§’åº¦
     Kalman->q_bias += Kalman->K_1 * Kalman->angle_err;
-    Kalman->kalman_filter_angle_dot = Gyro_m-Kalman->q_bias;//×îÓÅ½ÇËÙ¶È
+    Kalman->kalman_filter_angle_dot = Gyro_m-Kalman->q_bias;//æœ€ä¼˜è§’é€Ÿåº¦
 
-    Kalman->t_0 = Kalman->PCt_0;     //¾ØÕó¼ÆËãÖĞ¼ä±äÁ¿
+    Kalman->t_0 = Kalman->PCt_0;     //çŸ©é˜µè®¡ç®—ä¸­é—´å˜é‡
     Kalman->t_1 = Kalman->C_0 * Kalman->P[0][1];
 
     Kalman->P[0][0] -= Kalman->K_0 * Kalman->t_0;
@@ -89,11 +89,11 @@ FP32 KalmanFusion(KalmanInfo* Kalman, FP32 Angle_m, FP32 Gyro_m)
 
 
 /*
-**º¯ÊıĞÅÏ¢      GetArrayNumber
-**¹¦ÄÜÃèÊö      »ñÈ¡Êı×éµÄÏÂ±ê
-**ÊäÈë²ÎÊı      Number      ÈÎÒâÏÂ±ê
-                Max         Êı×é³¤¶È
-**Êä³ö²ÎÊı      ÕıÈ·µÄÏÂ±ê
+**å‡½æ•°ä¿¡æ¯      GetArrayNumber
+**åŠŸèƒ½æè¿°      è·å–æ•°ç»„çš„ä¸‹æ ‡
+**è¾“å…¥å‚æ•°      Number      ä»»æ„ä¸‹æ ‡
+                Max         æ•°ç»„é•¿åº¦
+**è¾“å‡ºå‚æ•°      æ­£ç¡®çš„ä¸‹æ ‡
 */
 static INT16U GetArrayNumber(INT16S Number, INT16U Max)
 {
@@ -113,12 +113,12 @@ static INT16U GetArrayNumber(INT16S Number, INT16U Max)
 
 
 /*
-**º¯ÊıĞÅÏ¢      LowPassFilter
-**¹¦ÄÜÃèÊö      µÍÍ¨ÂË²¨Æ÷
-**ÊäÈë²ÎÊı      Ratio       µÍÍ¨±ÈÂÊ
-                Input       ÊäÈëÊı×é
-                FilterVal   Êä³öÂË²¨Öµ
-**Êä³ö²ÎÊı      none
+**å‡½æ•°ä¿¡æ¯      LowPassFilter
+**åŠŸèƒ½æè¿°      ä½é€šæ»¤æ³¢å™¨
+**è¾“å…¥å‚æ•°      Ratio       ä½é€šæ¯”ç‡
+                Input       è¾“å…¥æ•°ç»„
+                FilterVal   è¾“å‡ºæ»¤æ³¢å€¼
+**è¾“å‡ºå‚æ•°      none
 */
 void LowPassFilter(FP32 Ratio, FP32 *Input, FP32 *FilterVal)
 {
@@ -127,12 +127,12 @@ void LowPassFilter(FP32 Ratio, FP32 *Input, FP32 *FilterVal)
 
 
 /*
-**º¯ÊıĞÅÏ¢      MoveAveFilter
-**¹¦ÄÜÃèÊö      ÒÆ¶¯Æ½¾ù´°
-**ÊäÈë²ÎÊı      Wave        ÊäÈë²¨ĞÎ
-                Len         ²¨ĞÎ³¤¶È
-                K           ´°¿í¶È
-**Êä³ö²ÎÊı      none
+**å‡½æ•°ä¿¡æ¯      MoveAveFilter
+**åŠŸèƒ½æè¿°      ç§»åŠ¨å¹³å‡çª—
+**è¾“å…¥å‚æ•°      Wave        è¾“å…¥æ³¢å½¢
+                Len         æ³¢å½¢é•¿åº¦
+                K           çª—å®½åº¦
+**è¾“å‡ºå‚æ•°      none
 */
 void MoveAveFilter(INT16U *Wave, INT16U Len, INT16U K)
 {
@@ -140,7 +140,7 @@ void MoveAveFilter(INT16U *Wave, INT16U Len, INT16U K)
     FP32 MoveAve[64];
     INT32U ii;
     
-    //ÒÆ¶¯Æ½¾ù
+    //ç§»åŠ¨å¹³å‡
     Ave = 0;
     for(ii = 0 ; ii < K ; ii++)
     {
@@ -168,12 +168,12 @@ void MoveAveFilter(INT16U *Wave, INT16U Len, INT16U K)
 
 
 /*
-**º¯ÊıĞÅÏ¢      Medfilt1
-**¹¦ÄÜÃèÊö      ÒÆ¶¯ÖĞÖµ´°
-**ÊäÈë²ÎÊı      Wave        ÊäÈë²¨ĞÎ
-                Len         ²¨ĞÎ³¤¶È
-                K           ´°¿í¶È
-**Êä³ö²ÎÊı      none
+**å‡½æ•°ä¿¡æ¯      Medfilt1
+**åŠŸèƒ½æè¿°      ç§»åŠ¨ä¸­å€¼çª—
+**è¾“å…¥å‚æ•°      Wave        è¾“å…¥æ³¢å½¢
+                Len         æ³¢å½¢é•¿åº¦
+                K           çª—å®½åº¦
+**è¾“å‡ºå‚æ•°      none
 */
 void Medfilt1(INT16U *Wave, INT16U Len, INT16U K)
 {
@@ -183,16 +183,16 @@ void Medfilt1(INT16U *Wave, INT16U Len, INT16U K)
     
     for(ii = 0 ; ii < Len ; ii++)
     {
-        for(jj = -K ; jj <= K ; jj++)//È¡µÃ+-K¸öµãÊı¾İ
+        for(jj = -K ; jj <= K ; jj++)//å–å¾—+-Kä¸ªç‚¹æ•°æ®
         {
             MedWindow[jj + K] = Wave[GetArrayNumber(ii + jj, Len - 1)];            
         }
-        BubbleSortINT16(MedWindow, (2 * K)+ 1);//ÅÅĞò
-        Wave[ii] = MedWindow[K];//È¡ÖĞ¼äµã
+        BubbleSortINT16(MedWindow, (2 * K)+ 1);//æ’åº
+        Wave[ii] = MedWindow[K];//å–ä¸­é—´ç‚¹
     }
 }
 
-//¶ş½×µÍÍ¨ÂË²¨Æ÷
+//äºŒé˜¶ä½é€šæ»¤æ³¢å™¨
 FP32 BiquadLPFFilter(BiquadFilterInfo *Filter, FP32 Input)
 {
     const FP32 result = Filter->b0 * Input + Filter->d1;
@@ -201,7 +201,7 @@ FP32 BiquadLPFFilter(BiquadFilterInfo *Filter, FP32 Input)
     return result;
 }
 
-//¶ş½×ÂË²¨Æ÷
+//äºŒé˜¶æ»¤æ³¢å™¨
 void BiquadFilterInit(BiquadFilterInfo *filter, INT16U samplingFreq, INT16U filterFreq, FP32 Q, biquadFilterType_e filterType)
 {
     // Check for Nyquist frequency and if it's not possible to initialize filter as requested - set to no filtering at all
@@ -250,7 +250,7 @@ void BiquadFilterInit(BiquadFilterInfo *filter, INT16U samplingFreq, INT16U filt
     filter->d1 = filter->d2 = 0;
 }
 
-//¶ş½×µÍÍ¨ÂË²¨Æ÷
+//äºŒé˜¶ä½é€šæ»¤æ³¢å™¨
 void BiquadFilterInitLPF(BiquadFilterInfo *filter, INT16U samplingFreq, INT16U filterFreq)
 {
     BiquadFilterInit(filter, samplingFreq, filterFreq, BIQUAD_Q, FILTER_LPF);

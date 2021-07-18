@@ -1,13 +1,11 @@
 ./mainboard/system_stm32f4xx.o: ..\User\Src\system_stm32f4xx.c \
   ..\Hal\CMSIS\Device\stm32f4xx.h ..\Hal\CMSIS\Device\stm32f405xx.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\core_cm4.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm4.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_version.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_compiler.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_armclang.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\mpu_armv7.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_version.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_compiler.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\mpu_armv7.h \
   ..\Hal\CMSIS\Device\system_stm32f4xx.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\User\Inc\stm32f4xx_hal_conf.h \

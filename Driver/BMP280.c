@@ -1,12 +1,13 @@
 #include "bmp280.h"
 
+BMPInfo_t  g_BMPCtrlMsg;
 
-/*ÅäÖÃbmp280ÆøÑ¹ºÍÎÂ¶È¹ı²ÉÑù ¹¤×÷Ä£Ê½*/
+/*é…ç½®bmp280æ°”å‹å’Œæ¸©åº¦è¿‡é‡‡æ · å·¥ä½œæ¨¡å¼*/
 #define BMP280_PRESSURE_OSR         (BMP280_OVERSAMP_16X)
 #define BMP280_TEMPERATURE_OSR      (BMP280_OVERSAMP_4X)
 #define BMP280_MODE                 (BMP280_PRESSURE_OSR << 2 | BMP280_TEMPERATURE_OSR << 5 | BMP280_NORMAL_MODE) //
 
-/*ÅäÖÃbmp280ÆøÑ¹IIRÂË²¨Æ÷*/
+/*é…ç½®bmp280æ°”å‹IIRæ»¤æ³¢å™¨*/
 #define BMP280_FILTER               (4 << 2)	// BMP280_FILTER_COEFF_16
 
 #define BMP280_DATA_FRAME_SIZE      (6)
@@ -15,7 +16,7 @@
 //#define FIX_TEMP 25				// Fixed Temperature. ASL is a function of pressure and temperature, but as the temperature changes so much (blow a little towards the flie and watch it drop 5 degrees) it corrupts the ASL estimates.
 //								// TLDR: Adjusting for temp changes does more harm than good.
                               
-BMPInfo_t  g_BMPCtrlMsg;
+
 
 static void BMPGetData(void);
 static INT32U BMPCompensateT(INT32S adcT);
@@ -72,11 +73,11 @@ void BMP280Init(void)
     
     ID = BMPReadReg(BMP280_CHIP_ID);
 	
-	if (ID == BMP280_DEFAULT_CHIP_ID)//¶ÁÈ¡Õı³£
+	if (ID == BMP280_DEFAULT_CHIP_ID)//è¯»å–æ­£å¸¸
 	{
-        BMPReadContinul(BMP280_TEMPERATURE_CALIB_DIG_T1_LSB_REG, (INT8U *)&g_BMPCtrlMsg.BmpCali, 24);//¶ÁÈ¡Ğ£×¼Êı¾İ
-        BMPWriteReg(BMP280_CTRL_MEAS_REG, BMP280_MODE);//ÉèÖÃ¹ı²ÉÑùÂÊºÍ¹¤×÷Ä£Ê½
-        BMPWriteReg(BMP280_CONFIG_REG, BMP280_FILTER);//ÅäÖÃIIRÂË²¨
+        BMPReadContinul(BMP280_TEMPERATURE_CALIB_DIG_T1_LSB_REG, (INT8U *)&g_BMPCtrlMsg.BmpCali, 24);//è¯»å–æ ¡å‡†æ•°æ®
+        BMPWriteReg(BMP280_CTRL_MEAS_REG, BMP280_MODE);//è®¾ç½®è¿‡é‡‡æ ·ç‡å’Œå·¥ä½œæ¨¡å¼
+        BMPWriteReg(BMP280_CONFIG_REG, BMP280_FILTER);//é…ç½®IIRæ»¤æ³¢
 	}
     else
 	{
@@ -134,9 +135,9 @@ void BMP280Update(void)
 {
 	BMPGetData();
 	
-	g_BMPCtrlMsg.Temperature = BMPCompensateT(g_BMPCtrlMsg.RawTemperature)/100.0f;	/*µ¥Î»¶È*/	
-	g_BMPCtrlMsg.Pressure = BMPCompensateP(g_BMPCtrlMsg.RawPressure)/256.0f;		/*µ¥Î»Pa*/
-    g_BMPCtrlMsg.Pressure /= 1000;       //×ª»»µ½Kpa
+	g_BMPCtrlMsg.Temperature = BMPCompensateT(g_BMPCtrlMsg.RawTemperature)/100.0f;	/*å•ä½åº¦*/	
+	g_BMPCtrlMsg.Pressure = BMPCompensateP(g_BMPCtrlMsg.RawPressure)/256.0f;		/*å•ä½Pa*/
+    g_BMPCtrlMsg.Pressure /= 1000;       //è½¬æ¢åˆ°Kpa
     
     if(g_BMPCtrlMsg.Pressure > 0)
     {//Converts pressure to altitude above sea level (ASL) in meters

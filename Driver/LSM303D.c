@@ -90,7 +90,7 @@ void LSM303DUpdate(void)
     g_LSMCtrLMsg.RawAcce[2] = (INT16S)AccBuff[4] | ((INT16S)AccBuff[5] << 8);
     
     INT16S Temp;
-    //转换到标准右手坐标系
+    //杞崲鍒版爣鍑嗗彸鎵嬪潗鏍囩郴
     Temp = g_LSMCtrLMsg.RawMag[1];
     g_LSMCtrLMsg.RawMag[1] = g_LSMCtrLMsg.RawMag[0];
     g_LSMCtrLMsg.RawMag[0] = -Temp;

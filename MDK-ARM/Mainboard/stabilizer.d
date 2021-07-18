@@ -11,14 +11,12 @@
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
   ..\Hal\CMSIS\Device\stm32f4xx.h ..\Hal\CMSIS\Device\stm32f405xx.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\core_cm4.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm4.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_version.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_compiler.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_armclang.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
-  D:\Keil\ MDK\package\ARM\CMSIS\5.5.1\CMSIS\Core\Include\mpu_armv7.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_version.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_compiler.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armclang.h \
+  D:\Keil\ MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include\mpu_armv7.h \
   ..\Hal\CMSIS\Device\system_stm32f4xx.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stddef.h \
@@ -43,7 +41,5 @@
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
-  ..\User\Inc\DbgPrint.h ..\Driver\LORA433.h \
   ..\Application\Include\Attitude.h ..\Driver\MPU6000.h \
-  ..\Driver\LSM303D.h ..\Application\Include\Attitude.h \
-  ..\Application\Include\Motor.h
+  ..\Driver\LSM303D.h ..\Driver\BMP280.h ..\Application\Include\Motor.h

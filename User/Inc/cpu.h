@@ -4,8 +4,6 @@
 #include "stm32f4xx_hal.h"
 #include "includes.h"
 
-#include "DbgPrint.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

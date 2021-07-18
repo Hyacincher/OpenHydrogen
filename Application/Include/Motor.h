@@ -8,23 +8,22 @@
 #define MOTOR_M3  		2
 #define MOTOR_M4  		3
 
+#define MOTOR_OUT_MIN   2000
+#define MOTOR_OUT_MAX   4000
+
 typedef struct
 {
     struct
     {
-        INT8U Unlock : 1;   //1½âËø       0Ëø¶¨
-        INT8U Change :1;    //´æÔÚ×´Ì¬¸Ä±ä
-        INT8U MotorState1 : 1;
-        INT8U MotorState2 : 1;
-        INT8U MotorState3 : 1;
-        INT8U MotorState4 : 1;
-        INT8U Reserve : 2;
+        INT8U Unlock : 1;   //1è§£é”       0é”å®š
+        INT8U Change :1;    //å­˜åœ¨çŠ¶æ€æ”¹å˜
+        INT8U Reserve : 6;
     }State;
     volatile INT32U Motor1,Motor2,Motor3,Motor4;
 }MotorInfo;
 
 void MotorInit(void);
-void MotorTask(void);
+void MotorLockCtrl(void);
 void MotorSetDuty(INT16U Channel, INT32U Value);
 void MotorUnLock(void);
 void MotorLock(void);
