@@ -56,18 +56,6 @@
 #define STA_MARK_TX 0X20
 #define STA_MARK_MX 0X10    //MAX SEND IRQ	 
 
-
-/*Channel 0~31, two bytes per data*/
-#define RC_CHECK_CHANNEL  0
-#define RC_SYSTEM_CHANNEL 2
-
-#define RC_THROTTLE_CHANNEL 8
-#define RC_PITCH_CHANNEL    10
-#define RC_ROLL_CHANNEL     12
-#define RC_YAW_CHANNEL      14
-
-#define RC_KEY_CHANNEL      20
-
 typedef struct
 {
     struct

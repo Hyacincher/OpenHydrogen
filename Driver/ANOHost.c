@@ -163,9 +163,9 @@ void ANOReceive(INT8U Buff[ANO_RXBUFF_LEN])
         }
         for(ii = ANGLE_ROLL ; ii <= ANGLE_YAW ; ii++)
         {
-            g_PIDCtrlMsg[ii].kp = (FP32)PIDTable[(ii * 3) + 0] / 1000;
-            g_PIDCtrlMsg[ii].ki = (FP32)PIDTable[(ii * 3) + 1] / 1000;
-            g_PIDCtrlMsg[ii].kd = (FP32)PIDTable[(ii * 3) + 2] / 1000;                
+            g_PIDCtrlMsg[ii].kp = (FP32)PIDTable[((ii - ANGLE_ROLL) * 3) + 0] / 1000;
+            g_PIDCtrlMsg[ii].ki = (FP32)PIDTable[((ii - ANGLE_ROLL) * 3) + 1] / 1000;
+            g_PIDCtrlMsg[ii].kd = (FP32)PIDTable[((ii - ANGLE_ROLL) * 3) + 2] / 1000;                
         }
         ANOSendCheck(0x11, Buff[20]);
     }

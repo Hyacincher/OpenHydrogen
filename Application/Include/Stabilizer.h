@@ -30,9 +30,9 @@
 #define PID_RATE_YAW_INTEGRATION_THRESHOLD		120.0
 
 /*角速度PID输出限幅（单位：油门值）*/
-#define PID_RATE_ROLL_OUTPUT_LIMIT			330.0   //350
-#define PID_RATE_PITCH_OUTPUT_LIMIT			330.0   //350
-#define PID_RATE_YAW_OUTPUT_LIMIT			330.0
+#define PID_RATE_ROLL_OUTPUT_LIMIT			350.0   //350
+#define PID_RATE_PITCH_OUTPUT_LIMIT			350.0   //350
+#define PID_RATE_YAW_OUTPUT_LIMIT			300.0
 
 /*--------------------内环-------------------------*/
 
@@ -63,8 +63,8 @@ static ConfigPara_t ControlParaDefault=
 
 	.pid = 
 	{
-		[RATE_ROLL]   = {1200, 130, 260},
-		[RATE_PITCH]  = {1200, 130, 260},
+		[RATE_ROLL]   = {1020, 150, 240},   //手感还行，可能需要给遥控做低通
+		[RATE_PITCH]  = {1020, 150, 240},
 		[RATE_YAW]    = {0, 0, 0},
 		[ANGLE_ROLL]  = {6000, 0, 0},
 		[ANGLE_PITCH] = {6000, 0, 0},

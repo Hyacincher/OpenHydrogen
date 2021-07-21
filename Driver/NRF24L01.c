@@ -198,6 +198,7 @@ void NRFReceiveData(void)
     {
         LSMReadContinul(RD_RX_PLOAD, g_NRFCtrlMsg.RxBuff, RX_PLOAD_WIDTH);
         NRFWriteReg(FLUSH_RX, 0xff);
+        g_NRFCtrlMsg.State.RxFlag = 1;
         return ;
     }
 }
