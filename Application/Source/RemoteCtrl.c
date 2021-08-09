@@ -7,6 +7,8 @@ static void ReceiveToRocker(void);
 static INT8U GetSum(INT8U *Buff, INT16U Lenth);
 
 extern void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle);
+extern void MotorUnLock(void);
+extern void MotorLock(void);
 
 void RemoteCtrlInit(void)
 {
@@ -38,6 +40,7 @@ static void ReceiveToRocker(void)
 {
     INT16U ReceiveData;
     INT8U Sum;
+    INT8U Key;
     
     if(g_NRFCtrlMsg.State.RxFlag)
     {
@@ -80,6 +83,17 @@ static void ReceiveToRocker(void)
         ReceiveData |= (INT8U)g_NRFCtrlMsg.RxBuff[RC_PITCH_CHANNEL+1];
         ReceiveData = MyConstrainINT16U(ReceiveData, ROCKER_VAL_BASE, ROCKER_VAL_BASE + ROCKER_VAL_DIFF);
         g_RemoteCtrlMsg.RockerPitch = ReceiveData;
+        
+        Key = g_NRFCtrlMsg.RxBuff[RC_KEY1_CHANNEL];
+        if(Key & (1 << RC_KEY_LOCK_SHIFT))
+        {
+            MotorLock();
+        }
+        if(Key & (1 << RC_KEY_UNLOCK_SHIFT))
+        {
+            MotorUnLock();
+        }        
+        
         g_RemoteCtrlMsg.DisConnectTime = 0;
     }
     else
@@ -109,11 +123,10 @@ static void RockerToAltitude(void)
     Roll -= 0.5;
     Pitch -= 0.5;
     Yaw -= 0.5;
-    Throttle *= 0.7;   //调试用，减一点油门  //至少35%才能起飞
     
     Roll *= MAX_ROLL_DEGREE;
     Pitch *= MAX_PITCH_DEGREE;
-    Throttle = (Throttle * MAX_THROTTLE_DIFF) + 2000;
+    Throttle = (Throttle * MAX_THROTTLE_DIFF) + BASE_THROTTLE;
     
     UpdateSetpoint(Roll, Pitch, 0, Throttle);
 }

@@ -58,14 +58,20 @@ void MotorLockCtrl(void)
 
 void MotorUnLock(void)
 {
-    g_MotorCtrlMsg.State.Change = 1;
-    g_MotorCtrlMsg.State.Unlock = 1;
+    if(g_MotorCtrlMsg.State.Unlock == 0)
+    {
+        g_MotorCtrlMsg.State.Change = 1;
+        g_MotorCtrlMsg.State.Unlock = 1;        
+    }
 }
 
 void MotorLock(void)
 {
-    g_MotorCtrlMsg.State.Change = 1;
-    g_MotorCtrlMsg.State.Unlock = 0;
+    if(g_MotorCtrlMsg.State.Unlock)
+    {
+        g_MotorCtrlMsg.State.Change = 1;
+        g_MotorCtrlMsg.State.Unlock = 0;        
+    }
 }
 
 /*

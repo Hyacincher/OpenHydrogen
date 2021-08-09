@@ -2,7 +2,7 @@
 
 PIDInfo g_PIDCtrlMsg[PID_NUM];
 
-void PIDInit(PIDInfo *PID, FP32 Kp, FP32 Ki, FP32 Kd, FP32 ILimit, FP32 IThreshold, FP32 OutputLimit, FP32 dt, BOOLEAN EnDerivFilter, FP32 CutoffFreq)
+void PIDInit(PIDInfo *PID, FP32 Kp, FP32 Ki, FP32 Kd, FP32 ILimit, FP32 IThreshold, FP32 IStop, FP32 OutputLimit, FP32 dt, BOOLEAN EnDerivFilter, FP32 CutoffFreq)
 {
     memset(PID, 0, sizeof(PIDInfo));
     
@@ -21,6 +21,8 @@ void PIDInit(PIDInfo *PID, FP32 Kp, FP32 Ki, FP32 Kd, FP32 ILimit, FP32 IThresho
 	PID->outputLimit = OutputLimit;
 	PID->dt        = dt;
 	PID->enableDFilter = EnDerivFilter;
+    PID->iThreshold = IThreshold;
+    PID->iStop = IStop;
 	if (PID->enableDFilter)
 	{
 		BiquadFilterInitLPF(&PID->dFilter, (1.0f/dt), CutoffFreq);
@@ -41,7 +43,12 @@ FP32 PIDUpdate(PIDInfo* PID, FP32 error)//error = desired - measured
     {
         PID->integ = 0;
     }
-        
+
+    if(MyFP32Abs(error) < PID->iStop)
+    {//err达到目标值附近小范围取消积分累计
+        PID->integ = 0;
+    }
+    
 	//积分限幅
 	if (PID->iLimit != 0)
 	{

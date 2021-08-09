@@ -40,7 +40,8 @@ typedef struct
 	FP32 outD;         //< derivative output (debugging)
     
 	FP32 iLimit;       //< integral limit
-    FP32 iThreshold;   //<integral start accumulate threshold
+    FP32 iThreshold;   //< integral start accumulate threshold
+    FP32 iStop;        //< integral stop accumulate point
     
 	FP32 outputLimit;  //< total PID output limit, absolute value. '0' means no limit.
 	FP32 dt;           //< delta-time dt
@@ -55,7 +56,7 @@ typedef struct
     FP32 Kd;
 }PIDPara_t;
 
-void PIDInit(PIDInfo *PID, FP32 Kp, FP32 Ki, FP32 Kd, FP32 ILimit, FP32 IThreshold, FP32 OutputLimit, FP32 dt, BOOLEAN EnDerivFilter, FP32 CutoffFreq);
+void PIDInit(PIDInfo *PID, FP32 Kp, FP32 Ki, FP32 Kd, FP32 ILimit, FP32 IThreshold, FP32 IStop, FP32 OutputLimit, FP32 dt, BOOLEAN EnDerivFilter, FP32 CutoffFreq);
 FP32 PIDUpdate(PIDInfo* PID, FP32 error);
 
 extern PIDInfo g_PIDCtrlMsg[PID_NUM];

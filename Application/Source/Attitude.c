@@ -81,7 +81,7 @@ static void NormailAttitude(void)
         Gyro[ii] = g_MPUCtrlMsg.RawGyro[ii] / GYRO_SCALE;    //+-2000
     }
 
-	for (INT16U axis = 0; axis < 3; axis++) 
+	for (INT16U axis = 0; axis < 3; axis++)
 	{
 		g_AttitudeCtrlMsg.NormailGyro[axis] = BiquadLPFFilter(&g_GyroLFPFilter[axis], Gyro[axis]);
         g_AttitudeCtrlMsg.NormailGyro[axis] *= DEG2RAD;//角速度单位由度转为弧度
@@ -283,9 +283,6 @@ static void imuUpdateEulerAngles(void)
 	g_AttitudeCtrlMsg.Roll = RADIANS_TO_DEGREES(MyAtan2Approx(rMat[2][1], rMat[2][2]));//+-180
 	g_AttitudeCtrlMsg.Pitch = RADIANS_TO_DEGREES((0.5f * PI) - MyAcosApprox(-rMat[2][0]));//arcsin = 0.5PI - arccos//+-90
 	g_AttitudeCtrlMsg.Yaw = RADIANS_TO_DEGREES(MyAtan2Approx(rMat[1][0], rMat[0][0]));//+-180
-
-	if (g_AttitudeCtrlMsg.Yaw < 0.0f)//转换位0~360
-		g_AttitudeCtrlMsg.Yaw += 360.0f;
 
 	//更新最小倾角状态
 }

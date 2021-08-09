@@ -22,16 +22,21 @@
 /*角速度PID积分限幅（单位：deg/s）*/
 #define PID_RATE_ROLL_INTEGRATION_LIMIT		150.0
 #define PID_RATE_PITCH_INTEGRATION_LIMIT	150.0
-#define PID_RATE_YAW_INTEGRATION_LIMIT		100.0
+#define PID_RATE_YAW_INTEGRATION_LIMIT		150.0
 
 /*角速度PID积分开始门限（单位：deg/s）*/
-#define PID_RATE_ROLL_INTEGRATION_THRESHOLD		120.0
-#define PID_RATE_PITCH_INTEGRATION_THRESHOLD	120.0
-#define PID_RATE_YAW_INTEGRATION_THRESHOLD		120.0
+#define PID_RATE_ROLL_INTEGRATION_THRESHOLD		90.0
+#define PID_RATE_PITCH_INTEGRATION_THRESHOLD	90.0
+#define PID_RATE_YAW_INTEGRATION_THRESHOLD		180.0
+
+/*角速度PID积分停止门限（单位：deg/s）*/
+#define PID_RATE_ROLL_INTEGRATION_STOP          5.0
+#define PID_RATE_PITCH_INTEGRATION_STOP         5.0
+#define PID_RATE_YAW_INTEGRATION_STOP           10.0
 
 /*角速度PID输出限幅（单位：油门值）*/
-#define PID_RATE_ROLL_OUTPUT_LIMIT			350.0   //350
-#define PID_RATE_PITCH_OUTPUT_LIMIT			350.0   //350
+#define PID_RATE_ROLL_OUTPUT_LIMIT			500.0   //350
+#define PID_RATE_PITCH_OUTPUT_LIMIT			500.0   //350
 #define PID_RATE_YAW_OUTPUT_LIMIT			300.0
 
 /*--------------------内环-------------------------*/
@@ -63,9 +68,9 @@ static ConfigPara_t ControlParaDefault=
 
 	.pid = 
 	{
-		[RATE_ROLL]   = {1020, 150, 240},   //手感还行，可能需要给遥控做低通
-		[RATE_PITCH]  = {1020, 150, 240},
-		[RATE_YAW]    = {0, 0, 0},
+		[RATE_ROLL]   = {1300, 380, 355},   //1300 380 340
+		[RATE_PITCH]  = {1450, 380, 320},   //1450 380 320
+		[RATE_YAW]    = {1400, 350, 340},   //1400 350 340
 		[ANGLE_ROLL]  = {6000, 0, 0},
 		[ANGLE_PITCH] = {6000, 0, 0},
 		[ANGLE_YAW]   = {6000, 0, 0},

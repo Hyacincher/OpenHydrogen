@@ -9,7 +9,9 @@
 
 #define MAX_ROLL_DEGREE     60.0f
 #define MAX_PITCH_DEGREE    60.0f
-#define MAX_THROTTLE_DIFF   2000
+
+#define BASE_THROTTLE       2800
+#define MAX_THROTTLE_DIFF   800
 
 #define MAX_DISCONNECT_TIME 500
 
@@ -26,6 +28,10 @@
 #define RC_KEY2_CHANNEL     18
 
 #define RC_CHECK_CHANNEL    31
+
+/*KEY1*/
+#define RC_KEY_LOCK_SHIFT       0
+#define RC_KEY_UNLOCK_SHIFT     1
 
 typedef struct
 {

@@ -22,6 +22,7 @@
 #include "main.h"
 #include "stm32f4xx_it.h"
 volatile INT64U g_SysTickTime = 0;
+extern DMA_HandleTypeDef hdma_uart4_tx;
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -86,11 +87,13 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
-
+    MotorLock();
+    MotorLockCtrl();
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {
     /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+      
     /* USER CODE END W1_HardFault_IRQn 0 */
   }
 }
@@ -206,6 +209,11 @@ void UART4_IRQHandler(void)
   /* USER CODE BEGIN UART4_IRQn 1 */
   USER_UART_IRQHandler(&huart4);
   /* USER CODE END UART4_IRQn 1 */
+}
+
+void DMA1_Stream4_IRQHandler(void)
+{
+    HAL_DMA_IRQHandler(&hdma_uart4_tx);
 }
 
 /******************************************************************************/

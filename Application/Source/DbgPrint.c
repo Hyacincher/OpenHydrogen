@@ -19,11 +19,10 @@ void DbgPrintTask(void)
     INT8U Send[50] = {0};
     static INT64U s_SystemTime= 0;
     
-    if(g_SysTickTime - s_SystemTime >= 1)
+    if(g_SysTickTime - s_SystemTime >= 2)
     {
-        //VisualScope_Output(g_AttitudeCtrlMsg.Roll * 10, g_AttitudeCtrlMsg.Pitch * 10 , \
-                            g_StabiliCtrlMsg.AngleOutRoll * 10, g_StabiliCtrlMsg.AngleOutPitch * 10);
-
+        VisualScope_Output(g_AttitudeCtrlMsg.Roll * 10, g_AttitudeCtrlMsg.Pitch * 10 , \
+                            g_PIDCtrlMsg[RATE_ROLL].error , g_PIDCtrlMsg[RATE_ROLL].integ);
         //ANOSendStatus(g_AttitudeCtrlMsg.Roll, g_AttitudeCtrlMsg.Pitch, g_AttitudeCtrlMsg.Yaw, \
                   g_BMPCtrlMsg.Altitude, 0, g_MotorCtrlMsg.State.Unlock);
         //发送阻塞时间太长了
@@ -170,5 +169,6 @@ void VisualScope_Output(float data1 ,float data2 ,float data3 ,float data4)
   databuf[8] = CRC16%256;
   databuf[9] = CRC16/256; 
   
-  UARTSendData(databuf, 10);
+  //UARTSendData(databuf, 10);
+  LORASendData((INT8U *)databuf, 10); 
 }

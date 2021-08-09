@@ -22,7 +22,6 @@ typedef struct
     
     volatile INT8U ReceiveBuff[ANO_RXBUFF_LEN];
     volatile INT16U ReceiveIndex;
-    
 }DebugPrint_t;
 
 void DbgPrintInit(void);
