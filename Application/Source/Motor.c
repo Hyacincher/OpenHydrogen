@@ -4,15 +4,13 @@
 左前MOTOR4    右前MOTOR2
 左后MOTOR3    右后MOTOR1
 */
-MotorInfo   g_MotorCtrlMsg;
+static INT8U s_MotorUnlock = 0;
 
 static void MotorOpen(INT32U Channel);
 static void MotorClose(INT32U Channel);
 
 void MotorInit(void)
 {
-    memset(&g_MotorCtrlMsg, 0, sizeof(g_MotorCtrlMsg));
-    
     MotorLock();
     HAL_TIM_Base_Start(&htim1);
     
@@ -20,58 +18,35 @@ void MotorInit(void)
     TIM1->CCR2 = MOTOR_OUT_MIN;
     TIM1->CCR3 = MOTOR_OUT_MIN;
     TIM1->CCR4 = MOTOR_OUT_MIN;
-    
-    g_MotorCtrlMsg.Motor1 = MOTOR_OUT_MIN;
-    g_MotorCtrlMsg.Motor2 = MOTOR_OUT_MIN;
-    g_MotorCtrlMsg.Motor3 = MOTOR_OUT_MIN;
-    g_MotorCtrlMsg.Motor4 = MOTOR_OUT_MIN;
-}
-
-void MotorLockCtrl(void)
-{
-    if(g_MotorCtrlMsg.State.Change)
-    {
-        g_MotorCtrlMsg.State.Change = 0;
-        if(g_MotorCtrlMsg.State.Unlock)
-        {
-            TIM1->CCR1 = MOTOR_OUT_MIN;
-            TIM1->CCR2 = MOTOR_OUT_MIN;
-            TIM1->CCR3 = MOTOR_OUT_MIN;
-            TIM1->CCR4 = MOTOR_OUT_MIN;
-            
-            MotorOpen(1);
-            MotorOpen(2);
-            MotorOpen(3);
-            MotorOpen(4);
-            
-            HAL_Delay(1500);
-        }
-        else
-        {
-            MotorClose(1);
-            MotorClose(2);
-            MotorClose(3);
-            MotorClose(4);
-        }
-    }
 }
 
 void MotorUnLock(void)
 {
-    if(g_MotorCtrlMsg.State.Unlock == 0)
+    if(s_MotorUnlock == 0)
     {
-        g_MotorCtrlMsg.State.Change = 1;
-        g_MotorCtrlMsg.State.Unlock = 1;        
+        TIM1->CCR1 = MOTOR_OUT_MIN;
+        TIM1->CCR2 = MOTOR_OUT_MIN;
+        TIM1->CCR3 = MOTOR_OUT_MIN;
+        TIM1->CCR4 = MOTOR_OUT_MIN;
+        
+        MotorOpen(1);
+        MotorOpen(2);
+        MotorOpen(3);
+        MotorOpen(4);
+        
+        HAL_Delay(1500);
+        
+        s_MotorUnlock = 1;
     }
 }
 
 void MotorLock(void)
 {
-    if(g_MotorCtrlMsg.State.Unlock)
-    {
-        g_MotorCtrlMsg.State.Change = 1;
-        g_MotorCtrlMsg.State.Unlock = 0;        
-    }
+    MotorClose(1);
+    MotorClose(2);
+    MotorClose(3);
+    MotorClose(4);
+    s_MotorUnlock = 0;
 }
 
 /*
@@ -102,23 +77,23 @@ static void MotorClose(INT32U Channel)
 3   TIM_CHANNEL_3 0x00000008U                    
 4   TIM_CHANNEL_4 0x0000000CU
 */
-void MotorSetDuty(INT16U Channel, INT32U Value)
+void MotorSetDuty(MotorChannel_e Channel, INT32U Value)
 {
     INT8U ii;
     
     switch(Channel)
     {
-        case MOTOR_M1:		/*MOTOR_M1*/
-            TIM1->CCR1 = g_MotorCtrlMsg.Motor1;
+        case Motor1:		/*MOTOR_M1*/
+            TIM1->CCR1 = Value;
             break;
-        case MOTOR_M2:		/*MOTOR_M2*/
-            TIM1->CCR2 = g_MotorCtrlMsg.Motor2;
+        case Motor2:		/*MOTOR_M2*/
+            TIM1->CCR2 = Value;
             break;
-        case MOTOR_M3:		/*MOTOR_M3*/
-            TIM1->CCR3 = g_MotorCtrlMsg.Motor3;
+        case Motor3:		/*MOTOR_M3*/
+            TIM1->CCR3 = Value;
             break;
-        case MOTOR_M4:		/*MOTOR_M4*/	
-            TIM1->CCR4 = g_MotorCtrlMsg.Motor4;
+        case Motor4:		/*MOTOR_M4*/	
+            TIM1->CCR4 = Value;
             break;
         default: 
             break;
@@ -132,3 +107,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     {
     }
 }
+
+INT8U GetMotorUnLock(void)
+{
+    return s_MotorUnlock;
+}
+

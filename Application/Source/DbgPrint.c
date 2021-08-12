@@ -22,7 +22,7 @@ void DbgPrintTask(void)
     if(g_SysTickTime - s_SystemTime >= 2)
     {
         VisualScope_Output(g_AttitudeCtrlMsg.Roll * 10, g_AttitudeCtrlMsg.Pitch * 10 , \
-                            g_PIDCtrlMsg[RATE_ROLL].error , g_PIDCtrlMsg[RATE_ROLL].integ);
+                            g_PIDCtrlMsg[RATE_ROLL].error , g_StabiliCtrlMsg.SetPitch * 10);
         //ANOSendStatus(g_AttitudeCtrlMsg.Roll, g_AttitudeCtrlMsg.Pitch, g_AttitudeCtrlMsg.Yaw, \
                   g_BMPCtrlMsg.Altitude, 0, g_MotorCtrlMsg.State.Unlock);
         //发送阻塞时间太长了

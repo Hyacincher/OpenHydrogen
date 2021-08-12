@@ -5,19 +5,28 @@
 #include "cpu.h"
 #include "Motor.h"
 
-#define UNVOLT_UP       11
-#define UNVOLT_DOWN     10.8
-#define SHUTDOWNVOLT    10.5
+#define HIGHVOLT_UP     11.90f
+#define HIGHVOLT_DOWN   11.70f
+#define MIDVOLT_UP      11.20f
+#define MIDVOLT_DOWN    11.00f
+#define LOWVOLT_UP      10.70f
+#define LOWVOLT_DOWN    10.45f
+#define UNVOLT_UP       9.90f
+#define UNVOLT_DOWN     9.65f
+
+typedef enum
+{
+    HighVolt = 0,
+    MidVolt,
+    LowVolt,
+    UnVolt,
+    ShutDownVolt
+}BatteryState_e;
 
 typedef struct
 {
-    struct
-    {
-        INT8U PowerState : 1;
-        INT8U UnVoltState : 1;
-    }State;
-    
     FP32 BatteryVolt;
+    BatteryState_e Battery;
     
 }BatteryInfo;
 
@@ -25,7 +34,7 @@ typedef struct
 void BatteryInit(void);
 void BatteryTask(void);
 
-extern BatteryInfo BatteryCtrlMsg;
+extern BatteryInfo g_BatteryCtrlMsg;
 
 #endif
 

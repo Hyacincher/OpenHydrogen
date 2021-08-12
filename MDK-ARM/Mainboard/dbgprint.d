@@ -44,5 +44,6 @@
   ..\Driver\LSM303D.h ..\Driver\BMP280.h \
   ..\Application\Include\Stabilizer.h ..\Application\Include\PID.h \
   ..\User\Inc\Mymath.h ..\Application\Include\Motor.h \
+  ..\Application\Include\FlightMode.h ..\Application\Include\Battery.h \
   ..\Driver\ANOHost.h ..\Driver\LORA433.h ..\Application\Include\PID.h \
   ..\Application\Include\Motor.h

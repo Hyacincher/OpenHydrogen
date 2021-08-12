@@ -420,11 +420,6 @@
               <FilePath>..\Application\Source\Attitude.c</FilePath>
             </File>
             <File>
-              <FileName>Motor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Application\Source\Motor.c</FilePath>
-            </File>
-            <File>
               <FileName>Battery.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Application\Source\Battery.c</FilePath>
@@ -438,6 +433,11 @@
               <FileName>RemoteCtrl.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Application\Source\RemoteCtrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>FlightMode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\FlightMode.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -469,6 +469,11 @@
         <Group>
           <GroupName>Driver</GroupName>
           <Files>
+            <File>
+              <FileName>Motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\Motor.c</FilePath>
+            </File>
             <File>
               <FileName>MPU6000.c</FileName>
               <FileType>1</FileType>

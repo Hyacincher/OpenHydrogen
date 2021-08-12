@@ -13,6 +13,7 @@
 #include "Battery.h"
 #include "RemoteCtrl.h"
 #include "DbgPrint.h"
+#include "FlightMode.h"
 
 #endif /* __MAIN_H */
 

@@ -16,6 +16,7 @@ int main(void)
     BatteryInit();
     RemoteCtrlInit();
     DbgPrintInit();
+    FlightModeInit();
     
     while (1)
     {
@@ -28,5 +29,7 @@ int main(void)
         BatteryTask();
         
         RemoteCtrlTask();
+        
+        FlightModeTask();
     }
 }

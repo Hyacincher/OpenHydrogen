@@ -42,4 +42,5 @@
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
   ..\Application\Include\Attitude.h ..\Driver\MPU6000.h \
-  ..\Driver\LSM303D.h ..\Driver\BMP280.h ..\Application\Include\Motor.h
+  ..\Driver\LSM303D.h ..\Driver\BMP280.h ..\Application\Include\Motor.h \
+  ..\Application\Include\FlightMode.h ..\Application\Include\Battery.h

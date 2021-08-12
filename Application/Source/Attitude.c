@@ -285,4 +285,6 @@ static void imuUpdateEulerAngles(void)
 	g_AttitudeCtrlMsg.Yaw = RADIANS_TO_DEGREES(MyAtan2Approx(rMat[1][0], rMat[0][0]));//+-180
 
 	//更新最小倾角状态
+    g_AttitudeCtrlMsg.Roll += 3.9;
+    g_AttitudeCtrlMsg.Pitch -= 2.9;
 }

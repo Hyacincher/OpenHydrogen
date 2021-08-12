@@ -1,5 +1,5 @@
-./mainboard/stm32f4xx_hal_msp.o: ..\User\Src\stm32f4xx_hal_msp.c \
-  ..\User\Inc\main.h ..\User\Inc\cpu.h \
+./mainboard/flightmode.o: ..\Application\Source\FlightMode.c \
+  ..\Application\Include\FlightMode.h ..\User\Inc\cpu.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\User\Inc\stm32f4xx_hal_conf.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -39,14 +39,5 @@
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Inc\Mymath.h \
-  ..\User\Inc\Filter.h ..\Driver\LORA433.h ..\User\Inc\cpu.h \
-  ..\Application\Include\Attitude.h ..\User\Inc\includes.h \
-  ..\Driver\MPU6000.h ..\Driver\LSM303D.h ..\Driver\BMP280.h \
-  ..\Application\Include\Stabilizer.h ..\Application\Include\PID.h \
-  ..\User\Inc\Mymath.h ..\Application\Include\Attitude.h \
-  ..\Application\Include\Motor.h ..\Application\Include\FlightMode.h \
-  ..\Application\Include\Battery.h ..\Application\Include\Battery.h \
-  ..\Application\Include\RemoteCtrl.h ..\Driver\NRF24L01.h \
-  ..\Application\Include\DbgPrint.h ..\Application\Include\Stabilizer.h \
-  ..\Driver\ANOHost.h ..\Driver\LORA433.h ..\Application\Include\PID.h \
-  ..\Application\Include\Motor.h ..\Application\Include\FlightMode.h
+  ..\User\Inc\Filter.h ..\Application\Include\Battery.h \
+  ..\Application\Include\Motor.h

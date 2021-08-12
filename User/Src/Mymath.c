@@ -296,6 +296,20 @@ FP32 MyConstrainF(FP32 Value, FP32 Min, FP32 Max)
     return Value;
 }
 
+INT32S MyConstrainINT32S(INT32S Value, INT32S Min, INT32S Max)
+{
+    if(Value < Min)
+    {
+        return Min;
+    }
+    else if(Value > Max)
+    {
+        return Max;
+    }
+    
+    return Value;   
+}
+
 INT16U MyConstrainINT16U(INT16U Value, INT16U Min, INT16U Max)
 {
     if(Value < Min)

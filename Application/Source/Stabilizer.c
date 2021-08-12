@@ -2,6 +2,9 @@
 
 StabilizerInfo  g_StabiliCtrlMsg;
 
+static void ManualCtrlThread(void);
+static void LandingThread(void);
+
 void StabilizerInit(void)
 {
     INT16U ii;
@@ -47,8 +50,6 @@ void StabilizerTask(void)
     static INT64U s_SystemTime = 0;
     static INT8U s_StabilizerStage = 0;
     
-    MotorLockCtrl();
-    
     switch(s_StabilizerStage)
     {
         case 0:
@@ -63,32 +64,28 @@ void StabilizerTask(void)
             g_StabiliCtrlMsg.RateOutRoll = PIDUpdate(&g_PIDCtrlMsg[RATE_ROLL], g_StabiliCtrlMsg.AngleOutRoll - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_X]);
             g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Y]);
             g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Z]);
-        
-            if(g_MotorCtrlMsg.State.Unlock)
-            {
-                g_MotorCtrlMsg.Motor1 = g_StabiliCtrlMsg.ThrustOut + g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
-                g_MotorCtrlMsg.Motor2 = g_StabiliCtrlMsg.ThrustOut + g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
-                g_MotorCtrlMsg.Motor3 = g_StabiliCtrlMsg.ThrustOut - g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
-                g_MotorCtrlMsg.Motor4 = g_StabiliCtrlMsg.ThrustOut - g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
             
-                g_MotorCtrlMsg.Motor1 = MyConstrainF(g_MotorCtrlMsg.Motor1, 2000, 4000);
-                g_MotorCtrlMsg.Motor2 = MyConstrainF(g_MotorCtrlMsg.Motor2, 2000, 4000);
-                g_MotorCtrlMsg.Motor3 = MyConstrainF(g_MotorCtrlMsg.Motor3, 2000, 4000);
-                g_MotorCtrlMsg.Motor4 = MyConstrainF(g_MotorCtrlMsg.Motor4, 2000, 4000);                
-            }
-            else
+            switch(g_FlightModeCtrlMsg.FlightMode)
             {
-                g_MotorCtrlMsg.Motor1 = 2000;
-                g_MotorCtrlMsg.Motor2 = 2000;
-                g_MotorCtrlMsg.Motor3 = 2000;
-                g_MotorCtrlMsg.Motor4 = 2000;
-                /*清除累积积分*/
+                case ManualCtrl:
+                    ManualCtrlThread();
+                    break;
+                case FixedAltitude:
+                    break;
+                case FixedPoint:
+                    break;
+                case AutoReturn:
+                    break;
+                case Landing:
+                    LandingThread();
+                    break;
+                case StandBy:
+                    MotorLock();
+                    break;
+                default:
+                    g_FlightModeCtrlMsg.FlightMode = StandBy;
+                    break;
             }
-        
-            MotorSetDuty(MOTOR_M1, g_MotorCtrlMsg.Motor1);
-            MotorSetDuty(MOTOR_M2, g_MotorCtrlMsg.Motor2);
-            MotorSetDuty(MOTOR_M3, g_MotorCtrlMsg.Motor3);
-            MotorSetDuty(MOTOR_M4, g_MotorCtrlMsg.Motor4);
             s_StabilizerStage++;
             break;
         case 1:
@@ -110,4 +107,66 @@ void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle)
     g_StabiliCtrlMsg.SetPitch = SetPitch;
     g_StabiliCtrlMsg.SetYaw = SetYaw;
     g_StabiliCtrlMsg.ThrustOut = Throttle;
+}
+
+static void ManualCtrlThread(void)
+{
+    FP32 MotorOut1,MotorOut2,MotorOut3,MotorOut4;
+    
+    if(GetMotorUnLock())
+    {
+        //解锁状态
+        MotorOut1 = g_StabiliCtrlMsg.ThrustOut + g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut2 = g_StabiliCtrlMsg.ThrustOut + g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut3 = g_StabiliCtrlMsg.ThrustOut - g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut4 = g_StabiliCtrlMsg.ThrustOut - g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
+    
+        MotorOut1 = MyConstrainF(MotorOut1, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut2 = MyConstrainF(MotorOut2, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut3 = MyConstrainF(MotorOut3, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut4 = MyConstrainF(MotorOut4, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+    }
+    else
+    {
+        MotorOut1 = MOTOR_OUT_MIN;
+        MotorOut2 = MOTOR_OUT_MIN;
+        MotorOut3 = MOTOR_OUT_MIN;
+        MotorOut4 = MOTOR_OUT_MIN;
+    }
+
+    MotorSetDuty(Motor1, (INT16U)MotorOut1);
+    MotorSetDuty(Motor2, (INT16U)MotorOut2);
+    MotorSetDuty(Motor3, (INT16U)MotorOut3);
+    MotorSetDuty(Motor4, (INT16U)MotorOut4);    
+}
+
+static void LandingThread(void)
+{
+    FP32 MotorOut1,MotorOut2,MotorOut3,MotorOut4;
+    
+    if(GetMotorUnLock())
+    {
+        //解锁状态
+        MotorOut1 = LANDING_THROTTLE + g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut2 = LANDING_THROTTLE + g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut3 = LANDING_THROTTLE - g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut4 = LANDING_THROTTLE - g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
+    
+        MotorOut1 = MyConstrainF(MotorOut1, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut2 = MyConstrainF(MotorOut2, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut3 = MyConstrainF(MotorOut3, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut4 = MyConstrainF(MotorOut4, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+    }
+    else
+    {
+        MotorOut1 = MOTOR_OUT_MIN;
+        MotorOut2 = MOTOR_OUT_MIN;
+        MotorOut3 = MOTOR_OUT_MIN;
+        MotorOut4 = MOTOR_OUT_MIN;
+    }
+
+    MotorSetDuty(Motor1, (INT16U)MotorOut1);
+    MotorSetDuty(Motor2, (INT16U)MotorOut2);
+    MotorSetDuty(Motor3, (INT16U)MotorOut3);
+    MotorSetDuty(Motor4, (INT16U)MotorOut4);    
 }
