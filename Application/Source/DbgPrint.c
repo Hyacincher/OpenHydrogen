@@ -16,15 +16,14 @@ void DbgPrintInit(void)
 
 void DbgPrintTask(void)
 {
-    INT8U Send[50] = {0};
     static INT64U s_SystemTime= 0;
     
     if(g_SysTickTime - s_SystemTime >= 2)
     {
-        VisualScope_Output(g_AttitudeCtrlMsg.Roll * 10, g_AttitudeCtrlMsg.Pitch * 10 , \
-                            g_PIDCtrlMsg[RATE_ROLL].error , g_StabiliCtrlMsg.SetPitch * 10);
-        //ANOSendStatus(g_AttitudeCtrlMsg.Roll, g_AttitudeCtrlMsg.Pitch, g_AttitudeCtrlMsg.Yaw, \
-                  g_BMPCtrlMsg.Altitude, 0, g_MotorCtrlMsg.State.Unlock);
+//        VisualScope_Output(g_AttitudeCtrlMsg.Roll * 10, g_AttitudeCtrlMsg.Pitch * 10 , \
+//                            g_AttitudeCtrlMsg.Yaw * 10 , g_StabiliCtrlMsg.SetPitch * 10);
+        ANOSendStatus(g_AttitudeCtrlMsg.Roll, g_AttitudeCtrlMsg.Pitch, g_AttitudeCtrlMsg.Yaw, \
+                  g_BMPCtrlMsg.Altitude, g_FlightModeCtrlMsg.FlightMode, GetMotorUnLock());
         //发送阻塞时间太长了
         
         s_SystemTime = g_SysTickTime;
@@ -105,6 +104,12 @@ void USER_UART_IRQHandler(UART_HandleTypeDef *huart)
                     }
                 }
             }
+        }
+        if(__HAL_UART_GET_FLAG(huart, UART_FLAG_TC))
+        {
+            __HAL_UART_CLEAR_FLAG(huart, UART_FLAG_TC);
+            huart4.gState = HAL_UART_STATE_READY;
+            huart4.RxState = HAL_UART_STATE_READY;
         }
     }
 }

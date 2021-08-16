@@ -2,8 +2,9 @@
 
 StabilizerInfo  g_StabiliCtrlMsg;
 
-static void ManualCtrlThread(void);
-static void LandingThread(void);
+static void HeadLessCtrl(void);
+static void LeadingCtrl(void);
+static void HeadDirectionCtrl(void);
 
 void StabilizerInit(void)
 {
@@ -13,8 +14,6 @@ void StabilizerInit(void)
     MotorInit();
     
     memset(&g_StabiliCtrlMsg, 0, sizeof(g_StabiliCtrlMsg));
-    
-    g_StabiliCtrlMsg.ThrustOut = 2500;  //调试用
     
     for(ii = 0 ; ii < PID_NUM ; ii++)
     {
@@ -54,21 +53,14 @@ void StabilizerTask(void)
     {
         case 0:
             s_SystemTime = g_SysTickTime;
-
-            //外环（角度）
-            g_StabiliCtrlMsg.AngleOutRoll = PIDUpdate(&g_PIDCtrlMsg[ANGLE_ROLL], g_StabiliCtrlMsg.SetRoll - g_AttitudeCtrlMsg.Roll);
-            g_StabiliCtrlMsg.AngleOutPitch = PIDUpdate(&g_PIDCtrlMsg[ANGLE_PITCH], g_StabiliCtrlMsg.SetPitch - g_AttitudeCtrlMsg.Pitch);
-            g_StabiliCtrlMsg.AngleOutYaw = PIDUpdate(&g_PIDCtrlMsg[ANGLE_YAW], g_StabiliCtrlMsg.SetYaw - g_AttitudeCtrlMsg.Yaw);
-        
-            //内环（角速度）
-            g_StabiliCtrlMsg.RateOutRoll = PIDUpdate(&g_PIDCtrlMsg[RATE_ROLL], g_StabiliCtrlMsg.AngleOutRoll - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_X]);
-            g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Y]);
-            g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Z]);
             
             switch(g_FlightModeCtrlMsg.FlightMode)
             {
-                case ManualCtrl:
-                    ManualCtrlThread();
+                case HeadLess:
+                    HeadLessCtrl();
+                    break;
+                case HeadDirection:
+                    HeadDirectionCtrl();
                     break;
                 case FixedAltitude:
                     break;
@@ -77,7 +69,7 @@ void StabilizerTask(void)
                 case AutoReturn:
                     break;
                 case Landing:
-                    LandingThread();
+                    LeadingCtrl();
                     break;
                 case StandBy:
                     MotorLock();
@@ -109,9 +101,45 @@ void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle)
     g_StabiliCtrlMsg.ThrustOut = Throttle;
 }
 
-static void ManualCtrlThread(void)
+static void HeadLessCtrl(void)
 {
     FP32 MotorOut1,MotorOut2,MotorOut3,MotorOut4;
+    FP32 Error;
+    
+    //求取横滚、俯仰向量分量
+    FP32 RadDiff = (g_AttitudeCtrlMsg.Yaw - g_StabiliCtrlMsg.TakeOffYaw) * PI / 180.0f;
+    FP32 CosDiff = MyCosApprox(RadDiff);
+    FP32 SinDiff = MySinApprox(RadDiff);
+    FP32 SetPitch = (g_StabiliCtrlMsg.SetPitch * CosDiff) + (g_StabiliCtrlMsg.SetRoll * SinDiff);
+    FP32 SetRoll = (g_StabiliCtrlMsg.SetRoll * CosDiff) - (g_StabiliCtrlMsg.SetPitch * SinDiff);
+    
+    //角度转向异常，可能是角度跟随不对引起
+    
+    //外环（角度）
+    g_StabiliCtrlMsg.AngleOutRoll = PIDUpdate(&g_PIDCtrlMsg[ANGLE_ROLL], SetRoll - g_AttitudeCtrlMsg.Roll);
+    g_StabiliCtrlMsg.AngleOutPitch = PIDUpdate(&g_PIDCtrlMsg[ANGLE_PITCH], SetPitch - g_AttitudeCtrlMsg.Pitch);
+    if(g_StabiliCtrlMsg.SetYaw == 0)
+    {//摇杆回中
+        if(g_StabiliCtrlMsg.Status.UpdateOriginYaw)
+        {//从偏航锁定，更新目标航向角
+            g_StabiliCtrlMsg.Status.UpdateOriginYaw = 0;
+            g_StabiliCtrlMsg.HoverYaw = g_AttitudeCtrlMsg.Yaw;
+        }
+        Error = g_StabiliCtrlMsg.HoverYaw - g_AttitudeCtrlMsg.Yaw;
+        if (Error >= +180)Error -= 360;
+        if (Error <= -180)Error += 360;
+        g_StabiliCtrlMsg.AngleOutYaw = PIDUpdate(&g_PIDCtrlMsg[ANGLE_YAW], Error);
+    }
+    else
+    {//偏航
+        g_StabiliCtrlMsg.AngleOutYaw = g_StabiliCtrlMsg.SetYaw;
+        g_StabiliCtrlMsg.Status.UpdateOriginYaw = 1;
+    }
+
+    //内环（角速度）
+    g_StabiliCtrlMsg.RateOutRoll = PIDUpdate(&g_PIDCtrlMsg[RATE_ROLL], g_StabiliCtrlMsg.AngleOutRoll - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_X]);
+    g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Y]);
+    g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Z]);
     
     if(GetMotorUnLock())
     {
@@ -140,9 +168,36 @@ static void ManualCtrlThread(void)
     MotorSetDuty(Motor4, (INT16U)MotorOut4);    
 }
 
-static void LandingThread(void)
+static void LeadingCtrl(void)
 {
     FP32 MotorOut1,MotorOut2,MotorOut3,MotorOut4;
+    FP32 Error;
+    
+    //外环（角度）
+    g_StabiliCtrlMsg.AngleOutRoll = PIDUpdate(&g_PIDCtrlMsg[ANGLE_ROLL], g_StabiliCtrlMsg.SetRoll - g_AttitudeCtrlMsg.Roll);
+    g_StabiliCtrlMsg.AngleOutPitch = PIDUpdate(&g_PIDCtrlMsg[ANGLE_PITCH], g_StabiliCtrlMsg.SetPitch - g_AttitudeCtrlMsg.Pitch);
+    if(g_StabiliCtrlMsg.SetYaw == 0)
+    {//摇杆回中
+        if(g_StabiliCtrlMsg.Status.UpdateOriginYaw)
+        {//从偏航锁定，更新目标航向角
+            g_StabiliCtrlMsg.Status.UpdateOriginYaw = 0;
+            g_StabiliCtrlMsg.HoverYaw = g_AttitudeCtrlMsg.Yaw;
+        }
+        Error = g_StabiliCtrlMsg.HoverYaw - g_AttitudeCtrlMsg.Yaw;
+        if (Error >= +180)Error -= 360;
+        if (Error <= -180)Error += 360;
+        g_StabiliCtrlMsg.AngleOutYaw = PIDUpdate(&g_PIDCtrlMsg[ANGLE_YAW], Error);
+    }
+    else
+    {//偏航
+        g_StabiliCtrlMsg.AngleOutYaw = g_StabiliCtrlMsg.SetYaw;
+        g_StabiliCtrlMsg.Status.UpdateOriginYaw = 1;
+    }
+
+    //内环（角速度）
+    g_StabiliCtrlMsg.RateOutRoll = PIDUpdate(&g_PIDCtrlMsg[RATE_ROLL], g_StabiliCtrlMsg.AngleOutRoll - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_X]);
+    g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Y]);
+    g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Z]);
     
     if(GetMotorUnLock())
     {
@@ -170,3 +225,68 @@ static void LandingThread(void)
     MotorSetDuty(Motor3, (INT16U)MotorOut3);
     MotorSetDuty(Motor4, (INT16U)MotorOut4);    
 }
+
+static void HeadDirectionCtrl(void)
+{
+    FP32 MotorOut1,MotorOut2,MotorOut3,MotorOut4;
+    FP32 Error;
+    
+    //外环（角度）
+    g_StabiliCtrlMsg.AngleOutRoll = PIDUpdate(&g_PIDCtrlMsg[ANGLE_ROLL], g_StabiliCtrlMsg.SetRoll - g_AttitudeCtrlMsg.Roll);
+    g_StabiliCtrlMsg.AngleOutPitch = PIDUpdate(&g_PIDCtrlMsg[ANGLE_PITCH], g_StabiliCtrlMsg.SetPitch - g_AttitudeCtrlMsg.Pitch);
+    if(g_StabiliCtrlMsg.SetYaw == 0)
+    {//摇杆回中
+        if(g_StabiliCtrlMsg.Status.UpdateOriginYaw)
+        {//从偏航锁定，更新目标航向角
+            g_StabiliCtrlMsg.Status.UpdateOriginYaw = 0;
+            g_StabiliCtrlMsg.HoverYaw = g_AttitudeCtrlMsg.Yaw;
+        }
+        Error = g_StabiliCtrlMsg.HoverYaw - g_AttitudeCtrlMsg.Yaw;
+        if (Error >= +180)Error -= 360;
+        if (Error <= -180)Error += 360;
+        g_StabiliCtrlMsg.AngleOutYaw = PIDUpdate(&g_PIDCtrlMsg[ANGLE_YAW], Error);
+    }
+    else
+    {//偏航
+        g_StabiliCtrlMsg.AngleOutYaw = g_StabiliCtrlMsg.SetYaw;
+        g_StabiliCtrlMsg.Status.UpdateOriginYaw = 1;
+    }
+
+    //内环（角速度）
+    g_StabiliCtrlMsg.RateOutRoll = PIDUpdate(&g_PIDCtrlMsg[RATE_ROLL], g_StabiliCtrlMsg.AngleOutRoll - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_X]);
+    g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Y]);
+    g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw - g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Z]);
+    
+    if(GetMotorUnLock())
+    {
+        //解锁状态
+        MotorOut1 = g_StabiliCtrlMsg.ThrustOut + g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut2 = g_StabiliCtrlMsg.ThrustOut + g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut3 = g_StabiliCtrlMsg.ThrustOut - g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
+        MotorOut4 = g_StabiliCtrlMsg.ThrustOut - g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
+    
+        MotorOut1 = MyConstrainF(MotorOut1, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut2 = MyConstrainF(MotorOut2, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut3 = MyConstrainF(MotorOut3, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+        MotorOut4 = MyConstrainF(MotorOut4, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
+    }
+    else
+    {
+        MotorOut1 = MOTOR_OUT_MIN;
+        MotorOut2 = MOTOR_OUT_MIN;
+        MotorOut3 = MOTOR_OUT_MIN;
+        MotorOut4 = MOTOR_OUT_MIN;
+    }
+
+    MotorSetDuty(Motor1, (INT16U)MotorOut1);
+    MotorSetDuty(Motor2, (INT16U)MotorOut2);
+    MotorSetDuty(Motor3, (INT16U)MotorOut3);
+    MotorSetDuty(Motor4, (INT16U)MotorOut4);    
+}
+
+void SetOriginYaw(void)
+{
+    g_StabiliCtrlMsg.TakeOffYaw = g_AttitudeCtrlMsg.Yaw;
+    g_StabiliCtrlMsg.HoverYaw = g_AttitudeCtrlMsg.Yaw;
+}
+

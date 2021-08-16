@@ -8,6 +8,9 @@
 
 #define ANO_RXBUFF_LEN    50   
 
+#define COMMAND2_READ_PID           0x01
+#define COMMAND2_READ_WAYPOINT      0x21
+
 typedef enum
 {
     ANOFunc = 0,
@@ -19,7 +22,7 @@ typedef enum
 
 void ANOSendStatus(FP32 Roll, FP32 Pitch, FP32 Yaw, FP32 Altitude, INT8U Flymode, INT8U Armed);
 
-void ANOSendPID(PIDInfo *PID1, PIDInfo *PID2, PIDInfo *PID3);
+void ANOSendPID(INT8U DataFrame, PIDInfo *PID1, PIDInfo *PID2, PIDInfo *PID3);
 void ANOSendCheck(INT8U Func, INT8U CheckSum);
 
 

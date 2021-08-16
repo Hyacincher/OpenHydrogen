@@ -5,7 +5,8 @@
 static INT8U GetHighByte(INT16S Data);
 static INT8U GetLowByte(INT16S Data);
 static INT8U GetSum(INT8U* Buff, INT16U Len);
-
+static BOOLEAN CheckSum(INT8U *Buff);
+    
 extern void UpdateRocker(INT16U Roll, INT16U Pitch, INT16U Yaw, INT16U Throttle);
 
 static INT8U GetHighByte(INT16S Data)
@@ -36,6 +37,27 @@ static INT8U GetSum(INT8U* Buff, INT16U Len)
     return (INT8U)Sum;
 }
 
+static BOOLEAN CheckSum(INT8U *Buff)
+{
+    INT32U SumVal = 0;
+    INT8U Result;
+    INT16U ii;
+    
+    SumVal += 0xAA;
+    SumVal += 0xAF;
+    for(ii = 0 ; ii < Buff[ANOLenth] + 2 ; ii++)
+    {
+        SumVal += Buff[ii];
+    }
+    Result = (INT8U)SumVal;
+    
+    if(Buff[ANOLenth + 2] != Result)
+    {
+        return 0;
+    }
+    return 1;
+}
+
 void ANOSendStatus(FP32 Roll, FP32 Pitch, FP32 Yaw, FP32 Altitude, INT8U Flymode, INT8U Armed)
 {
     INT8U Send[50] = {0};
@@ -44,10 +66,10 @@ void ANOSendStatus(FP32 Roll, FP32 Pitch, FP32 Yaw, FP32 Altitude, INT8U Flymode
     Send[1] = 0xAA;
     Send[2] = 0x01;//Function
     Send[3] = 0x0C;//LEN
-    Send[4] = GetHighByte((INT16S)(-Roll * 100));
-    Send[5] = GetLowByte((INT16S)(-Roll * 100));
-    Send[6] = GetHighByte((INT16S)(Pitch * 100));
-    Send[7] = GetLowByte((INT16S)(Pitch * 100));
+    Send[4] = GetHighByte((INT16S)(Roll * 100));
+    Send[5] = GetLowByte((INT16S)(Roll * 100));
+    Send[6] = GetHighByte((INT16S)(-Pitch * 100));
+    Send[7] = GetLowByte((INT16S)(-Pitch * 100));
     Send[8] = GetHighByte((INT16S)(Yaw * 100));
     Send[9] = GetLowByte((INT16S)(Yaw * 100));
     Send[10] = GetHighByte((INT16S)((INT32S)(Altitude * 100) >> 16));   //cm
@@ -74,13 +96,18 @@ void ANOSendCheck(INT8U Func, INT8U CheckSum)
     LORASendData((INT8U *)Send, 7);
 }
 
-void ANOSendPID(PIDInfo *PID1, PIDInfo *PID2, PIDInfo *PID3)
+void ANOSendPID(INT8U DataFrame, PIDInfo *PID1, PIDInfo *PID2, PIDInfo *PID3)
 {
     INT8U Send[ANO_RXBUFF_LEN];
     
+    if((DataFrame < 1) || (DataFrame > 6))
+    {
+        return;
+    }
+    //造成LORA无响应，用之前先把问题解决了
     Send[0] = 0xAA;
     Send[1] = 0xAA;
-    Send[2] = 0x10;
+    Send[2] = 0x10 + DataFrame - 1;
     Send[3] = 0x12;
     Send[4] = GetHighByte((INT16U)(PID1->kp * 1000));
     Send[5] = GetLowByte((INT16U)(PID1->kp * 1000));
@@ -110,28 +137,24 @@ void ANOSendPID(PIDInfo *PID1, PIDInfo *PID2, PIDInfo *PID3)
 void ANOReceive(INT8U Buff[ANO_RXBUFF_LEN])
 {
     //带进来无帧头数据
+    if(!CheckSum(Buff))
+    {
+        return;
+    }
     
     if(Buff[ANOFunc] == 1)
-    {//CONMAND
-        switch(Buff[ANOData])
-        {
-            case 0xA0:
-                MotorLock();
-                break;
-            case 0xA1:
-                MotorUnLock();
-                break;
-        }
+    {//CONMAND 1
+        
     }
     else if(Buff[ANOFunc] == 2)
-    {//CONMAND
-        INT16U ii;
-        
+    {//CONMAND 2
         switch(Buff[ANOData])
         {
-            case 0x01:
-                //ANOSendPID(&g_PIDCtrlMsg[RATE_ROLL], &g_PIDCtrlMsg[RATE_PITCH], &g_PIDCtrlMsg[RATE_YAW]);
-                //LORA无响应
+            case COMMAND2_READ_PID :
+                HAL_Delay(2);//先等待DMA里面的数据发送完
+                ANOSendPID(1, &g_PIDCtrlMsg[RATE_ROLL], &g_PIDCtrlMsg[RATE_PITCH], &g_PIDCtrlMsg[RATE_YAW]);
+                HAL_Delay(2);
+                ANOSendPID(2, &g_PIDCtrlMsg[ANGLE_ROLL], &g_PIDCtrlMsg[ANGLE_PITCH], &g_PIDCtrlMsg[ANGLE_YAW]);
                 break;
         }
     }

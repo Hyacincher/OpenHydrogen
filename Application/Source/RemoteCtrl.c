@@ -9,6 +9,7 @@ static INT8U GetSum(INT8U *Buff, INT16U Lenth);
 extern void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle);
 extern void MotorUnLock(void);
 extern void MotorLock(void);
+extern void SetOriginYaw(void);
 
 void RemoteCtrlInit(void)
 {
@@ -91,6 +92,7 @@ static void ReceiveToRocker(void)
         }
         if(Key & (1 << RC_KEY_UNLOCK_SHIFT))
         {
+            SetOriginYaw();
             MotorUnLock();
         }        
         
@@ -126,9 +128,10 @@ static void RockerToAltitude(void)
     
     Roll *= MAX_ROLL_DEGREE;
     Pitch *= MAX_PITCH_DEGREE;
+    Yaw *= MAX_YAW_RATE;
     Throttle = (Throttle * MAX_THROTTLE_DIFF) + BASE_THROTTLE;
     
-    UpdateSetpoint(Roll, Pitch, 0, Throttle);
+    UpdateSetpoint(Roll, Pitch, Yaw, Throttle);
 }
 
 void UpdateRocker(INT16U Roll, INT16U Pitch, INT16U Yaw, INT16U Throttle)

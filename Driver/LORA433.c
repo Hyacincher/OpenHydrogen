@@ -2,7 +2,7 @@
 
 static BOOLEAN LORASendAT(INT8U *AT, INT8U *Ack);
 
-volatile INT8U g_VisualScopeBuff[10] = {0};
+volatile INT8U g_LORASendBuff[50] = {0};
 
 void LORA433Init(void)
 {
@@ -30,12 +30,13 @@ void LORA433Init(void)
         LORA_DelayMS(1);
     }
     
-    HAL_UART_Transmit_DMA(&huart4, (uint8_t *)g_VisualScopeBuff, 10);
+    
 }
 
 void LORASendData(INT8U *Data, INT16U Len)
 {
-    memcpy((void *)g_VisualScopeBuff, Data, 10);
+    memcpy((void *)g_LORASendBuff, Data, Len);
+    HAL_UART_Transmit_DMA(&huart4, (uint8_t *)g_LORASendBuff, Len);
     //HAL_UART_Transmit(&huart4, Data, Len, 1);
 }
 

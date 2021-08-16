@@ -71,9 +71,9 @@ static ConfigPara_t ControlParaDefault=
 
 	.pid = 
 	{
-		[RATE_ROLL]   = {2700, 165, 375},   //1300 380 340  //2600-80er   2900-50er   3200-40er   3800-43er
-		[RATE_PITCH]  = {2700, 0, 375},   //1450 380 320
-		[RATE_YAW]    = {1400, 0, 340},   //1400 350 340
+		[RATE_ROLL]   = {1900, 165, 390},   //2700 165 435 
+		[RATE_PITCH]  = {1900, 165, 390},   //2600 165 425
+		[RATE_YAW]    = {1900, 100, 390},   //1900 100 390
 		[ANGLE_ROLL]  = {6000, 0, 0},
 		[ANGLE_PITCH] = {6000, 0, 0},
 		[ANGLE_YAW]   = {6000, 0, 0},
@@ -96,10 +96,16 @@ static ConfigPara_t ControlParaDefault=
 
 typedef struct
 {
+    struct
+    {
+        INT8U UpdateOriginYaw : 1;
+        INT8U Reserve : 7;
+    }Status;
+    
     FP32 SetRoll;
     FP32 SetPitch;
     FP32 SetYaw;
-
+    
     FP32 AngleOutRoll;
     FP32 AngleOutPitch;
     FP32 AngleOutYaw;
@@ -109,11 +115,15 @@ typedef struct
     FP32 RateOutYaw;
     
     FP32 ThrustOut;
+    
+    FP32 TakeOffYaw;       //起飞的朝向
+    FP32 HoverYaw;         //当前机头朝向
 }StabilizerInfo;
 
 void StabilizerInit(void);
 void StabilizerTask(void);
 void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle);
+void SetOriginYaw(void);
 
 extern StabilizerInfo  g_StabiliCtrlMsg;
 

@@ -24,7 +24,7 @@ void FlightModeTask(void)
         }
         else
         {
-            g_FlightModeCtrlMsg.FlightMode = ManualCtrl;
+            g_FlightModeCtrlMsg.FlightMode = HeadDirection;
         }
     }
 }
