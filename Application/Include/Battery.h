@@ -5,14 +5,17 @@
 #include "cpu.h"
 #include "Motor.h"
 
-#define HIGHVOLT_UP     11.90f
-#define HIGHVOLT_DOWN   11.70f
-#define MIDVOLT_UP      11.20f
-#define MIDVOLT_DOWN    11.00f
-#define LOWVOLT_UP      10.70f
-#define LOWVOLT_DOWN    10.45f
-#define UNVOLT_UP       9.90f
-#define UNVOLT_DOWN     9.65f
+#define HIGHVOLT_UP     12.20f
+#define HIGHVOLT_DOWN   12.00f
+
+#define MIDVOLT_UP      11.70f
+#define MIDVOLT_DOWN    11.50f
+
+#define LOWVOLT_UP      11.20f
+#define LOWVOLT_DOWN    11.00f
+
+#define UNVOLT_UP       10.70f
+#define UNVOLT_DOWN     10.50f
 
 typedef enum
 {

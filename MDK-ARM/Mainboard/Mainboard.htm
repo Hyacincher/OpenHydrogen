@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Mainboard\Mainboard.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Mainboard\Mainboard.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6160001: Last Updated: Mon Aug 16 22:44:09 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6160001: Last Updated: Tue Aug 31 22:48:32 2021
 <BR><P>
-<H3>Maximum Stack Usage =        480 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        488 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; AttitudeTask &rArr; BMP280Update &rArr; __hardfp_pow &rArr; __kernel_poly &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 <P>
@@ -394,7 +394,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
 </UL>
 
 <P><STRONG><a name="[d6]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
@@ -421,18 +421,17 @@ Global Symbols
 <P><STRONG><a name="[7d]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORASendAT
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFInit
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOSendStatus
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIDInit
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerInit
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardWareInit
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintInit
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintInit
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
 </UL>
 
-<P><STRONG><a name="[ec]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlInit
+<P><STRONG><a name="[eb]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlInit
 </UL>
 
 <P><STRONG><a name="[66]"></a>_memset$wrapper</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, memseta.o(.text), UNUSED)
@@ -458,10 +457,10 @@ Global Symbols
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan2
@@ -472,12 +471,13 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAtan2Approx
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAtan2Approx
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[6c]"></a>__aeabi_drsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, dadd.o(.text))
@@ -485,7 +485,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[6d]"></a>__aeabi_dmul</STRONG> (Thumb, 228 bytes, Stack size 48 bytes, dmul.o(.text))
@@ -493,11 +493,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
@@ -508,12 +509,13 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_divzero
 </UL>
@@ -521,26 +523,26 @@ Global Symbols
 <P><STRONG><a name="[df]"></a>__aeabi_dcmple</STRONG> (Thumb, 54 bytes, Stack size 12 bytes, dcmple.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_dcmple
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
 </UL>
 
 <P><STRONG><a name="[e1]"></a>__aeabi_dcmplt</STRONG> (Thumb, 54 bytes, Stack size 12 bytes, dcmplt.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_dcmplt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
 </UL>
 
-<P><STRONG><a name="[88]"></a>__aeabi_dcmpge</STRONG> (Thumb, 54 bytes, Stack size 12 bytes, dcmpge.o(.text))
+<P><STRONG><a name="[87]"></a>__aeabi_dcmpge</STRONG> (Thumb, 54 bytes, Stack size 12 bytes, dcmpge.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_dcmpge
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
 <P><STRONG><a name="[e0]"></a>__aeabi_dcmpgt</STRONG> (Thumb, 54 bytes, Stack size 12 bytes, dcmpgt.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_dcmpgt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
 </UL>
 
 <P><STRONG><a name="[6f]"></a>__aeabi_i2d</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, dflti.o(.text))
@@ -548,8 +550,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[70]"></a>__aeabi_ui2d</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, dfltui.o(.text))
@@ -557,18 +559,19 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
 </UL>
 
-<P><STRONG><a name="[87]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAtan2Approx
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
+<P><STRONG><a name="[86]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAtan2Approx
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
 <P><STRONG><a name="[71]"></a>__aeabi_d2f</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, d2f.o(.text))
@@ -576,16 +579,17 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAtan2Approx
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAtan2Approx
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
 <P><STRONG><a name="[62]"></a>__aeabi_llsl</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, llshl.o(.text))
@@ -643,13 +647,13 @@ Global Symbols
 <P><STRONG><a name="[108]"></a>__ARM_scalbn</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, dscalb.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __ARM_scalbn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[119]"></a>scalbn</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, dscalb.o(.text), UNUSED)
 
 <P><STRONG><a name="[107]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, cdrcmple.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[5f]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
@@ -678,7 +682,7 @@ Global Symbols
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INT8UToINT16U
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateRocker
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
 </UL>
 
 <P><STRONG><a name="[7a]"></a>ANOSendCheck</STRONG> (Thumb, 60 bytes, Stack size 64 bytes, anohost.o(.text.ANOSendCheck))
@@ -697,121 +701,113 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOReceive
 </UL>
 
-<P><STRONG><a name="[7c]"></a>ANOSendStatus</STRONG> (Thumb, 212 bytes, Stack size 104 bytes, anohost.o(.text.ANOSendStatus))
-<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = ANOSendStatus &rArr; LORASendData &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT
-</UL>
-<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORASendData
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-</UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
-</UL>
-
-<P><STRONG><a name="[7e]"></a>AttitudeInit</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, attitude.o(.text.AttitudeInit))
+<P><STRONG><a name="[7c]"></a>AttitudeInit</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, attitude.o(.text.AttitudeInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = AttitudeInit &rArr; MPU6000Init &rArr; MPU6000Update &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DInit
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInitLPF
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Init
+<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DInit
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInitLPF
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Init
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[83]"></a>AttitudeTask</STRONG> (Thumb, 1864 bytes, Stack size 128 bytes, attitude.o(.text.AttitudeTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 480<LI>Call Chain = AttitudeTask &rArr; BMP280Update &rArr; __hardfp_pow &rArr; __kernel_poly &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[82]"></a>AttitudeTask</STRONG> (Thumb, 1920 bytes, Stack size 136 bytes, attitude.o(.text.AttitudeTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 488<LI>Call Chain = AttitudeTask &rArr; BMP280Update &rArr; __hardfp_pow &rArr; __kernel_poly &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dcmpge
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dcmpge
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAtan2Approx
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DUpdate
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadLPFFilter
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAtan2Approx
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DUpdate
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadLPFFilter
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[81]"></a>BMP280Init</STRONG> (Thumb, 210 bytes, Stack size 40 bytes, bmp280.o(.text.BMP280Init))
+<P><STRONG><a name="[80]"></a>BMP280Init</STRONG> (Thumb, 210 bytes, Stack size 40 bytes, bmp280.o(.text.BMP280Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = BMP280Init &rArr; BMPReadContinul &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMPReadContinul
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMPReadContinul
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
+<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
 </UL>
 
-<P><STRONG><a name="[8b]"></a>BMP280Update</STRONG> (Thumb, 592 bytes, Stack size 56 bytes, bmp280.o(.text.BMP280Update))
+<P><STRONG><a name="[8a]"></a>BMP280Update</STRONG> (Thumb, 592 bytes, Stack size 56 bytes, bmp280.o(.text.BMP280Update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = BMP280Update &rArr; __hardfp_pow &rArr; __kernel_poly &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMPReadContinul
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMPReadContinul
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ldivmod
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
-<P><STRONG><a name="[92]"></a>BatteryInit</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, battery.o(.text.BatteryInit))
+<P><STRONG><a name="[91]"></a>BatteryInit</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, battery.o(.text.BatteryInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = BatteryInit &rArr; HAL_ADC_PollForConversion
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Start
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Start
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[95]"></a>BatteryTask</STRONG> (Thumb, 352 bytes, Stack size 16 bytes, battery.o(.text.BatteryTask))
+<P><STRONG><a name="[94]"></a>BatteryTask</STRONG> (Thumb, 340 bytes, Stack size 16 bytes, battery.o(.text.BatteryTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = BatteryTask &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LowPassFilter
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Start
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_GetValue
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_GetState
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LowPassFilter
+<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Start
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_GetValue
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_GetState
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[99]"></a>BiquadFilterInit</STRONG> (Thumb, 240 bytes, Stack size 48 bytes, filter.o(.text.BiquadFilterInit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = BiquadFilterInit &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[98]"></a>BiquadFilterInit</STRONG> (Thumb, 240 bytes, Stack size 48 bytes, filter.o(.text.BiquadFilterInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = BiquadFilterInit &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
 </UL>
-<BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInitLPF
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInitLPF
 </UL>
 
-<P><STRONG><a name="[82]"></a>BiquadFilterInitLPF</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, filter.o(.text.BiquadFilterInitLPF))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = BiquadFilterInitLPF &rArr; BiquadFilterInit &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[81]"></a>BiquadFilterInitLPF</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, filter.o(.text.BiquadFilterInitLPF))
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = BiquadFilterInitLPF &rArr; BiquadFilterInit &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIDInit
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
 </UL>
 
-<P><STRONG><a name="[86]"></a>BiquadLPFFilter</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, filter.o(.text.BiquadLPFFilter))
+<P><STRONG><a name="[85]"></a>BiquadLPFFilter</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, filter.o(.text.BiquadLPFFilter))
 <BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIDUpdate
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
 <P><STRONG><a name="[4]"></a>BusFault_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.BusFault_Handler))
@@ -824,26 +820,29 @@ Global Symbols
 <P><STRONG><a name="[19]"></a>DMA1_Stream4_IRQHandler</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.DMA1_Stream4_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = DMA1_Stream4_IRQHandler &rArr; HAL_DMA_IRQHandler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_IRQHandler
+<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_IRQHandler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f405xx.o(RESET)
 </UL>
-<P><STRONG><a name="[9d]"></a>DbgPrintInit</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, dbgprint.o(.text.DbgPrintInit))
+<P><STRONG><a name="[9c]"></a>DbgPrintInit</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, dbgprint.o(.text.DbgPrintInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = DbgPrintInit &rArr; LORA433Init &rArr; LORASendAT &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Start_Receive_IT
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA433Init
+<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Start_Receive_IT
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA433Init
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a0]"></a>DbgPrintTask</STRONG> (Thumb, 210 bytes, Stack size 104 bytes, dbgprint.o(.text.DbgPrintTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = DbgPrintTask &rArr; ANOSendStatus &rArr; LORASendData &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT
+<P><STRONG><a name="[9f]"></a>DbgPrintTask</STRONG> (Thumb, 232 bytes, Stack size 96 bytes, dbgprint.o(.text.DbgPrintTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = DbgPrintTask &rArr; ANOReceive &rArr; ANOSendPID &rArr; LORASendData &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOSendStatus
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;VisualScope_Output
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOReceive
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorUnLock
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorUnLock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -865,9 +864,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a1]"></a>GetMotorUnLock</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, motor.o(.text.GetMotorUnLock))
+<P><STRONG><a name="[a0]"></a>GetMotorUnLock</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, motor.o(.text.GetMotorUnLock))
 <BR><BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
 </UL>
 
 <P><STRONG><a name="[cf]"></a>HAL_ADC_ConfigChannel</STRONG> (Thumb, 276 bytes, Stack size 20 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_ConfigChannel))
@@ -876,12 +875,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardWareInit
 </UL>
 
-<P><STRONG><a name="[96]"></a>HAL_ADC_GetState</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_GetState))
-<BR><BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<P><STRONG><a name="[95]"></a>HAL_ADC_GetState</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_GetState))
+<BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
 </UL>
 
-<P><STRONG><a name="[97]"></a>HAL_ADC_GetValue</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_GetValue))
-<BR><BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<P><STRONG><a name="[96]"></a>HAL_ADC_GetValue</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_GetValue))
+<BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
 </UL>
 
 <P><STRONG><a name="[a2]"></a>HAL_ADC_Init</STRONG> (Thumb, 332 bytes, Stack size 8 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_Init))
@@ -900,20 +899,20 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Init
 </UL>
 
-<P><STRONG><a name="[94]"></a>HAL_ADC_PollForConversion</STRONG> (Thumb, 174 bytes, Stack size 24 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_PollForConversion))
+<P><STRONG><a name="[93]"></a>HAL_ADC_PollForConversion</STRONG> (Thumb, 174 bytes, Stack size 24 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_PollForConversion))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_ADC_PollForConversion
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryInit
+<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryInit
 </UL>
 
-<P><STRONG><a name="[93]"></a>HAL_ADC_Start</STRONG> (Thumb, 260 bytes, Stack size 4 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_Start))
+<P><STRONG><a name="[92]"></a>HAL_ADC_Start</STRONG> (Thumb, 260 bytes, Stack size 4 bytes, stm32f4xx_hal_adc.o(.text.HAL_ADC_Start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = HAL_ADC_Start
 </UL>
-<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryInit
+<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryInit
 </UL>
 
 <P><STRONG><a name="[a6]"></a>HAL_CAN_Init</STRONG> (Thumb, 240 bytes, Stack size 16 bytes, stm32f4xx_hal_can.o(.text.HAL_CAN_Init))
@@ -933,7 +932,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Init
 </UL>
 
-<P><STRONG><a name="[9c]"></a>HAL_DMA_IRQHandler</STRONG> (Thumb, 380 bytes, Stack size 24 bytes, stm32f4xx_hal_dma.o(.text.HAL_DMA_IRQHandler))
+<P><STRONG><a name="[9b]"></a>HAL_DMA_IRQHandler</STRONG> (Thumb, 380 bytes, Stack size 24 bytes, stm32f4xx_hal_dma.o(.text.HAL_DMA_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_DMA_IRQHandler
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Stream4_IRQHandler
@@ -960,11 +959,11 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFInit
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorUnLock
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA433Init
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA433Init
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOReceive
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DInit
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Init
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DInit
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Init
 </UL>
 
 <P><STRONG><a name="[a4]"></a>HAL_GPIO_Init</STRONG> (Thumb, 440 bytes, Stack size 44 bytes, stm32f4xx_hal_gpio.o(.text.HAL_GPIO_Init))
@@ -986,11 +985,11 @@ Global Symbols
 <P><STRONG><a name="[a5]"></a>HAL_GetTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_hal.o(.text.HAL_GetTick))
 <BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Receive
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Init
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
@@ -1101,19 +1100,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Init
 </UL>
 
-<P><STRONG><a name="[91]"></a>HAL_SPI_Receive</STRONG> (Thumb, 326 bytes, Stack size 32 bytes, stm32f4xx_hal_spi.o(.text.HAL_SPI_Receive))
+<P><STRONG><a name="[90]"></a>HAL_SPI_Receive</STRONG> (Thumb, 326 bytes, Stack size 32 bytes, stm32f4xx_hal_spi.o(.text.HAL_SPI_Receive))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTransaction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSMReadContinul
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMPReadContinul
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMPReadContinul
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
 </UL>
 
-<P><STRONG><a name="[90]"></a>HAL_SPI_Transmit</STRONG> (Thumb, 372 bytes, Stack size 32 bytes, stm32f4xx_hal_spi.o(.text.HAL_SPI_Transmit))
+<P><STRONG><a name="[8f]"></a>HAL_SPI_Transmit</STRONG> (Thumb, 372 bytes, Stack size 32 bytes, stm32f4xx_hal_spi.o(.text.HAL_SPI_Transmit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
@@ -1123,11 +1122,11 @@ Global Symbols
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFWriteContinul
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSMReadContinul
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSMReadContinul
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMPReadContinul
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMPReadContinul
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
 </UL>
 
-<P><STRONG><a name="[8d]"></a>HAL_SPI_TransmitReceive</STRONG> (Thumb, 474 bytes, Stack size 32 bytes, stm32f4xx_hal_spi.o(.text.HAL_SPI_TransmitReceive))
+<P><STRONG><a name="[8c]"></a>HAL_SPI_TransmitReceive</STRONG> (Thumb, 474 bytes, Stack size 32 bytes, stm32f4xx_hal_spi.o(.text.HAL_SPI_TransmitReceive))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
@@ -1136,10 +1135,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFReadReg
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSMReadContinul
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPUReadReg
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DInit
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Init
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DInit
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Init
 </UL>
 
 <P><STRONG><a name="[ad]"></a>HAL_SYSTICK_Config</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, stm32f4xx_hal_cortex.o(.text.HAL_SYSTICK_Config))
@@ -1324,13 +1323,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOReceive
 </UL>
 
-<P><STRONG><a name="[9e]"></a>LORA433Init</STRONG> (Thumb, 116 bytes, Stack size 8 bytes, lora433.o(.text.LORA433Init))
+<P><STRONG><a name="[9d]"></a>LORA433Init</STRONG> (Thumb, 116 bytes, Stack size 8 bytes, lora433.o(.text.LORA433Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = LORA433Init &rArr; LORASendAT &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORASendAT
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintInit
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintInit
 </UL>
 
 <P><STRONG><a name="[7b]"></a>LORASendData</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, lora433.o(.text.LORASendData))
@@ -1341,62 +1340,62 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOSendPID
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOSendCheck
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ANOSendStatus
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;VisualScope_Output
 </UL>
 
-<P><STRONG><a name="[80]"></a>LSM303DInit</STRONG> (Thumb, 444 bytes, Stack size 40 bytes, lsm303d.o(.text.LSM303DInit))
+<P><STRONG><a name="[7f]"></a>LSM303DInit</STRONG> (Thumb, 444 bytes, Stack size 40 bytes, lsm303d.o(.text.LSM303DInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = LSM303DInit &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
+<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
 </UL>
 
-<P><STRONG><a name="[85]"></a>LSM303DUpdate</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, lsm303d.o(.text.LSM303DUpdate))
+<P><STRONG><a name="[84]"></a>LSM303DUpdate</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, lsm303d.o(.text.LSM303DUpdate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = LSM303DUpdate &rArr; LSMReadContinul &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSMReadContinul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
-<P><STRONG><a name="[98]"></a>LowPassFilter</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, filter.o(.text.LowPassFilter))
-<BR><BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<P><STRONG><a name="[97]"></a>LowPassFilter</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, filter.o(.text.LowPassFilter))
+<BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
 </UL>
 
-<P><STRONG><a name="[7f]"></a>MPU6000Init</STRONG> (Thumb, 728 bytes, Stack size 48 bytes, mpu6000.o(.text.MPU6000Init))
+<P><STRONG><a name="[7e]"></a>MPU6000Init</STRONG> (Thumb, 728 bytes, Stack size 48 bytes, mpu6000.o(.text.MPU6000Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = MPU6000Init &rArr; MPU6000Update &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPUReadReg
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Update
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
+<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
 </UL>
 
-<P><STRONG><a name="[84]"></a>MPU6000Update</STRONG> (Thumb, 260 bytes, Stack size 48 bytes, mpu6000.o(.text.MPU6000Update))
+<P><STRONG><a name="[83]"></a>MPU6000Update</STRONG> (Thumb, 260 bytes, Stack size 48 bytes, mpu6000.o(.text.MPU6000Update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = MPU6000Update &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LowPassFilter
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LowPassFilter
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
 <P><STRONG><a name="[d9]"></a>MPUReadReg</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, mpu6000.o(.text.MPUReadReg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = MPUReadReg &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6000Init
 </UL>
 
 <P><STRONG><a name="[3]"></a>MemManage_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.MemManage_Handler))
@@ -1423,7 +1422,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorInit
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardFault_Handler
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
 </UL>
 
 <P><STRONG><a name="[f4]"></a>MotorSetDuty</STRONG> (Thumb, 54 bytes, Stack size 0 bytes, motor.o(.text.MotorSetDuty))
@@ -1436,69 +1435,65 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_OC_Start
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
+<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
 </UL>
 
-<P><STRONG><a name="[8a]"></a>MyAcosApprox</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, mymath.o(.text.MyAcosApprox))
+<P><STRONG><a name="[89]"></a>MyAcosApprox</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, mymath.o(.text.MyAcosApprox))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = MyAcosApprox &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
-<P><STRONG><a name="[89]"></a>MyAtan2Approx</STRONG> (Thumb, 320 bytes, Stack size 24 bytes, mymath.o(.text.MyAtan2Approx))
+<P><STRONG><a name="[88]"></a>MyAtan2Approx</STRONG> (Thumb, 320 bytes, Stack size 24 bytes, mymath.o(.text.MyAtan2Approx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = MyAtan2Approx &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
-<P><STRONG><a name="[ea]"></a>MyConstrainF</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, mymath.o(.text.MyConstrainF))
+<P><STRONG><a name="[e9]"></a>MyConstrainF</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, mymath.o(.text.MyConstrainF))
 <BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIDUpdate
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
 </UL>
 
-<P><STRONG><a name="[ee]"></a>MyConstrainINT16U</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, mymath.o(.text.MyConstrainINT16U))
-<BR><BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
+<P><STRONG><a name="[ed]"></a>MyConstrainINT16U</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, mymath.o(.text.MyConstrainINT16U))
+<BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
 </UL>
 
-<P><STRONG><a name="[9b]"></a>MyCosApprox</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, mymath.o(.text.MyCosApprox))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[9a]"></a>MyCosApprox</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, mymath.o(.text.MyCosApprox))
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
 </UL>
 
-<P><STRONG><a name="[e9]"></a>MyFP32Abs</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, mymath.o(.text.MyFP32Abs))
-<BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIDUpdate
-</UL>
-
-<P><STRONG><a name="[9a]"></a>MySinApprox</STRONG> (Thumb, 396 bytes, Stack size 40 bytes, mymath.o(.text.MySinApprox))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = MySinApprox &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[99]"></a>MySinApprox</STRONG> (Thumb, 396 bytes, Stack size 40 bytes, mymath.o(.text.MySinApprox))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = MySinApprox &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dcmplt
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dcmple
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dcmpgt
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dcmpge
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dcmpge
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInit
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
 </UL>
 
@@ -1518,7 +1513,7 @@ Global Symbols
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlInit
+<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlInit
 </UL>
 
 <P><STRONG><a name="[e6]"></a>NRFReceiveData</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, nrf24l01.o(.text.NRFReceiveData))
@@ -1528,24 +1523,27 @@ Global Symbols
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFReadReg
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSMReadContinul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
+<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
 </UL>
 
-<P><STRONG><a name="[e7]"></a>PIDInit</STRONG> (Thumb, 144 bytes, Stack size 80 bytes, pid.o(.text.PIDInit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = PIDInit &rArr; BiquadFilterInitLPF &rArr; BiquadFilterInit &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[e7]"></a>PIDInit</STRONG> (Thumb, 128 bytes, Stack size 72 bytes, pid.o(.text.PIDInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = PIDInit &rArr; BiquadFilterInitLPF &rArr; BiquadFilterInit &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInitLPF
+<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadFilterInitLPF
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerInit
 </UL>
 
-<P><STRONG><a name="[e8]"></a>PIDUpdate</STRONG> (Thumb, 250 bytes, Stack size 16 bytes, pid.o(.text.PIDUpdate))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = PIDUpdate
+<P><STRONG><a name="[ef]"></a>PIDReset</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, pid.o(.text.PIDReset))
+<BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyFP32Abs
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadLPFFilter
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyConstrainF
+
+<P><STRONG><a name="[e8]"></a>PIDUpdate</STRONG> (Thumb, 192 bytes, Stack size 8 bytes, pid.o(.text.PIDUpdate))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIDUpdate
+</UL>
+<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BiquadLPFFilter
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyConstrainF
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
 </UL>
@@ -1553,23 +1551,24 @@ Global Symbols
 <P><STRONG><a name="[8]"></a>PendSV_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.PendSV_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f405xx.o(RESET)
 </UL>
-<P><STRONG><a name="[eb]"></a>RemoteCtrlInit</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, remotectrl.o(.text.RemoteCtrlInit))
+<P><STRONG><a name="[ea]"></a>RemoteCtrlInit</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, remotectrl.o(.text.RemoteCtrlInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = RemoteCtrlInit &rArr; NRFInit &rArr; LSMReadContinul &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFInit
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr8
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr8
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ed]"></a>RemoteCtrlTask</STRONG> (Thumb, 468 bytes, Stack size 16 bytes, remotectrl.o(.text.RemoteCtrlTask))
+<P><STRONG><a name="[ec]"></a>RemoteCtrlTask</STRONG> (Thumb, 500 bytes, Stack size 16 bytes, remotectrl.o(.text.RemoteCtrlTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = RemoteCtrlTask &rArr; NRFReceiveData &rArr; LSMReadContinul &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFReceiveData
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyConstrainINT16U
+<BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIDReset
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFReceiveData
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyConstrainINT16U
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorUnLock
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateSetpoint
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetOriginYaw
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetOriginYaw
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorLock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1578,12 +1577,12 @@ Global Symbols
 <P><STRONG><a name="[6]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f405xx.o(RESET)
 </UL>
-<P><STRONG><a name="[ef]"></a>SetOriginYaw</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, stabilizer.o(.text.SetOriginYaw))
-<BR><BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
+<P><STRONG><a name="[ee]"></a>SetOriginYaw</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, stabilizer.o(.text.SetOriginYaw))
+<BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
 </UL>
 
-<P><STRONG><a name="[f2]"></a>StabilizerInit</STRONG> (Thumb, 412 bytes, Stack size 184 bytes, stabilizer.o(.text.StabilizerInit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 448<LI>Call Chain = StabilizerInit &rArr; PIDInit &rArr; BiquadFilterInitLPF &rArr; BiquadFilterInit &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[f2]"></a>StabilizerInit</STRONG> (Thumb, 348 bytes, Stack size 168 bytes, stabilizer.o(.text.StabilizerInit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = StabilizerInit &rArr; PIDInit &rArr; BiquadFilterInitLPF &rArr; BiquadFilterInit &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIDInit
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorInit
@@ -1592,19 +1591,20 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f3]"></a>StabilizerTask</STRONG> (Thumb, 1416 bytes, Stack size 72 bytes, stabilizer.o(.text.StabilizerTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = StabilizerTask &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[f3]"></a>StabilizerTask</STRONG> (Thumb, 1812 bytes, Stack size 88 bytes, stabilizer.o(.text.StabilizerTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = StabilizerTask &rArr; MyCosApprox &rArr; MySinApprox &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PIDUpdate
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyConstrainF
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MySinApprox
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyCosApprox
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyConstrainF
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorSetDuty
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorUnLock
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetMotorUnLock
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MotorLock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1640,8 +1640,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f405xx.o(RESET)
 </UL>
-<P><STRONG><a name="[9f]"></a>UART_Start_Receive_IT</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, stm32f4xx_hal_uart.o(.text.UART_Start_Receive_IT))
-<BR><BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintInit
+<P><STRONG><a name="[9e]"></a>UART_Start_Receive_IT</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, stm32f4xx_hal_uart.o(.text.UART_Start_Receive_IT))
+<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintInit
 </UL>
 
 <P><STRONG><a name="[f6]"></a>USER_UART_IRQHandler</STRONG> (Thumb, 218 bytes, Stack size 8 bytes, dbgprint.o(.text.USER_UART_IRQHandler))
@@ -1655,7 +1655,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f0]"></a>UpdateSetpoint</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stabilizer.o(.text.UpdateSetpoint))
-<BR><BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
+<BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
 </UL>
 
 <P><STRONG><a name="[5]"></a>UsageFault_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.UsageFault_Handler))
@@ -1665,38 +1665,46 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f405xx.o(RESET)
 </UL>
+<P><STRONG><a name="[a1]"></a>VisualScope_Output</STRONG> (Thumb, 152 bytes, Stack size 40 bytes, dbgprint.o(.text.VisualScope_Output))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = VisualScope_Output &rArr; LORASendData &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORASendData
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
+</UL>
+
 <P><STRONG><a name="[58]"></a>main</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, main.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 480<LI>Call Chain = main &rArr; AttitudeTask &rArr; BMP280Update &rArr; __hardfp_pow &rArr; __kernel_poly &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 488<LI>Call Chain = main &rArr; AttitudeTask &rArr; BMP280Update &rArr; __hardfp_pow &rArr; __kernel_poly &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerTask
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StabilizerInit
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlInit
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlTask
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RemoteCtrlInit
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardWareInit
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FlightModeTask
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FlightModeInit
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintInit
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryInit
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintTask
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DbgPrintInit
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryTask
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BatteryInit
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeInit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
 <P><STRONG><a name="[109]"></a>__ARM_fpclassify</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, fpclassify.o(i.__ARM_fpclassify))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __ARM_fpclassify
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
-<P><STRONG><a name="[8f]"></a>__hardfp_pow</STRONG> (Thumb, 3088 bytes, Stack size 184 bytes, pow.o(i.__hardfp_pow))
+<P><STRONG><a name="[8e]"></a>__hardfp_pow</STRONG> (Thumb, 3088 bytes, Stack size 184 bytes, pow.o(i.__hardfp_pow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = __hardfp_pow &rArr; __kernel_poly &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
@@ -1713,16 +1721,16 @@ Global Symbols
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan2
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_divzero
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
 </UL>
 
-<P><STRONG><a name="[8c]"></a>__hardfp_sqrtf</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, sqrtf.o(i.__hardfp_sqrtf))
+<P><STRONG><a name="[8b]"></a>__hardfp_sqrtf</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, sqrtf.o(i.__hardfp_sqrtf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __hardfp_sqrtf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyAcosApprox
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AttitudeTask
 </UL>
 
 <P><STRONG><a name="[106]"></a>__kernel_poly</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, poly.o(i.__kernel_poly))
@@ -1731,7 +1739,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[100]"></a>__mathlib_dbl_divzero</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_divzero))
@@ -1739,7 +1747,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[fe]"></a>__mathlib_dbl_infnan2</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_infnan2))
@@ -1747,7 +1755,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[104]"></a>__mathlib_dbl_invalid</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_invalid))
@@ -1755,7 +1763,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[101]"></a>__mathlib_dbl_overflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_overflow))
@@ -1763,7 +1771,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[105]"></a>__mathlib_dbl_underflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_underflow))
@@ -1771,7 +1779,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[11b]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
@@ -1781,15 +1789,15 @@ Global Symbols
 <P><STRONG><a name="[11d]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
 <P><STRONG><a name="[ff]"></a>__set_errno</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, errno.o(i.__set_errno))
-<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
 </UL>
 
 <P><STRONG><a name="[103]"></a>fabs</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, fabs.o(i.fabs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = fabs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 
 <P><STRONG><a name="[102]"></a>sqrt</STRONG> (Thumb, 110 bytes, Stack size 32 bytes, sqrt.o(i.sqrt))
@@ -1798,36 +1806,36 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsqrt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 </UL>
 <P>
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[8e]"></a>BMPReadContinul</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, bmp280.o(.text.BMPReadContinul))
+<P><STRONG><a name="[8d]"></a>BMPReadContinul</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, bmp280.o(.text.BMPReadContinul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = BMPReadContinul &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Init
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Update
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMP280Init
 </UL>
 
 <P><STRONG><a name="[d7]"></a>LSMReadContinul</STRONG> (Thumb, 80 bytes, Stack size 24 bytes, lsm303d.o(.text.LSMReadContinul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = LSMReadContinul &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 </UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DUpdate
+<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LSM303DUpdate
 </UL>
 
 <P><STRONG><a name="[d8]"></a>LSMReadContinul</STRONG> (Thumb, 134 bytes, Stack size 48 bytes, nrf24l01.o(.text.LSMReadContinul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = LSMReadContinul &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFReceiveData
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFInit
@@ -1836,7 +1844,7 @@ Local Symbols
 <P><STRONG><a name="[e5]"></a>NRFReadReg</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, nrf24l01.o(.text.NRFReadReg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = NRFReadReg &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFReceiveData
 </UL>
@@ -1844,7 +1852,7 @@ Local Symbols
 <P><STRONG><a name="[e4]"></a>NRFWriteContinul</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, nrf24l01.o(.text.NRFWriteContinul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = NRFWriteContinul &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFInit
 </UL>
@@ -1852,7 +1860,7 @@ Local Symbols
 <P><STRONG><a name="[e3]"></a>NRFWriteReg</STRONG> (Thumb, 80 bytes, Stack size 24 bytes, nrf24l01.o(.text.NRFWriteReg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = NRFWriteReg &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFReceiveData
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRFInit
@@ -1867,7 +1875,7 @@ Local Symbols
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA433Init
+<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LORA433Init
 </UL>
 
 <P><STRONG><a name="[b4]"></a>SPI_EndRxTransaction</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, stm32f4xx_hal_spi.o(.text.SPI_EndRxTransaction))
@@ -1875,7 +1883,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 </UL>
 
 <P><STRONG><a name="[b5]"></a>SPI_EndRxTxTransaction</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, stm32f4xx_hal_spi.o(.text.SPI_EndRxTxTransaction))
@@ -1883,8 +1891,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
 </UL>
 
 <P><STRONG><a name="[f1]"></a>SPI_WaitFlagStateUntilTimeout</STRONG> (Thumb, 196 bytes, Stack size 32 bytes, stm32f4xx_hal_spi.o(.text.SPI_WaitFlagStateUntilTimeout))

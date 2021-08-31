@@ -51,7 +51,7 @@ static BOOLEAN CheckSum(INT8U *Buff)
     }
     Result = (INT8U)SumVal;
     
-    if(Buff[ANOLenth + 2] != Result)
+    if(Buff[Buff[ANOLenth] + 2] != Result)
     {
         return 0;
     }

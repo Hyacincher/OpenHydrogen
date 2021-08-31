@@ -84,7 +84,7 @@ static void NormailAttitude(void)
 	for (INT16U axis = 0; axis < 3; axis++)
 	{
 		g_AttitudeCtrlMsg.NormailGyro[axis] = BiquadLPFFilter(&g_GyroLFPFilter[axis], Gyro[axis]);
-        g_AttitudeCtrlMsg.NormailGyro[axis] *= DEG2RAD;//角速度单位由度转为弧度
+        g_AttitudeCtrlMsg.NormailGyro[axis] = DEGREES_TO_RADIANS(g_AttitudeCtrlMsg.NormailGyro[axis]);
         g_AttitudeCtrlMsg.NormailAcce[axis] = BiquadLPFFilter(&g_AcceLFPFilter[axis], Acce[axis]);
         g_AttitudeCtrlMsg.NormailMag[axis] = g_LSMCtrLMsg.RawMag[axis];
 	}

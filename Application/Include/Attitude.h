@@ -6,8 +6,9 @@
 #include "LSM303D.h"
 #include "BMP280.h"
 
-#define DEG2RAD                 0.017453293f	/* 度转弧度 π/180 */
-#define RAD2DEG		            57.29578f		/* 弧度转度 180/π */
+#define RAD                     (PI / 180.0f)
+#define DEGREES_TO_RADIANS(angle)   ((angle) * RAD)
+#define RADIANS_TO_DEGREES(angle)   ((angle) / RAD)
 
 #define GYRO_SCALE              16.384f  //32768/总量程
 #define GYRO_LPF_CUTOFF_FREQ  	80.0f
@@ -32,17 +33,13 @@
 #define DCM_KP_MAG			    1.000f		//磁力计补偿陀螺仪PI参数
 #define DCM_KI_MAG			    0.000f
 
-#define RAD                     (PI / 180.0f)
-#define DEGREES_TO_RADIANS(angle)   ((angle) * RAD)
-#define RADIANS_TO_DEGREES(angle)   ((angle) / RAD)
-
 #define SPIN_RATE_LIMIT         20			//旋转速率
 
 typedef struct
 {
     FP32 NormailAcce[IMU_AXIS_NUM];    //归一化后的XYZ数据
-    FP32 NormailGyro[IMU_AXIS_NUM];    
-    FP32 NormailMag[IMU_AXIS_NUM];
+    FP32 NormailGyro[IMU_AXIS_NUM];    //归一化的角速度（弧度）
+    FP32 NormailMag[IMU_AXIS_NUM];     //归一化的磁力计值
 
     FP32 Pitch;
     FP32 Roll;

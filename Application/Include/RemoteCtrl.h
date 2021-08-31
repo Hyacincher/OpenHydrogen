@@ -3,6 +3,7 @@
 
 #include "includes.h"
 #include "NRF24L01.h"
+#include "PID.h"
 
 #define ROCKER_VAL_BASE     1000
 #define ROCKER_VAL_DIFF     1000
@@ -12,7 +13,7 @@
 #define MAX_YAW_RATE        400.0f      //+-200deg/s
 
 #define BASE_THROTTLE       2800
-#define MAX_THROTTLE_DIFF   800
+#define MAX_THROTTLE_DIFF   400
 
 #define MAX_DISCONNECT_TIME 500
 

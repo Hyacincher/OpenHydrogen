@@ -42,6 +42,7 @@ static void ReceiveToRocker(void)
     INT16U ReceiveData;
     INT8U Sum;
     INT8U Key;
+    INT16U ii;
     
     if(g_NRFCtrlMsg.State.RxFlag)
     {
@@ -93,6 +94,10 @@ static void ReceiveToRocker(void)
         if(Key & (1 << RC_KEY_UNLOCK_SHIFT))
         {
             SetOriginYaw();
+            for(ii = 0 ; ii < PID_NUM ; ii++)
+            {
+                PIDReset(&g_PIDCtrlMsg[ii]);
+            }
             MotorUnLock();
         }        
         
@@ -128,7 +133,7 @@ static void RockerToAltitude(void)
     
     Roll *= MAX_ROLL_DEGREE;
     Pitch *= MAX_PITCH_DEGREE;
-    Yaw *= MAX_YAW_RATE;
+    Yaw *= -MAX_YAW_RATE;
     Throttle = (Throttle * MAX_THROTTLE_DIFF) + BASE_THROTTLE;
     
     UpdateSetpoint(Roll, Pitch, Yaw, Throttle);

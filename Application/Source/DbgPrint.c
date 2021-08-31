@@ -20,12 +20,16 @@ void DbgPrintTask(void)
     
     if(g_SysTickTime - s_SystemTime >= 2)
     {
-//        VisualScope_Output(g_AttitudeCtrlMsg.Roll * 10, g_AttitudeCtrlMsg.Pitch * 10 , \
-//                            g_AttitudeCtrlMsg.Yaw * 10 , g_StabiliCtrlMsg.SetPitch * 10);
-        ANOSendStatus(g_AttitudeCtrlMsg.Roll, g_AttitudeCtrlMsg.Pitch, g_AttitudeCtrlMsg.Yaw, \
-                  g_BMPCtrlMsg.Altitude, g_FlightModeCtrlMsg.FlightMode, GetMotorUnLock());
-        //发送阻塞时间太长了
-        
+        if(GetMotorUnLock())
+        {
+//            VisualScope_Output(g_AttitudeCtrlMsg.Roll, g_StabiliCtrlMsg.SetRoll, \
+//                                g_StabiliCtrlMsg.AngleOutRoll, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_X]));
+            VisualScope_Output(g_AttitudeCtrlMsg.Yaw, g_StabiliCtrlMsg.HoverYaw, \
+                                g_StabiliCtrlMsg.AngleOutYaw, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Z]));
+//            ANOSendStatus(g_AttitudeCtrlMsg.Roll, g_AttitudeCtrlMsg.Pitch, g_AttitudeCtrlMsg.Yaw, \
+//                      g_BMPCtrlMsg.Altitude, g_FlightModeCtrlMsg.FlightMode, GetMotorUnLock());
+            //发送阻塞时间太长了            
+        }
         s_SystemTime = g_SysTickTime;
     }
     
