@@ -39,10 +39,13 @@ typedef double         FP64; 			 /*  Double precision floating  point*/
 #define RATE_1000_HZ 	1000
 
 /*
-2021.08.9--V0.01
+2021.08.29--V0.01
 1、修复串级PID的bug，角速度环单位不统一，err失效，内环失效，重调PID
 
-
+2021.08.31--V0.02
+1、调整手动模式油门
+2、重调PID完成
+3、完成无头模式
 */
 #endif 
 

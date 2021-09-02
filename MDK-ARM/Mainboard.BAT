@@ -13,7 +13,6 @@ SET CPU_CLOCK=0x0A037A00
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\dbgprint.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\remotectrl.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\flightmode.__i"
-"D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\fft.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\mymath.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\filter.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\pid.__i"

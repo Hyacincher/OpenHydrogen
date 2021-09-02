@@ -24,7 +24,7 @@ void FlightModeTask(void)
         }
         else
         {
-            g_FlightModeCtrlMsg.FlightMode = HeadDirection;
+            g_FlightModeCtrlMsg.FlightMode = HeadLess;
         }
     }
 }

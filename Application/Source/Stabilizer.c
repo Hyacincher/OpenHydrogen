@@ -104,7 +104,7 @@ static void HeadLessCtrl(void)
     FP32 Error;
     
     //求取横滚、俯仰向量分量
-    FP32 RadDiff = (g_AttitudeCtrlMsg.Yaw - g_StabiliCtrlMsg.TakeOffYaw) * PI / 180.0f;
+    FP32 RadDiff = -(g_AttitudeCtrlMsg.Yaw - g_StabiliCtrlMsg.TakeOffYaw) * PI / 180.0f;    //取负号是因为我的电机反着装的
     FP32 CosDiff = MyCosApprox(RadDiff);
     FP32 SinDiff = MySinApprox(RadDiff);
     FP32 SetPitch = (g_StabiliCtrlMsg.SetPitch * CosDiff) + (g_StabiliCtrlMsg.SetRoll * SinDiff);
