@@ -1,9 +1,12 @@
 clone branch
 
--MainBoard          （飞行姿态控制，飞行数据上下发）
--TopBoard           （GPS定位，触控启动，呼吸指示灯）
--RemoteControl      （飞行状态控制，地面站）
+-HyFlightctrl       （飞行姿态控制，飞行数据上下发）
+-HyTelectrl         （飞行状态控制，地面站）
+-HyLocation         （GPS定位，呼吸指示灯）
+-HyLightctrl        （机载指示呼吸灯实现）
 
--ImageBoard         （sensor驱动，无线发送，云台控制）（后续实现）
+-HyPaddleDisp       （桨旋转显示）
+-HyVideoCap         （摄像头驱动，无线发送）（后续实现）
+-HyPantilt          （云台FOC驱动）
 
-本项目所有资料仅供学习与交流，未经作者许可，不得用于其它任何用途
+开源项目方案遵循GPL3.0协议，使用者请遵循协议内容
