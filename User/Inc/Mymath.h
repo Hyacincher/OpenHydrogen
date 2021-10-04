@@ -22,6 +22,7 @@
 
 void Convolution(FP32* input1, FP32* input2, FP32* output, INT16U mm, INT16U nn);
 FP32 MyFP32Abs(FP32 x);
+INT32S MyINT32SAbs(INT32S X);
 FP32 MyFP32Max(FP32 x, FP32 y);
 FP32 MyFP32Min(FP32 x, FP32 y);
 FP32 MyConstrainF(FP32 Value, FP32 Min, FP32 Max);
@@ -44,6 +45,9 @@ FP32 MyCosApprox(FP32 x);
 FP32 MyAtan2Approx(FP32 y, FP32 x);
 FP32 MyAcosApprox(FP32 x);
 
-
 INT16U INT8UToINT16U(INT8U Byte[2]);
+
+INT32S QuickMedian3_INT32S(INT32S * v);
+
+INT32S ApplyDeadBand(INT32S Value, INT32S DeadBand);
 #endif

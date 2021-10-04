@@ -33,6 +33,7 @@
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_iwdg.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h \
@@ -40,4 +41,4 @@
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
-  ..\Driver\LSM303D.h ..\Driver\BMP280.h
+  ..\Application\Include\SensorAlign.h ..\Driver\LSM303D.h

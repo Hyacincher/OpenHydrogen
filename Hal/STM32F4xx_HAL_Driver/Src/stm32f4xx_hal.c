@@ -127,7 +127,7 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
              at the beginning of the program after reset by HAL_Init() or at any time 
              when clock is configured, by HAL_RCC_ClockConfig(). 
         (++) Source of time base is configured  to generate interrupts at regular 
-             time intervals. Care must be taken if HAL_Delay() is called from a 
+             time intervals. Care must be taken if Hal_DelayMs() is called from a 
              peripheral ISR process, the Tick interrupt line must have higher priority 
             (numerically lower) than the peripheral interrupt. Otherwise the caller 
             ISR process will be blocked. 
@@ -149,7 +149,7 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
   *           Calls the HAL_MspInit() callback function defined in user file 
   *           "stm32f4xx_hal_msp.c" to do the global low level hardware initialization 
   *            
-  * @note   SysTick is used as time base for the HAL_Delay() function, the application
+  * @note   SysTick is used as time base for the Hal_DelayMs() function, the application
   *         need to ensure that the SysTick time base is always set to 1 millisecond
   *         to have correct HAL operation.
   * @retval HAL status
@@ -242,7 +242,7 @@ __weak void HAL_MspDeInit(void)
   *       reset by HAL_Init() or at any time when clock is reconfigured  by HAL_RCC_ClockConfig().
   * @note In the default implementation, SysTick timer is the source of time base. 
   *       It is used to generate interrupts at regular time intervals. 
-  *       Care must be taken if HAL_Delay() is called from a peripheral ISR process, 
+  *       Care must be taken if Hal_DelayMs() is called from a peripheral ISR process, 
   *       The SysTick interrupt must have higher priority (numerically lower)
   *       than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
   *       The function is declared as __weak  to be overwritten  in case of other
@@ -386,7 +386,7 @@ HAL_TickFreqTypeDef HAL_GetTickFreq(void)
   * @param Delay specifies the delay time length, in milliseconds.
   * @retval None
   */
-__weak void HAL_Delay(uint32_t Delay)
+__weak void Hal_DelayMs(uint32_t Delay)
 {
   uint32_t tickstart = HAL_GetTick();
   uint32_t wait = Delay;

@@ -1,6 +1,9 @@
 #include "bmp280.h"
 
 BMPInfo_t  g_BMPCtrlMsg;
+static FP32 s_BaroGndPressure = 101325.0;
+static FP32 s_BaroGndAltitude = 0;
+static INT32U s_BaroCaliTimeout = 0;
 
 /*配置bmp280气压和温度过采样 工作模式*/
 #define BMP280_PRESSURE_OSR         (BMP280_OVERSAMP_16X)
@@ -12,15 +15,15 @@ BMPInfo_t  g_BMPCtrlMsg;
 
 #define BMP280_DATA_FRAME_SIZE      (6)
 
-//#define CONST_PF 0.1902630958	//(1/5.25588f) Pressure factor
-//#define FIX_TEMP 25				// Fixed Temperature. ASL is a function of pressure and temperature, but as the temperature changes so much (blow a little towards the flie and watch it drop 5 degrees) it corrupts the ASL estimates.
-//								// TLDR: Adjusting for temp changes does more harm than good.
-                              
-
+#define CONST_PF 0.1902630958	//(1/5.25588f) Pressure factor
+#define FIX_TEMP 28				// Fixed Temperature. ASL is a function of pressure and temperature, but as the temperature changes so much (blow a little towards the flie and watch it drop 5 degrees) it corrupts the ASL estimates.
+								// TLDR: Adjusting for temp changes does more harm than good.
 
 static void BMPGetData(void);
 static INT32U BMPCompensateT(INT32S adcT);
 static INT32U BMPCompensateP(INT32S adcP);
+static FP32 PressureToAltitude(FP32 Pressure);
+static void BaroCalibration(FP32 Pressure);
 
 static void BMPWriteReg(INT8U Reg, INT8U Data)
 {
@@ -65,8 +68,6 @@ void BMP280Init(void)
 {
     INT8U ID = 0x00;
     
-    //SwitchSPITiming(SPI2, 1, 1);
-    
     BMP_ENABLE();       //enable bmp280 spi
     BMP_DelayMS(10);
     BMP_DISABLE();
@@ -81,7 +82,6 @@ void BMP280Init(void)
 	}
     else
 	{
-//		printf("BMP280 I2C connection [FAIL].\n");
 	}
 }
 
@@ -89,8 +89,6 @@ static void BMPGetData(void)
 {
     INT8U data[BMP280_DATA_FRAME_SIZE];
 
-    //SwitchSPITiming(SPI2, 1, 1);
-    
     BMPReadContinul(BMP280_PRESSURE_MSB_REG, data, BMP280_DATA_FRAME_SIZE);
     g_BMPCtrlMsg.RawPressure = (INT32S)((((INT32U)(data[0])) << 12) | (((INT32U)(data[1])) << 4) | ((INT32U)data[2] >> 4));
     g_BMPCtrlMsg.RawTemperature = (INT32S)((((INT32U)(data[3])) << 12) | (((INT32U)(data[4])) << 4) | ((INT32U)data[5] >> 4));
@@ -131,22 +129,111 @@ static INT32U BMPCompensateP(INT32S adcP)
     return (INT32U)p;
 }
 
-void BMP280Update(void)
+//单位Pa
+static FP32 PressureToAltitude(FP32 Pressure)
 {
-	BMPGetData();
-	
-	g_BMPCtrlMsg.Temperature = BMPCompensateT(g_BMPCtrlMsg.RawTemperature)/100.0f;	/*单位度*/	
-	g_BMPCtrlMsg.Pressure = BMPCompensateP(g_BMPCtrlMsg.RawPressure)/256.0f;		/*单位Pa*/
-    g_BMPCtrlMsg.Pressure /= 1000;       //转换到Kpa
+    FP32 Altitude;
     
-    if(g_BMPCtrlMsg.Pressure > 0)
-    {//Converts pressure to altitude above sea level (ASL) in meters
-        g_BMPCtrlMsg.Altitude = 44330.77*(1-pow(g_BMPCtrlMsg.Pressure / 101.325, (1/5.256)));
-        //g_BMPCtrlMsg.Altitude = ((pow((1015.7f / g_BMPCtrlMsg.Pressure), CONST_PF) - 1.0f) * (FIX_TEMP + 273.15f)) / 0.0065f;
+    if(Pressure > 0)
+    {
+        //Converts pressure to altitude above sea level (ASL) in meters
+        //Altitude = 44330.77*(1-pow(Pressure / 101325, (1/5.256)));
+        
+        //温度补偿算法
+        Altitude = ((pow((1015.7f / Pressure), CONST_PF) - 1.0f) * (FIX_TEMP + 273.15f)) / 0.0065f;
     }
     else
     {
+        Altitude = 0;
+    }
+    
+    return Altitude;
+}
+
+//气压计1个标准大气压校准
+static void BaroCalibration(FP32 Pressure)
+{
+	//慢慢收敛校准
+    const FP32 PressureError = Pressure - s_BaroGndPressure;
+    s_BaroGndPressure += PressureError * 0.15f;
+
+    if (MyFP32Abs(PressureError) < (s_BaroGndPressure * 0.00005f))  // 0.005% calibration error (should give c. 10cm calibration error)
+	{
+        if ((g_SysTickTime - s_BaroCaliTimeout) > 250) 
+		{
+            s_BaroGndAltitude = PressureToAltitude(s_BaroGndPressure);
+            g_BMPCtrlMsg.Status.IsStable = 1;
+        }
+    }
+    else 
+	{
+        s_BaroCaliTimeout = g_SysTickTime;
+    }
+}
+
+static INT32S BaroMedianFilter(INT32S NewPressure)
+{
+    static INT32S FilterBuff[MEDIAN_FILTER_LEN];
+    static INT32U FilterIndex = 0;
+    static BOOLEAN FilterIsReady = 0;
+    
+    INT32S NextIndex = FilterIndex + 1;
+    if (NextIndex == MEDIAN_FILTER_LEN) 
+	{
+        NextIndex = 0;
+        FilterIsReady = 1;
+    }
+    
+    INT32S LastIndex = FilterIndex - 1;
+    if (LastIndex < 0) 
+	{
+        LastIndex = MEDIAN_FILTER_LEN - 1;
+    }
+    
+    const INT32S LastPressure = FilterBuff[LastIndex];
+
+    if (FilterIsReady) 
+	{
+        if (MyINT32SAbs(LastPressure - NewPressure) < MAX_DELTA_ERROR)
+		{
+            FilterBuff[FilterIndex] = NewPressure;
+            FilterIndex = NextIndex;
+            return QuickMedian3_INT32S(FilterBuff);
+        } 
+		else
+		{
+            // glitch threshold exceeded, so just return previous reading and don't add the glitched reading to the filter array
+            return FilterBuff[LastIndex];
+        }
+    } 
+	else 
+	{
+        FilterBuff[FilterIndex] = NewPressure;
+        FilterIndex = NextIndex;
+        return NewPressure;
+    }
+}
+
+void BMP280Update(void)
+{
+    FP64 Pressure;
+    
+	BMPGetData();
+	
+	g_BMPCtrlMsg.Temperature = BMPCompensateT(g_BMPCtrlMsg.RawTemperature)/100.0f;	/*单位度*/
+	Pressure = (FP32)BMPCompensateP(g_BMPCtrlMsg.RawPressure);
+    Pressure /= 256.0f;		    /*单位Pa*/
+    
+    g_BMPCtrlMsg.Pressure = BaroMedianFilter(Pressure * 10) / 10.0f;    //整形计算，保留小数
+
+    if(!g_BMPCtrlMsg.Status.IsStable)
+    {
+        BaroCalibration(g_BMPCtrlMsg.Pressure);
         g_BMPCtrlMsg.Altitude = 0;
+    }
+    else
+    {
+        g_BMPCtrlMsg.Altitude = PressureToAltitude(g_BMPCtrlMsg.Pressure) - s_BaroGndAltitude;
     }
 }
 

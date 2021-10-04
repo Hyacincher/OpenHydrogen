@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>6</Optim>
+            <Optim>0</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -439,6 +439,21 @@
               <FileType>1</FileType>
               <FilePath>..\Application\Source\FlightMode.c</FilePath>
             </File>
+            <File>
+              <FileName>SysStatus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\SysStatus.c</FilePath>
+            </File>
+            <File>
+              <FileName>Height.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\Height.c</FilePath>
+            </File>
+            <File>
+              <FileName>Predictor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\Predictor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -458,6 +473,11 @@
               <FileName>PID.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Application\Source\PID.c</FilePath>
+            </File>
+            <File>
+              <FileName>SensorAlign.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Source\SensorAlign.c</FilePath>
             </File>
           </Files>
         </Group>

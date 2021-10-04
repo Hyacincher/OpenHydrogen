@@ -7,7 +7,7 @@
 /*portable*/
 #define BMP_ENABLE()    GPIOC->ODR &= ~(1<<8)
 #define BMP_DISABLE()   GPIOC->ODR |= (1<<8)
-#define BMP_DelayMS(x)   HAL_Delay(x)
+#define BMP_DelayMS(x)   Hal_DelayMs(x)
 /*--------*/
 
 #define BMP280_WRITE        0x00
@@ -46,6 +46,10 @@
 #define BMP280_FORCED_MODE             	(0x01)
 #define BMP280_NORMAL_MODE				(0x03)
 
+
+#define MEDIAN_FILTER_LEN       3
+#define MAX_DELTA_ERROR         1000
+
 typedef struct
 {
     INT16U dig_T1;	/* calibration T1 data */
@@ -66,10 +70,15 @@ typedef struct
 typedef struct 
 {
     BMPCaliInfo_t BmpCali;
-
+    
+    struct
+    {
+        INT8U IsStable : 1;
+        INT8U Reserve : 7;
+    }Status;
+    
     INT32S RawPressure;     //读出的芯片原始数据
     INT32S RawTemperature;
-    
     
     FP32 Pressure;
     FP32 Temperature;

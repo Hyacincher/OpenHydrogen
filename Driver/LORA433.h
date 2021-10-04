@@ -7,7 +7,7 @@
 #define LORA_MD0_LOW()      GPIOA->ODR &= ~(1<<3)
 #define LORA_AUX_HIGH()     GPIOC->ODR |= (1<<4)
 #define LORA_AUX_LOW()      GPIOC->ODR &= ~(1<<4)
-#define LORA_DelayMS(x)      HAL_Delay(x)
+#define LORA_DelayMS(x)      Hal_DelayMs(x)
 
 
 

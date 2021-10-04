@@ -5,8 +5,10 @@
 #include "PID.h"
 #include "cpu.h"
 #include "Attitude.h"
+#include "Height.h"
 #include "Motor.h"
 #include "FlightMode.h"
+
 
 /*--------------------外环-------------------------*/
 
@@ -23,11 +25,11 @@
 /*角速度PID积分限幅（单位：deg/s）*/
 #define PID_RATE_ROLL_INTEGRATION_LIMIT		150.0   //150
 #define PID_RATE_PITCH_INTEGRATION_LIMIT	150.0   //150
-#define PID_RATE_YAW_INTEGRATION_LIMIT		150.0   //150
+#define PID_RATE_YAW_INTEGRATION_LIMIT		100.0   //150
 
 /*角速度PID输出限幅（单位：油门值）*/
-#define PID_RATE_ROLL_OUTPUT_LIMIT			500.0   //500
-#define PID_RATE_PITCH_OUTPUT_LIMIT			500.0   //500
+#define PID_RATE_ROLL_OUTPUT_LIMIT			400.0   //500
+#define PID_RATE_PITCH_OUTPUT_LIMIT			400.0   //500
 #define PID_RATE_YAW_OUTPUT_LIMIT			300.0   //300
 
 /*------------------通用参数-------------------------*/
@@ -47,7 +49,13 @@
 #define ANGLE_PID_RATE			ATTITUDE_ESTIMAT_RATE 	//角度环PID速率（和姿态解算速率一致）
 #define ANGLE_PID_DT			(1.0/ANGLE_PID_RATE)
 
-#define LANDING_THROTTLE        3000
+#define MIN_THROTTLE_VALUE      0.10                    //默认在地面起飞时才会出现的最小油门量
+#define MANUAL_THROTTLE_BASE    2800
+#define MANUAL_THROTTLE_DIFF    800
+#define MANUAL_THROTTLE_LANDING 2800
+
+#define MAX_RISE_VELOCITY       150.0f      //cm/s
+#define MAX_FALL_VELOCITY       110.0f      //cm/s
 
 typedef struct	
 {
@@ -60,25 +68,33 @@ typedef struct
     struct
     {
         INT8U UpdateOriginYaw : 1;
-        INT8U Reserve : 7;
+        INT8U FixedHeightIsInit : 1;
+        INT8U UpdateFixedHeight : 1;
+        INT8U Reserve : 6;
     }Status;
     
     FP32 SetRoll;
     FP32 SetPitch;
     FP32 SetYaw;
+    FP32 SetThrottleRate;
     
     FP32 AngleOutRoll;
     FP32 AngleOutPitch;
     FP32 AngleOutYaw;
+    FP32 HeightZOut;
     
     FP32 RateOutRoll;
     FP32 RateOutPitch;
     FP32 RateOutYaw;
+    FP32 VelocityZOut;
     
-    FP32 ThrustOut;
+    FP32 ThrottleOut;
     
     FP32 TakeOffYaw;       //起飞的朝向
     FP32 HoverYaw;         //当前机头朝向
+    
+    FP32 TakeOffHeight;
+    
 }StabilizerInfo;
 
 static ConfigPara_t ControlParaDefault=
@@ -87,14 +103,14 @@ static ConfigPara_t ControlParaDefault=
 
 	.pid = 
 	{
-		[RATE_ROLL]   = {2600, 2300, 0},   //单环1600 1400 345    //2000  0   10
-		[RATE_PITCH]  = {2600, 2300, 0},   //单环1600 1300 345    //2000  0   10
-		[RATE_YAW]    = {2100, 1900, 100},   //单环1600 800 340   //2000  0   10
+		[RATE_ROLL]   = {1800, 2200, 10},   //1800  2200   10      //目前因为积分饱和的原因，手感略微有点棉，打杆之后过段时间才完全跟随杆
+		[RATE_PITCH]  = {1900, 2200, 10},   //1800  2200   10
+		[RATE_YAW]    = {3500, 1800, 10},   //3500  1800   10
 		[ANGLE_ROLL]  = {6000, 0, 0},
 		[ANGLE_PITCH] = {6000, 0, 0},
 		[ANGLE_YAW]   = {6000, 0, 0},
 		[VELOCITY_Z]  = {0, 0, 0},
-		[POSHOLD_Z]   = {0, 0, 0},
+		[HEIGHT_Z]   = {0, 0, 0},
 		[VELOCITY_XY] = {0, 0, 0},
 		[POSHOLD_XY]  = {0, 0, 0},
         /*内环积分问题
@@ -121,15 +137,16 @@ static ConfigPara_t ControlParaDefault=
         横滚俯仰：
         1、P的调整思想为角速度能大概跟随目标速度全过程，且目标快速变化时，不会存在太大过冲。能够达到
         快速跟随即可
-        2、I的思想为能够及时修正角度偏差且回中后积分消除过程不存在太大过程
+        2、I的思想为能够及时修正角度偏差且回中后积分消除过程不存在太大过冲（考虑用上放积分饱和策略）
         3、D的思想为极限打杆（如垂直起飞），回中立即停止运动，不会存在大幅度过冲。需配合油门限制使用
         
         航向：
         1、P会增大减小回中的油门量，以适量过冲的P为宜
         2、无论什么P，都无法解决打杆的偏差，也就是目标角速度始终不能等于实际角速度，但是P可以合理控制回中的力道
-        3、回中之后会存在一个固有误差，利用I消除，跟俯仰横滚一样，以最快速消除而不过分过冲为宜。同时I可以消除打
-            杆的偏差
-        4、D需要适量添加让回中曲线完美贴合目标值
+        3、D需要适量添加让回中曲线完美贴合目标值
+        4、暂不适用I
+        
+        
         */
 	}
 };
@@ -138,6 +155,7 @@ void StabilizerInit(void);
 void StabilizerTask(void);
 void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle);
 void SetOriginYaw(void);
+BOOLEAN TakeoffCheck(void);
 
 extern StabilizerInfo  g_StabiliCtrlMsg;
 

@@ -76,7 +76,7 @@
      [..]
        Below the list of most used macros in IWDG HAL driver:
       (+) __HAL_IWDG_START: Enable the IWDG peripheral
-      (+) __HAL_IWDG_RELOAD_COUNTER: Reloads IWDG counter with value defined in
+      (+) __HAL_IWDG_FEED_COUNTER: Reloads IWDG counter with value defined in
           the reload register
 
   @endverbatim
@@ -172,7 +172,7 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
   /* Check the parameters */
   assert_param(IS_IWDG_ALL_INSTANCE(hiwdg->Instance));
   assert_param(IS_IWDG_PRESCALER(hiwdg->Init.Prescaler));
-  assert_param(IS_IWDG_RELOAD(hiwdg->Init.Reload));
+  assert_param(IS_IWDG_FEED(hiwdg->Init.Reload));
 
   /* Enable IWDG. LSI is turned on automatically */
   __HAL_IWDG_START(hiwdg);
@@ -201,7 +201,7 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
   }
 
   /* Reload IWDG counter with value defined in the reload register */
-  __HAL_IWDG_RELOAD_COUNTER(hiwdg);
+  __HAL_IWDG_FEED_COUNTER(hiwdg);
 
   /* Return function status */
   return HAL_OK;
@@ -236,7 +236,7 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
 HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg)
 {
   /* Reload IWDG counter with value defined in the reload register */
-  __HAL_IWDG_RELOAD_COUNTER(hiwdg);
+  __HAL_IWDG_FEED_COUNTER(hiwdg);
 
   /* Return function status */
   return HAL_OK;

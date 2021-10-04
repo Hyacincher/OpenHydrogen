@@ -110,7 +110,7 @@ typedef struct
   * @param  __HANDLE__  IWDG handle
   * @retval None
   */
-#define __HAL_IWDG_RELOAD_COUNTER(__HANDLE__)       WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_RELOAD)
+#define __HAL_IWDG_FEED_COUNTER(__HANDLE__)       WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_RELOAD)
 
 /**
   * @}
@@ -197,7 +197,7 @@ HAL_StatusTypeDef     HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
   * @param  __RELOAD__  IWDG reload value
   * @retval None
   */
-#define IS_IWDG_RELOAD(__RELOAD__)            ((__RELOAD__) <= IWDG_RLR_RL)
+#define IS_IWDG_FEED(__RELOAD__)            ((__RELOAD__) <= IWDG_RLR_RL)
 
 
 

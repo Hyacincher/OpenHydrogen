@@ -6,6 +6,7 @@
 #include "Stabilizer.h"
 #include "LSM303D.h"
 #include "BMP280.h"
+#include "Predictor.h"
 
 #include "ANOHost.h"
 

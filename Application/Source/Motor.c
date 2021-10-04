@@ -34,7 +34,7 @@ void MotorUnLock(void)
         MotorOpen(3);
         MotorOpen(4);
         
-        HAL_Delay(1500);
+        Hal_DelayMs(1500);
         
         s_MotorUnlock = 1;
     }

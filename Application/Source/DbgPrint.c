@@ -20,15 +20,23 @@ void DbgPrintTask(void)
     
     if(g_SysTickTime - s_SystemTime >= 2)
     {
-        if(GetMotorUnLock())
+        //if(GetMotorUnLock())
         {
-            VisualScope_Output(g_AttitudeCtrlMsg.Roll, g_StabiliCtrlMsg.SetRoll, \
-                                //g_StabiliCtrlMsg.AngleOutRoll, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_X]));
-                                g_PIDCtrlMsg[RATE_ROLL].integ, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_X]));
+//            VisualScope_Output(g_AttitudeCtrlMsg.Roll, g_StabiliCtrlMsg.SetRoll, \
+//                                //g_StabiliCtrlMsg.AngleOutRoll, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisX]));
+//                                g_PIDCtrlMsg[RATE_ROLL].integ, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisX]));
+            
+//            VisualScope_Output(g_AttitudeCtrlMsg.Pitch, g_StabiliCtrlMsg.SetPitch, \
+//                    //g_StabiliCtrlMsg.AngleOutRoll, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisX]));
+//                    g_PIDCtrlMsg[RATE_PITCH].integ, g_StabiliCtrlMsg.RateOutPitch);
+            
 //            VisualScope_Output(g_AttitudeCtrlMsg.Yaw, g_StabiliCtrlMsg.HoverYaw, \
-//                                g_StabiliCtrlMsg.AngleOutYaw, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMU_AXIS_Z]));
+//                                g_StabiliCtrlMsg.AngleOutYaw, RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisZ]));
 //            ANOSendStatus(g_AttitudeCtrlMsg.Roll, g_AttitudeCtrlMsg.Pitch, g_AttitudeCtrlMsg.Yaw, \
 //                      g_BMPCtrlMsg.Altitude, g_FlightModeCtrlMsg.FlightMode, GetMotorUnLock());
+            VisualScope_Output(g_PredictorCtrlMsg.RawData.Height * 100, g_PredictorCtrlMsg.EstimateData.Position[IMUAxisZ] * 100, 
+                                0, 0);
+            
             //发送阻塞时间太长了            
         }
         s_SystemTime = g_SysTickTime;

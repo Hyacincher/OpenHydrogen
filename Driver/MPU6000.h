@@ -2,11 +2,13 @@
 #define MPU6000_H
 
 #include "cpu.h"
+#include "SensorAlign.h"
 
 #define MPU_ENABLE()    GPIOB->ODR &= ~1
 #define MPU_DISABLE()   GPIOB->ODR |= 1
-#define MPU_DelayMS(x)   HAL_Delay(x)
+#define MPU_DelayMS(x)   Hal_DelayMs(x)
 
+#define MPU_INSTALL_ROTATE  CW90_POSITIVE
 
 /*--------MPUxxxx Register--------*/
 #define MPU9250_WRITE   0x00

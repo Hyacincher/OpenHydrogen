@@ -28,6 +28,7 @@
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_iwdg.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h \
@@ -41,12 +42,15 @@
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Inc\Mymath.h \
   ..\User\Inc\Filter.h ..\Driver\LORA433.h ..\User\Inc\cpu.h \
   ..\Application\Include\Attitude.h ..\User\Inc\includes.h \
-  ..\Driver\MPU6000.h ..\Driver\LSM303D.h ..\Driver\BMP280.h \
+  ..\Driver\MPU6000.h ..\Application\Include\SensorAlign.h \
+  ..\Driver\LSM303D.h ..\Application\Include\Height.h ..\Driver\BMP280.h \
   ..\Application\Include\Stabilizer.h ..\Application\Include\PID.h \
   ..\User\Inc\Mymath.h ..\Application\Include\Attitude.h \
-  ..\Application\Include\Motor.h ..\Application\Include\FlightMode.h \
-  ..\Application\Include\Battery.h ..\Application\Include\Battery.h \
-  ..\Application\Include\RemoteCtrl.h ..\Driver\NRF24L01.h \
-  ..\Application\Include\DbgPrint.h ..\Application\Include\Stabilizer.h \
+  ..\Application\Include\Height.h ..\Application\Include\Motor.h \
+  ..\Application\Include\FlightMode.h ..\Application\Include\Battery.h \
+  ..\Application\Include\Battery.h ..\Application\Include\RemoteCtrl.h \
+  ..\Driver\NRF24L01.h ..\Application\Include\DbgPrint.h \
+  ..\Application\Include\Stabilizer.h ..\Application\Include\Predictor.h \
   ..\Driver\ANOHost.h ..\Driver\LORA433.h ..\Application\Include\PID.h \
-  ..\Application\Include\Motor.h ..\Application\Include\FlightMode.h
+  ..\Application\Include\Motor.h ..\Application\Include\FlightMode.h \
+  ..\Application\Include\SysStatus.h ..\Application\Include\Predictor.h

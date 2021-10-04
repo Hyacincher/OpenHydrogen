@@ -15,8 +15,8 @@ enum PIDIndex
 	ANGLE_ROLL,
 	ANGLE_PITCH,
 	ANGLE_YAW,
-	VELOCITY_Z,
-	POSHOLD_Z,
+	VELOCITY_Z,     //Z轴速度环
+	HEIGHT_Z,      //Z轴高度环
 	VELOCITY_XY,
 	POSHOLD_XY,	
 	PID_NUM    

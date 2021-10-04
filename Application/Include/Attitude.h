@@ -4,7 +4,7 @@
 #include "includes.h"
 #include "MPU6000.h"
 #include "LSM303D.h"
-#include "BMP280.h"
+
 
 #define RAD                     (PI / 180.0f)
 #define DEGREES_TO_RADIANS(angle)   ((angle) * RAD)
@@ -15,11 +15,6 @@
 
 #define ACCE_SCALE              4096.0f  //重力加速度分度
 #define ACCE_LPF_CUTOFF_FREQ 	15.0f
-
-#define IMU_AXIS_NUM            3
-#define IMU_AXIS_X              0
-#define IMU_AXIS_Y              1
-#define IMU_AXIS_Z              2
 
 #define GYRO_UPDATE_RATE        RATE_500_HZ
 #define ACCE_UPDATE_RATE        RATE_500_HZ
@@ -35,19 +30,35 @@
 
 #define SPIN_RATE_LIMIT         20			//旋转速率
 
+#define MAX_TAKEOFF_ANGLE       20.0f
+
+#define IMU_SMALL_ANGLE         15.0f
+
 typedef struct
 {
-    FP32 NormailAcce[IMU_AXIS_NUM];    //归一化后的XYZ数据
-    FP32 NormailGyro[IMU_AXIS_NUM];    //归一化的角速度（弧度）
-    FP32 NormailMag[IMU_AXIS_NUM];     //归一化的磁力计值
+    struct
+    {
+        INT8U SmallAngle : 1;
+        INT8U Reserve : 7;
+    }Status;
+    
+    FP32 NormailAcce[IMUAxisAll];    //归一化后的XYZ数据
+    FP32 NormailGyro[IMUAxisAll];    //归一化的角速度（弧度）
+    FP32 NormailMag[IMUAxisAll];     //归一化的磁力计值
 
     FP32 Pitch;
     FP32 Roll;
     FP32 Yaw;
+    
+    FP32 Altitude;
+    
+    FP32 NEUAcce[IMUAxisAll];       //世界坐标系加速度
 }AttitudeInfo;
 
 void AttitudeInit(void);
 void AttitudeTask(void);
+void TransBodyVectorToNEU(FP32 Acce[IMUAxisAll]);
+void TransNEUVectorToBody(FP32 Acce[IMUAxisAll]);
 
 extern AttitudeInfo g_AttitudeCtrlMsg;
 

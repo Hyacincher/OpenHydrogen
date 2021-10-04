@@ -12,7 +12,7 @@
 #define NRF_MODE_HIGH()     GPIOC->ODR |= (1<<5)
 #define NRF_MODE_LOW()      GPIOC->ODR &= ~(1<<5)
 
-#define NRF_DelayMS(x)      HAL_Delay(x)
+#define NRF_DelayMS(x)      Hal_DelayMs(x)
 
 #define TX_PLOAD_WIDTH 32
 #define RX_PLOAD_WIDTH 32

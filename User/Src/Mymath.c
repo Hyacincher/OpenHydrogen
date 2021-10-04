@@ -18,6 +18,11 @@ INT16U MyINT16UAbs(INT16U x, INT16U y)
     return x > y ? (x - y) : (y - x);
 }
 
+INT32S MyINT32SAbs(INT32S X)
+{
+    return X > 0 ? X : -X;
+}
+
 FP64 Myatan2(FP64 Y, FP64 X)
 {
     FP64 Result;
@@ -333,3 +338,36 @@ INT16U INT8UToINT16U(INT8U Byte[2])
     
     return Data;
 }
+
+// Quick median filter implementation
+// (c) N. Devillard - 1998
+// http://ndevilla.free.fr/median/median.pdf
+#define QMF_SORT(type,a,b) { if ((a)>(b)) QMF_SWAP(type, (a),(b)); }
+#define QMF_SWAP(type,a,b) { type temp=(a);(a)=(b);(b)=temp; }
+
+INT32S QuickMedian3_INT32S(INT32S * v)
+{
+    INT32S p[3];
+    memcpy(p, v, sizeof(p));
+
+    QMF_SORT(INT32S, p[0], p[1]); QMF_SORT(INT32S, p[1], p[2]); QMF_SORT(INT32S, p[0], p[1]) ;
+    return p[1];
+}
+
+INT32S ApplyDeadBand(INT32S Value, INT32S DeadBand)
+{
+    if (MyINT32SAbs(Value) < DeadBand) 
+    {
+        Value = 0;
+    } 
+    else if (Value > 0) 
+    {
+        Value -= DeadBand;
+    }
+    else if (Value < 0) 
+    {
+        Value += DeadBand;
+    }
+    return Value;    
+}
+

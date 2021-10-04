@@ -15,7 +15,13 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+typedef enum
+{
+    IMUAxisX = 0,
+    IMUAxisY,
+    IMUAxisZ,
+    IMUAxisAll
+}IMUAxis_e;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -45,9 +51,20 @@ void Error_Handler(void);
 #define LSM_INT2_GPIO_Port GPIOB
 #define LSM_INT1_Pin GPIO_PIN_5
 #define LSM_INT1_GPIO_Port GPIOB
-/* USER CODE BEGIN Private defines */
 
-/* USER CODE END Private defines */
+/*-------------------Portable-----------------------*/
+#define IWDG_INIT()         MX_IWDG_Init()
+#define IWDG_FEED()         HAL_IWDG_Refresh(&hiwdg)
+
+#define LED_RUN_OPEN()      HAL_GPIO_WritePin(LED_RUN_GPIO_Port, LED_RUN_Pin, GPIO_PIN_RESET)
+#define LED_RUN_CLOSE()     HAL_GPIO_WritePin(LED_RUN_GPIO_Port, LED_RUN_Pin, GPIO_PIN_SET)
+#define LED_RUN_TOGGLE()    HAL_GPIO_TogglePin(LED_RUN_GPIO_Port, LED_RUN_Pin)
+
+
+#define LED_FAULT_OPEN()      HAL_GPIO_WritePin(LED_FAULT_GPIO_Port, LED_FAULT_Pin, GPIO_PIN_RESET)
+#define LED_FAULT_CLOSE()     HAL_GPIO_WritePin(LED_FAULT_GPIO_Port, LED_FAULT_Pin, GPIO_PIN_SET)
+#define LED_FAULT_TOGGLE()    HAL_GPIO_TogglePin(LED_FAULT_GPIO_Port, LED_FAULT_Pin)
+/*--------------------------------------------------*/
 
 #ifdef __cplusplus
 }
@@ -56,6 +73,8 @@ void Error_Handler(void);
 extern ADC_HandleTypeDef hadc1;
 
 extern CAN_HandleTypeDef hcan2;
+
+extern IWDG_HandleTypeDef hiwdg;
 
 extern SPI_HandleTypeDef hspi1;
 extern SPI_HandleTypeDef hspi2;
@@ -70,6 +89,9 @@ extern volatile INT64U g_SysTickTime;
 
 void HardWareInit(void);
 void SwitchSPITiming(SPI_TypeDef * SPIn, BOOLEAN ClockIdle, BOOLEAN ClockPhase);
+void MX_IWDG_Init(void);
+void Hal_DelayMs(INT32U MS);
+
 #endif
 
 

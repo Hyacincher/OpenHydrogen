@@ -2,14 +2,14 @@
 
 volatile RemoteCtrlInfo  g_RemoteCtrlMsg;
 
-static void RockerToAltitude(void);
 static void ReceiveToRocker(void);
+static void RockerToAltitude(void);
+static void ReceiveKeyDeal(void);
 static INT8U GetSum(INT8U *Buff, INT16U Lenth);
 
 extern void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle);
-extern void MotorUnLock(void);
-extern void MotorLock(void);
-extern void SetOriginYaw(void);
+extern void FlightWorking(void);
+extern void FlightStandBy(void);
 
 void RemoteCtrlInit(void)
 {
@@ -33,7 +33,7 @@ void RemoteCtrlTask(void)
         NRFReceiveData();
         ReceiveToRocker();
         RockerToAltitude();
-        
+        ReceiveKeyDeal();
     }
 }
 
@@ -89,17 +89,20 @@ static void ReceiveToRocker(void)
         Key = g_NRFCtrlMsg.RxBuff[RC_KEY1_CHANNEL];
         if(Key & (1 << RC_KEY_LOCK_SHIFT))
         {
-            MotorLock();
+            g_RemoteCtrlMsg.Status.LockPress = 1;
+        }
+        else
+        {
+            g_RemoteCtrlMsg.Status.LockPress = 0;
         }
         if(Key & (1 << RC_KEY_UNLOCK_SHIFT))
         {
-            SetOriginYaw();
-            for(ii = 0 ; ii < PID_NUM ; ii++)
-            {
-                PIDReset(&g_PIDCtrlMsg[ii]);
-            }
-            MotorUnLock();
-        }        
+            g_RemoteCtrlMsg.Status.UnLockPress = 1;
+        }
+        else
+        {
+            g_RemoteCtrlMsg.Status.UnLockPress = 0;
+        }
         
         g_RemoteCtrlMsg.DisConnectTime = 0;
     }
@@ -115,6 +118,9 @@ static void ReceiveToRocker(void)
         g_RemoteCtrlMsg.RockerYaw = ROCKER_VAL_BASE + (ROCKER_VAL_DIFF * 0.5);
         g_RemoteCtrlMsg.RockerPitch = ROCKER_VAL_BASE + (ROCKER_VAL_DIFF * 0.5);
         g_RemoteCtrlMsg.RockerThrottle = ROCKER_VAL_BASE;
+        
+        g_RemoteCtrlMsg.Status.LockPress = 0;
+        g_RemoteCtrlMsg.Status.UnLockPress = 0;
     }
 }
 
@@ -133,10 +139,86 @@ static void RockerToAltitude(void)
     
     Roll *= MAX_ROLL_DEGREE;
     Pitch *= MAX_PITCH_DEGREE;
-    Yaw *= -MAX_YAW_RATE;
-    Throttle = (Throttle * MAX_THROTTLE_DIFF) + BASE_THROTTLE;
+    Yaw *= MAX_YAW_RATE;
     
     UpdateSetpoint(Roll, Pitch, Yaw, Throttle);
+}
+
+static void ReceiveKeyDeal(void)
+{
+    static INT8U s_KeyCtrl = 0;
+    static INT64U s_StartTime;
+    
+    switch(s_KeyCtrl)
+    {
+        case 0:
+            if(g_RemoteCtrlMsg.Status.LockPress)
+            {
+                s_StartTime = g_SysTickTime;
+                s_KeyCtrl = 10;
+            }
+            if(g_RemoteCtrlMsg.Status.UnLockPress)
+            {
+                s_StartTime = g_SysTickTime;
+                s_KeyCtrl = 20;
+            }           
+            break;
+        case 10:
+            if(g_RemoteCtrlMsg.Status.LockPress == 0)
+            {
+                s_KeyCtrl++;
+                break;
+            }
+            if(g_SysTickTime - s_StartTime > KEY_LOCK_PRESS_TIME)
+            {
+                s_KeyCtrl++;
+                break;
+            }
+            if(g_RemoteCtrlMsg.Status.Connect == 0)
+            {
+                s_StartTime = g_SysTickTime;    //断线无效
+                s_KeyCtrl++;
+                break;
+            }
+            break;
+        case 11:
+            if(g_SysTickTime - s_StartTime > KEY_LOCK_PRESS_TIME)
+            {
+                FlightStandBy();
+            }
+            s_KeyCtrl = 0;
+            break;
+            
+        case 20:
+            if(g_RemoteCtrlMsg.Status.UnLockPress == 0)
+            {
+                s_KeyCtrl++;
+                break;
+            }
+            if(g_SysTickTime - s_StartTime > KEY_UNLOCK_PRESS_TIME)
+            {
+                s_KeyCtrl++;
+                break;
+            }
+            if(g_RemoteCtrlMsg.Status.UnLockPress == 0)
+            {
+                s_StartTime = g_SysTickTime;    //断线无效
+                s_KeyCtrl++;
+                break;
+            }
+            break;
+        case 21:
+            if(g_SysTickTime - s_StartTime > KEY_UNLOCK_PRESS_TIME)
+            {
+                FlightWorking();
+            }
+            s_KeyCtrl = 0;
+            break;
+        default:
+            s_KeyCtrl = 0;
+            break;
+    }
+
 }
 
 void UpdateRocker(INT16U Roll, INT16U Pitch, INT16U Yaw, INT16U Throttle)
@@ -161,3 +243,15 @@ static INT8U GetSum(INT8U *Buff, INT16U Lenth)
     
     return (INT8U)Sum;
 }
+
+//0~1
+FP32 GetThrottleRate(void)
+{
+    FP32 Throttle;
+    
+    Throttle = (FP32)(g_RemoteCtrlMsg.RockerThrottle - ROCKER_VAL_BASE) / ROCKER_VAL_DIFF;
+    
+    return Throttle;
+}
+
+

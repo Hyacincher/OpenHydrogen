@@ -151,9 +151,9 @@ void ANOReceive(INT8U Buff[ANO_RXBUFF_LEN])
         switch(Buff[ANOData])
         {
             case COMMAND2_READ_PID :
-                HAL_Delay(2);//先等待DMA里面的数据发送完
+                Hal_DelayMs(2);//先等待DMA里面的数据发送完
                 ANOSendPID(1, &g_PIDCtrlMsg[RATE_ROLL], &g_PIDCtrlMsg[RATE_PITCH], &g_PIDCtrlMsg[RATE_YAW]);
-                HAL_Delay(2);
+                Hal_DelayMs(2);
                 ANOSendPID(2, &g_PIDCtrlMsg[ANGLE_ROLL], &g_PIDCtrlMsg[ANGLE_PITCH], &g_PIDCtrlMsg[ANGLE_YAW]);
                 break;
         }

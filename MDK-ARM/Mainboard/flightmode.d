@@ -28,6 +28,7 @@
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_iwdg.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h \
@@ -40,4 +41,5 @@
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Inc\Mymath.h \
   ..\User\Inc\Filter.h ..\Application\Include\Battery.h \
-  ..\Application\Include\Motor.h
+  ..\Application\Include\Motor.h ..\Application\Include\PID.h \
+  ..\User\Inc\includes.h ..\User\Inc\Mymath.h

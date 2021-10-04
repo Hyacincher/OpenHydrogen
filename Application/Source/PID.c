@@ -36,15 +36,21 @@ FP32 PIDUpdate(PIDInfo* PID, FP32 error)//error = desired - measured
 
     output = PID->outP + PID->outI + PID->outD;
     
-//    if((output > PID->outputLimit) || (output < -PID->outputLimit))
-//    {//当输出满了就消除积分，防止积分饱和效应
-//        PID->integ = 0;
-//    }
-//    else
-//    {
+    if(PID->outputLimit != 0)
+    {
+        if((output > PID->outputLimit) || (output < -PID->outputLimit))
+        {//当输出满了就消除积分，防止积分饱和效应
+            //PID->integ = 0;
+        }
+        else
+        {
+            PID->integ += PID->error * PID->dt;
+        }        
+    }
+    else
+    {
         PID->integ += PID->error * PID->dt;
-//    }       
-
+    }
     
 	//积分限幅
 	if (PID->iLimit != 0)

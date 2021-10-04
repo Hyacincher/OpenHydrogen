@@ -89,9 +89,6 @@ void LSM303DUpdate(void)
     g_LSMCtrLMsg.RawAcce[1] = (INT16S)AccBuff[2] | ((INT16S)AccBuff[3] << 8);
     g_LSMCtrLMsg.RawAcce[2] = (INT16S)AccBuff[4] | ((INT16S)AccBuff[5] << 8);
     
-    INT16S Temp;
-    //转换到标准右手坐标系
-    Temp = g_LSMCtrLMsg.RawMag[1];
-    g_LSMCtrLMsg.RawMag[1] = g_LSMCtrLMsg.RawMag[0];
-    g_LSMCtrLMsg.RawMag[0] = -Temp;
+    //切换到机体坐标系
+    SensorAlign(g_LSMCtrLMsg.RawMag, LSM_INSTALL_ROTATE);
 }

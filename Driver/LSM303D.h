@@ -2,10 +2,13 @@
 #define LSM303D_H
 
 #include "cpu.h"
+#include "SensorAlign.h"
 
 #define LSM_ENABLE()    GPIOB->ODR &= ~(1<<3)
 #define LSM_DISABLE()   GPIOB->ODR |= (1<<3)
-#define LSM_DelayMS(x)   HAL_Delay(x)
+#define LSM_DelayMS(x)   Hal_DelayMs(x)
+
+#define LSM_INSTALL_ROTATE  CW90_FLIP
 
 #define LSM303D_WRITE           0x00
 #define LSM303D_READ            0x80

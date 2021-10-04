@@ -207,15 +207,9 @@ void MPU6000Update(void)
             g_MPUCtrlMsg.RawGyro[(ii - 8) / 2] |= s_ReceiveBuff[ii];
         }
     }
-    
-    INT16S Temp;
-    //转换到标准右手坐标系
-    Temp = g_MPUCtrlMsg.RawAcce[1];
-    g_MPUCtrlMsg.RawAcce[1] = -g_MPUCtrlMsg.RawAcce[0];
-    g_MPUCtrlMsg.RawAcce[0] = Temp;
-    
-    Temp = g_MPUCtrlMsg.RawGyro[1];
-    g_MPUCtrlMsg.RawGyro[1] = -g_MPUCtrlMsg.RawGyro[0];
-    g_MPUCtrlMsg.RawGyro[0] = Temp;    
+
+    //切换到机体坐标系
+    SensorAlign(g_MPUCtrlMsg.RawAcce, MPU_INSTALL_ROTATE);
+    SensorAlign(g_MPUCtrlMsg.RawGyro, MPU_INSTALL_ROTATE);
 }
 

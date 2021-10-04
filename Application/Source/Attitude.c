@@ -1,14 +1,17 @@
 #include "Attitude.h"
 
 AttitudeInfo g_AttitudeCtrlMsg;
-BiquadFilterInfo g_GyroLFPFilter[IMU_AXIS_NUM];
-BiquadFilterInfo g_AcceLFPFilter[IMU_AXIS_NUM];
+BiquadFilterInfo g_GyroLFPFilter[IMUAxisAll];
+BiquadFilterInfo g_AcceLFPFilter[IMUAxisAll];
 
 /**	
- * 姿态解算规则如下：
- *     ROLL  = 绕X轴旋转，右手定则，逆时针为正顺时针为负。
- *     PITCH = 绕Y轴旋转，右手定则，逆时针为正顺时针为负。
- *     YAW   = 绕Z轴旋转，右手定则，逆时针为正顺时针为负。
+ * 采用机体坐标系，X轴从中心指向正前方，Y轴从中心指向正右方，Z轴从中心指向正下方
+ * 解算规则如下：
+ *     ROLL  = 绕X轴旋转，顺时针为正逆时针为负。
+ *     PITCH = 绕Y轴旋转，顺时针为正逆时针为负。
+ *     YAW   = 绕Z轴旋转，顺时针为正逆时针为负。
+ * 将各个芯片坐标系旋转至统一，注意加速度计的手册标识加速度坐标系方向与值的方向相反，
+ * 可以参考角速度坐标系旋转
  */
  
 static float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;//四元数
@@ -22,14 +25,12 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
 								BOOLEAN useMag,FP32 dt);
 static void imuUpdateEulerAngles(void);
 
-
 void AttitudeInit(void)
 {
     memset(&g_AttitudeCtrlMsg, 0, sizeof(g_AttitudeCtrlMsg));
     
     MPU6000Init();
     LSM303DInit();
-    BMP280Init();
     
 	//初始化二阶低通滤波
 	for (INT16U axis = 0; axis < 3; axis++)
@@ -51,7 +52,6 @@ void AttitudeTask(void)
             s_SystemTime = g_SysTickTime;
             NormailAttitude();  //500hz
             CalculateAttitude();//500hz
-            BMP280Update();     //500hz //后面加入姿态解算一起，直接10dof数据
             s_AttitudeStage++;
             break;
         case 1:
@@ -70,7 +70,7 @@ void AttitudeTask(void)
 static void NormailAttitude(void)
 {
     INT16U ii;
-    FP32 Acce[IMU_AXIS_NUM],Gyro[IMU_AXIS_NUM],Mag[IMU_AXIS_NUM];
+    FP32 Acce[IMUAxisAll],Gyro[IMUAxisAll],Mag[IMUAxisAll];
     
     MPU6000Update();
     LSM303DUpdate();
@@ -84,23 +84,21 @@ static void NormailAttitude(void)
 	for (INT16U axis = 0; axis < 3; axis++)
 	{
 		g_AttitudeCtrlMsg.NormailGyro[axis] = BiquadLPFFilter(&g_GyroLFPFilter[axis], Gyro[axis]);
-        g_AttitudeCtrlMsg.NormailGyro[axis] = DEGREES_TO_RADIANS(g_AttitudeCtrlMsg.NormailGyro[axis]);
-        g_AttitudeCtrlMsg.NormailAcce[axis] = BiquadLPFFilter(&g_AcceLFPFilter[axis], Acce[axis]);
+        g_AttitudeCtrlMsg.NormailGyro[axis] = DEGREES_TO_RADIANS(g_AttitudeCtrlMsg.NormailGyro[axis]);  //rad/s
+        g_AttitudeCtrlMsg.NormailAcce[axis] = BiquadLPFFilter(&g_AcceLFPFilter[axis], Acce[axis]);      //g
         g_AttitudeCtrlMsg.NormailMag[axis] = g_LSMCtrLMsg.RawMag[axis];
 	}
 }
 
 static void CalculateAttitude(void)
-{
-    FP32 Acce[3],Gyro[3],Mag[3];
-    
+{   
     imuMahonyAHRSupdate(g_AttitudeCtrlMsg.NormailGyro[0], g_AttitudeCtrlMsg.NormailGyro[1], g_AttitudeCtrlMsg.NormailGyro[2],
                         g_AttitudeCtrlMsg.NormailAcce[0], g_AttitudeCtrlMsg.NormailAcce[1], g_AttitudeCtrlMsg.NormailAcce[2],
                         g_AttitudeCtrlMsg.NormailMag[0], g_AttitudeCtrlMsg.NormailMag[1], g_AttitudeCtrlMsg.NormailMag[2],
                         1, ATTITUDE_ESTIMAT_DT);
     
     //计算欧拉角               
-    imuUpdateEulerAngles();    
+    imuUpdateEulerAngles();
 }
 
 //磁力计快速增益
@@ -281,10 +279,58 @@ static void imuMahonyAHRSupdate(FP32 gx, FP32 gy, FP32 gz,
 static void imuUpdateEulerAngles(void)
 {
 	g_AttitudeCtrlMsg.Roll = RADIANS_TO_DEGREES(MyAtan2Approx(rMat[2][1], rMat[2][2]));//+-180
-	g_AttitudeCtrlMsg.Pitch = RADIANS_TO_DEGREES((0.5f * PI) - MyAcosApprox(-rMat[2][0]));//arcsin = 0.5PI - arccos//+-90
+	g_AttitudeCtrlMsg.Pitch = RADIANS_TO_DEGREES(MyAcosApprox(-rMat[2][0]));//+-90
 	g_AttitudeCtrlMsg.Yaw = RADIANS_TO_DEGREES(MyAtan2Approx(rMat[1][0], rMat[0][0]));//+-180
-
-	//更新最小倾角状态
+    
+    g_AttitudeCtrlMsg.Pitch -= 90.0f;
+    if(g_AttitudeCtrlMsg.Pitch < -90.0f)
+    {
+        g_AttitudeCtrlMsg.Pitch += 180.0f;
+    }
+    
+	//偏差补偿
     g_AttitudeCtrlMsg.Roll += 3.4;
     g_AttitudeCtrlMsg.Pitch -= 2.84;
+    
+    //更新小倾角状态
+    if((MyFP32Abs(g_AttitudeCtrlMsg.Pitch) < IMU_SMALL_ANGLE) && (MyFP32Abs(g_AttitudeCtrlMsg.Roll) < IMU_SMALL_ANGLE))
+    {
+        g_AttitudeCtrlMsg.Status.SmallAngle = 1;
+    }
+    else
+    {
+        g_AttitudeCtrlMsg.Status.SmallAngle = 0;
+    }
+}
+
+void TransBodyVectorToNEU(FP32 Acce[IMUAxisAll])
+{
+    const FP32 x = rMat[0][0] * Acce[IMUAxisX] + rMat[0][1] * Acce[IMUAxisY] + rMat[0][2] * Acce[IMUAxisZ];
+    const FP32 y = rMat[1][0] * Acce[IMUAxisX] + rMat[1][1] * Acce[IMUAxisY] + rMat[1][2] * Acce[IMUAxisZ];
+    const FP32 z = rMat[2][0] * Acce[IMUAxisX] + rMat[2][1] * Acce[IMUAxisY] + rMat[2][2] * Acce[IMUAxisZ];
+
+    Acce[IMUAxisX] = x;
+    Acce[IMUAxisY] = y;
+    Acce[IMUAxisZ] = z;
+}
+
+void TransNEUVectorToBody(FP32 Acce[IMUAxisAll])
+{
+    const FP32 x = rMat[0][0] * Acce[IMUAxisX] + rMat[1][0] * Acce[IMUAxisY] + rMat[2][0] * Acce[IMUAxisZ];
+    const FP32 y = rMat[0][1] * Acce[IMUAxisX] + rMat[1][1] * Acce[IMUAxisY] + rMat[2][1] * Acce[IMUAxisZ];
+    const FP32 z = rMat[0][2] * Acce[IMUAxisX] + rMat[1][2] * Acce[IMUAxisY] + rMat[2][2] * Acce[IMUAxisZ];
+
+    Acce[IMUAxisX] = x;
+    Acce[IMUAxisY] = y;
+    Acce[IMUAxisZ] = z;    
+}
+
+BOOLEAN TakeoffCheck(void)
+{
+    if((MyFP32Abs(g_AttitudeCtrlMsg.Pitch) < MAX_TAKEOFF_ANGLE) && (MyFP32Abs(g_AttitudeCtrlMsg.Roll) < MAX_TAKEOFF_ANGLE))
+    {
+        return 1;
+    }
+    
+    return 0;
 }
