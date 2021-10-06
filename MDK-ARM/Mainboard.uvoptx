@@ -120,6 +120,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
+          <Name>€a?叙?</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -319,152 +320,27 @@
         <Ww>
           <count>0</count>
           <WinNumber>2</WinNumber>
-          <ItemText>\\Mainboard\../Application/Source/PID.c\g_PIDCtrlMsg</ItemText>
+          <ItemText>g_PredictorCtrlMsg</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>2</WinNumber>
-          <ItemText>PIDZoom</ItemText>
+          <ItemText>Dbg_z</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>2</WinNumber>
-          <ItemText>BatteryCtrlMsg</ItemText>
+          <ItemText>Dbg_acc</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>2</WinNumber>
-          <ItemText>\\Mainboard\../Application/Source/Motor.c\g_MotorCtrlMsg</ItemText>
+          <ItemText>AcceBiasCorr</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>2</WinNumber>
-          <ItemText>g_DbgPrintCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Send</ItemText>
-        </Ww>
-        <Ww>
-          <count>6</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>huart4</ItemText>
-        </Ww>
-        <Ww>
-          <count>7</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>DealBuff</ItemText>
-        </Ww>
-        <Ww>
-          <count>8</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Send</ItemText>
-        </Ww>
-        <Ww>
-          <count>9</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>g_RemoteCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>10</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>RockerTable</ItemText>
-        </Ww>
-        <Ww>
-          <count>11</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>g_NRFCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>12</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>PIDTable</ItemText>
-        </Ww>
-        <Ww>
-          <count>13</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>SetPitch</ItemText>
-        </Ww>
-        <Ww>
-          <count>14</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>SetRoll</ItemText>
-        </Ww>
-        <Ww>
-          <count>15</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>\\Mainboard\../Application/Source/Stabilizer.c\g_StabiliCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>16</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>g_DbgPrintCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>17</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>g_HeightCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>18</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>g_FlightModeCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>19</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>g_PredictorCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>20</count>
-          <WinNumber>2</WinNumber>
           <ItemText>s_AcceCMSS</ItemText>
-        </Ww>
-        <Ww>
-          <count>21</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>s_CaliGravityCMSS</ItemText>
-        </Ww>
-        <Ww>
-          <count>22</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>AcceBiasCorr</ItemText>
-        </Ww>
-        <Ww>
-          <count>23</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>rMat</ItemText>
-        </Ww>
-        <Ww>
-          <count>24</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>\\Mainboard\../Application/Source/Attitude.c\g_AttitudeCtrlMsg</ItemText>
-        </Ww>
-        <Ww>
-          <count>25</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Acce[0]</ItemText>
-        </Ww>
-        <Ww>
-          <count>26</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Acce[1]</ItemText>
-        </Ww>
-        <Ww>
-          <count>27</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Acce[2]</ItemText>
-        </Ww>
-        <Ww>
-          <count>28</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>AcceBiasCorr[IMUAxisZ]</ItemText>
-        </Ww>
-        <Ww>
-          <count>29</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>\\Mainboard\../Driver/BMP280.c\g_BMPCtrlMsg.RawTemperature,0x0A</ItemText>
         </Ww>
       </WatchWindow2>
       <Tracepoint>

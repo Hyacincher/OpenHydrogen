@@ -1,7 +1,4 @@
 SET PATH=D:\Keil MDK\ARM\ARMCLANG\Bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\AD9\System;D:\Git\cmd;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\Users\Hyacincher\AppData\Local\Microsoft\WindowsApps;C:\Users\Hyacincher\AppData\Local\GitHubDesktop\bin;D:\Microsoft VS Code\bin;C:\Users\Hyacincher\.dotnet\tools
-SET ARMCC6_ASMOPT=--diag_suppress=9931
-SET ARMCC6_CCOPT=--diag_suppress=9931
-SET ARMCC6_LINKOPT=--diag_suppress=9931
 SET CPU_TYPE=STM32F405RGTx
 SET CPU_VENDOR=STMicroelectronics
 SET UV2_TARGET=Mainboard

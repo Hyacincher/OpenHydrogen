@@ -11,8 +11,8 @@
 #define PREDICTOR_UPDATE_RATE   RATE_500_HZ     //姿态解算速率
 #define PREDICTOR_UPDATE_DT     (1.0/PREDICTOR_UPDATE_RATE)
 
-#define WEIGHT_Z_BARO   0.28f       //气压计修正权重  0.28
-#define WEIGHT_ACC_BIAS 0       //加速度计修正权重0.01
+#define WEIGHT_Z_BARO   0.38f       //气压计修正权重  0.28
+#define WEIGHT_ACC_BIAS 0.01f       //加速度计修正权重0.01
 
 typedef struct
 {

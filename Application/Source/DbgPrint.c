@@ -35,7 +35,7 @@ void DbgPrintTask(void)
 //            ANOSendStatus(g_AttitudeCtrlMsg.Roll, g_AttitudeCtrlMsg.Pitch, g_AttitudeCtrlMsg.Yaw, \
 //                      g_BMPCtrlMsg.Altitude, g_FlightModeCtrlMsg.FlightMode, GetMotorUnLock());
             VisualScope_Output(g_PredictorCtrlMsg.RawData.Height * 100, g_PredictorCtrlMsg.EstimateData.Position[IMUAxisZ] * 100, 
-                                0, 0);
+                                g_PredictorCtrlMsg.RawData.AccelerationNEU[IMUAxisZ] * 100, 0);
             
             //发送阻塞时间太长了            
         }
