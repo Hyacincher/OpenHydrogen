@@ -117,7 +117,7 @@ static void ReceiveToRocker(void)
         g_RemoteCtrlMsg.RockerRoll = ROCKER_VAL_BASE + (ROCKER_VAL_DIFF * 0.5);
         g_RemoteCtrlMsg.RockerYaw = ROCKER_VAL_BASE + (ROCKER_VAL_DIFF * 0.5);
         g_RemoteCtrlMsg.RockerPitch = ROCKER_VAL_BASE + (ROCKER_VAL_DIFF * 0.5);
-        g_RemoteCtrlMsg.RockerThrottle = ROCKER_VAL_BASE;
+        g_RemoteCtrlMsg.RockerThrottle = ROCKER_VAL_BASE + (ROCKER_VAL_DIFF * 0.5);
         
         g_RemoteCtrlMsg.Status.LockPress = 0;
         g_RemoteCtrlMsg.Status.UnLockPress = 0;
@@ -138,7 +138,7 @@ static void RockerToAltitude(void)
     Yaw -= 0.5;
     
     Roll *= MAX_ROLL_DEGREE;
-    Pitch *= MAX_PITCH_DEGREE;
+    Pitch *= -MAX_PITCH_DEGREE;
     Yaw *= MAX_YAW_RATE;
     
     UpdateSetpoint(Roll, Pitch, Yaw, Throttle);

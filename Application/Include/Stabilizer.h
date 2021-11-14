@@ -8,32 +8,35 @@
 #include "Height.h"
 #include "Motor.h"
 #include "FlightMode.h"
-
+#include "Predictor2.h"
 
 /*--------------------外环-------------------------*/
-
 /*角度PID输出限幅（单位：deg/s）*/
 #define PID_ANGLE_ROLL_OUTPUT_LIMIT    		300.0
 #define PID_ANGLE_PITCH_OUTPUT_LIMIT   		300.0
-#define PID_ANGLE_YAW_OUTPUT_LIMIT     		300.0
-
-/*-----------------------------------------------*/
-
+#define PID_ANGLE_YAW_OUTPUT_LIMIT     		150.0
 
 /*--------------------内环-------------------------*/
-
 /*角速度PID积分限幅（单位：deg/s）*/
 #define PID_RATE_ROLL_INTEGRATION_LIMIT		150.0   //150
 #define PID_RATE_PITCH_INTEGRATION_LIMIT	150.0   //150
-#define PID_RATE_YAW_INTEGRATION_LIMIT		100.0   //150
+#define PID_RATE_YAW_INTEGRATION_LIMIT		100.0   //100
 
 /*角速度PID输出限幅（单位：油门值）*/
-#define PID_RATE_ROLL_OUTPUT_LIMIT			400.0   //500
-#define PID_RATE_PITCH_OUTPUT_LIMIT			400.0   //500
-#define PID_RATE_YAW_OUTPUT_LIMIT			300.0   //300
+#define PID_RATE_ROLL_OUTPUT_LIMIT			400.0   //400
+#define PID_RATE_PITCH_OUTPUT_LIMIT			400.0   //400
+#define PID_RATE_YAW_OUTPUT_LIMIT			400.0   //300
+
+/*--------------------高度位置环----------------------*/
+#define PID_POS_Z_OUTPUT_LIMIT              150.0   //cm/s
+
+/*--------------------高度速度环----------------------*/
+#define PID_VEL_Z_INTEGRATION_LIMIT         200.0   //cm/s
+#define PID_VEL_Z_OUTPUT_LIMIT              400    //油门
+
+#define PID_VEL_Z_LPF_CUTOFF_FREQ           15.0    //hz
 
 /*------------------通用参数-------------------------*/
-
 //角速度PID D项低通截止频率（单位Hz）
 #define PID_RATE_LPF_CUTOFF_FREQ			80.0
 
@@ -49,13 +52,22 @@
 #define ANGLE_PID_RATE			ATTITUDE_ESTIMAT_RATE 	//角度环PID速率（和姿态解算速率一致）
 #define ANGLE_PID_DT			(1.0/ANGLE_PID_RATE)
 
+#define POSITION_PID_RATE       MAIN_LOOP_RATE
+#define POSITION_PID_DT         (1.0/POSITION_PID_RATE)
+
+#define VELOCITY_PID_RATE       MAIN_LOOP_RATE
+#define VELOCITY_PID_DT         (1.0/VELOCITY_PID_RATE)
+
 #define MIN_THROTTLE_VALUE      0.10                    //默认在地面起飞时才会出现的最小油门量
 #define MANUAL_THROTTLE_BASE    2800
 #define MANUAL_THROTTLE_DIFF    800
-#define MANUAL_THROTTLE_LANDING 2800
+#define MANUAL_THROTTLE_LANDING 3000
+
+#define FIXEDF_THROTTLE_BASE    2700
+#define FIXEDF_THROTTLE_DIFF    800
 
 #define MAX_RISE_VELOCITY       150.0f      //cm/s
-#define MAX_FALL_VELOCITY       110.0f      //cm/s
+#define MAX_FALL_VELOCITY       110.0f      //cm/s  
 
 typedef struct	
 {
@@ -88,7 +100,8 @@ typedef struct
     FP32 RateOutYaw;
     FP32 VelocityZOut;
     
-    FP32 ThrottleOut;
+    FP32 ThrottleBase;      //定高油门基础（根据遥控器等比例更新）
+    FP32 ThrottleOut;       //油门输出
     
     FP32 TakeOffYaw;       //起飞的朝向
     FP32 HoverYaw;         //当前机头朝向
@@ -103,16 +116,16 @@ static ConfigPara_t ControlParaDefault=
 
 	.pid = 
 	{
-		[RATE_ROLL]   = {1800, 2200, 10},   //1800  2200   10      //目前因为积分饱和的原因，手感略微有点棉，打杆之后过段时间才完全跟随杆
-		[RATE_PITCH]  = {1900, 2200, 10},   //1800  2200   10
-		[RATE_YAW]    = {3500, 1800, 10},   //3500  1800   10
+		[RATE_ROLL]   = {1800, 1850, 2},   //1800  1850   10      
+		[RATE_PITCH]  = {1850, 1850, 2},   //1800  1850   10
+		[RATE_YAW]    = {2600, 1000, 2},   //3500  1800   10
 		[ANGLE_ROLL]  = {6000, 0, 0},
 		[ANGLE_PITCH] = {6000, 0, 0},
 		[ANGLE_YAW]   = {6000, 0, 0},
-		[VELOCITY_Z]  = {0, 0, 0},
-		[HEIGHT_Z]   = {0, 0, 0},
+		[VELOCITY_Z]  = {3000, 500, 0},
+		[POSITION_Z]  = {3000, 0, 0},
 		[VELOCITY_XY] = {0, 0, 0},
-		[POSHOLD_XY]  = {0, 0, 0},
+		[POSITION_XY] = {0, 0, 0},
         /*内环积分问题
         1、积分饱和：假如机器长期处于一边，机器累积积分满后，如果开启电机，会瞬间失衡
         2、积分消除慢：假如积分堆满了，但是此时err突然收拢，会导致积分来不及清除，造成一定角度的偏差
@@ -154,7 +167,7 @@ static ConfigPara_t ControlParaDefault=
 void StabilizerInit(void);
 void StabilizerTask(void);
 void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle);
-void SetOriginYaw(void);
+void SetOriginFlyPara(void);
 BOOLEAN TakeoffCheck(void);
 
 extern StabilizerInfo  g_StabiliCtrlMsg;

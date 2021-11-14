@@ -48,9 +48,10 @@
   ..\User\Inc\Mymath.h ..\Application\Include\Attitude.h \
   ..\Application\Include\Height.h ..\Application\Include\Motor.h \
   ..\Application\Include\FlightMode.h ..\Application\Include\Battery.h \
-  ..\Application\Include\Battery.h ..\Application\Include\RemoteCtrl.h \
-  ..\Driver\NRF24L01.h ..\Application\Include\DbgPrint.h \
-  ..\Application\Include\Stabilizer.h ..\Application\Include\Predictor.h \
-  ..\Driver\ANOHost.h ..\Driver\LORA433.h ..\Application\Include\PID.h \
+  ..\Application\Include\RemoteCtrl.h ..\Driver\NRF24L01.h \
+  ..\Application\Include\Predictor2.h ..\Application\Include\Battery.h \
+  ..\Application\Include\RemoteCtrl.h ..\Application\Include\DbgPrint.h \
+  ..\Application\Include\Stabilizer.h ..\Driver\ANOHost.h \
+  ..\Driver\LORA433.h ..\Application\Include\PID.h \
   ..\Application\Include\Motor.h ..\Application\Include\FlightMode.h \
-  ..\Application\Include\SysStatus.h ..\Application\Include\Predictor.h
+  ..\Application\Include\SysStatus.h ..\Application\Include\Predictor2.h

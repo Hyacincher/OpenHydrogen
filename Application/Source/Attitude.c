@@ -290,7 +290,7 @@ static void imuUpdateEulerAngles(void)
     
 	//偏差补偿
     g_AttitudeCtrlMsg.Roll += 3.4;
-    g_AttitudeCtrlMsg.Pitch -= 2.84;
+    g_AttitudeCtrlMsg.Pitch += 2.84;
     
     //更新小倾角状态
     if((MyFP32Abs(g_AttitudeCtrlMsg.Pitch) < IMU_SMALL_ANGLE) && (MyFP32Abs(g_AttitudeCtrlMsg.Roll) < IMU_SMALL_ANGLE))

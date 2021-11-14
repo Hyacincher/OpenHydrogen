@@ -1,5 +1,12 @@
-./mainboard/main.o: ..\User\Src\main.c ..\User\Inc\main.h \
-  ..\User\Inc\cpu.h ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
+./mainboard/predictor2.o: ..\Application\Source\Predictor2.c \
+  ..\Application\Include\Predictor2.h ..\User\Inc\includes.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\math.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Inc\Mymath.h \
+  ..\User\Inc\includes.h ..\User\Inc\Filter.h \
+  ..\Application\Include\Height.h ..\Driver\BMP280.h ..\User\Inc\cpu.h \
+  ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\User\Inc\stm32f4xx_hal_conf.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
@@ -35,22 +42,5 @@
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\Hal\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
-  ..\User\Inc\includes.h D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\math.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Inc\Mymath.h \
-  ..\User\Inc\Filter.h ..\Driver\LORA433.h ..\User\Inc\cpu.h \
-  ..\Application\Include\Attitude.h ..\User\Inc\includes.h \
-  ..\Driver\MPU6000.h ..\Application\Include\SensorAlign.h \
-  ..\Driver\LSM303D.h ..\Application\Include\Height.h ..\Driver\BMP280.h \
-  ..\Application\Include\Stabilizer.h ..\Application\Include\PID.h \
-  ..\User\Inc\Mymath.h ..\Application\Include\Attitude.h \
-  ..\Application\Include\Height.h ..\Application\Include\Motor.h \
-  ..\Application\Include\FlightMode.h ..\Application\Include\Battery.h \
-  ..\Application\Include\RemoteCtrl.h ..\Driver\NRF24L01.h \
-  ..\Application\Include\Predictor2.h ..\Application\Include\Battery.h \
-  ..\Application\Include\RemoteCtrl.h ..\Application\Include\DbgPrint.h \
-  ..\Application\Include\Stabilizer.h ..\Driver\ANOHost.h \
-  ..\Driver\LORA433.h ..\Application\Include\PID.h \
-  ..\Application\Include\Motor.h ..\Application\Include\FlightMode.h \
-  ..\Application\Include\SysStatus.h ..\Application\Include\Predictor2.h
+  ..\Application\Include\Attitude.h ..\Driver\MPU6000.h \
+  ..\Application\Include\SensorAlign.h ..\Driver\LSM303D.h

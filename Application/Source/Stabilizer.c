@@ -8,7 +8,7 @@ static void AttitudeControl(void);
 static void StabilizerUpdate(void);
 
 static void FixedHeightCtrl(void);
-static void HeadLessCtrl(void);
+static void HeadLessCal(void);
 static void LeadingCtrl(void);
 static void HeadDirectionCal(void);
 
@@ -47,6 +47,15 @@ void StabilizerInit(void)
     
     PIDInit(&g_PIDCtrlMsg[RATE_YAW], PIDZoom[RATE_YAW].Kp, PIDZoom[RATE_YAW].Ki, PIDZoom[RATE_YAW].Kd, 
 		PID_RATE_YAW_INTEGRATION_LIMIT, PID_RATE_YAW_OUTPUT_LIMIT, RATE_PID_DT, 1, PID_RATE_LPF_CUTOFF_FREQ);
+
+	//Z轴位置PID
+	PIDInit(&g_PIDCtrlMsg[POSITION_Z], PIDZoom[POSITION_Z].Kp, PIDZoom[POSITION_Z].Ki, PIDZoom[POSITION_Z].Kd, 
+		0, PID_POS_Z_OUTPUT_LIMIT, POSITION_PID_DT, 0, 0);    
+	//Z轴速度PID
+	PIDInit(&g_PIDCtrlMsg[VELOCITY_Z], PIDZoom[VELOCITY_Z].Kp, PIDZoom[VELOCITY_Z].Ki, PIDZoom[VELOCITY_Z].Kd,
+		PID_VEL_Z_INTEGRATION_LIMIT, PID_VEL_Z_OUTPUT_LIMIT, VELOCITY_PID_DT, 1, PID_VEL_Z_LPF_CUTOFF_FREQ);
+        
+    g_StabiliCtrlMsg.ThrottleBase = FIXEDF_THROTTLE_BASE + (FIXEDF_THROTTLE_DIFF * 0.5);
 }
 
 void StabilizerTask(void)
@@ -88,10 +97,12 @@ void UpdateSetpoint(FP32 SetRoll, FP32 SetPitch, FP32 SetYaw, FP32 Throttle)
     g_StabiliCtrlMsg.SetThrottleRate = Throttle;
 }
 
-void SetOriginYaw(void)
+void SetOriginFlyPara(void)
 {
-    g_StabiliCtrlMsg.TakeOffYaw = g_AttitudeCtrlMsg.Yaw;
-    g_StabiliCtrlMsg.HoverYaw = g_AttitudeCtrlMsg.Yaw;
+    g_StabiliCtrlMsg.TakeOffYaw = g_AttitudeCtrlMsg.Yaw;        //起飞航向
+    g_StabiliCtrlMsg.HoverYaw = g_AttitudeCtrlMsg.Yaw;          //保持航向
+    
+    g_StabiliCtrlMsg.TakeOffHeight = g_HeightCtrlMsg.Height;    //起飞高度
 }
 
 static void ThrottleControl(void)
@@ -102,17 +113,18 @@ static void ThrottleControl(void)
             g_StabiliCtrlMsg.ThrottleOut = (g_StabiliCtrlMsg.SetThrottleRate * MANUAL_THROTTLE_DIFF) + MANUAL_THROTTLE_BASE;
             break;
         case FixedHeight:
-            
-            g_StabiliCtrlMsg.ThrottleOut = (g_StabiliCtrlMsg.SetThrottleRate * MANUAL_THROTTLE_DIFF) + MANUAL_THROTTLE_BASE;
+            FixedHeightCtrl();
             break;
         case AutoTakeoff:
             g_StabiliCtrlMsg.ThrottleOut = (g_StabiliCtrlMsg.SetThrottleRate * MANUAL_THROTTLE_DIFF) + MANUAL_THROTTLE_BASE;
             break;
-        case AutoLanding:
+        case AutoLanding://低电压或丢失连接，定高完成后换成自动降落
             g_StabiliCtrlMsg.ThrottleOut = MANUAL_THROTTLE_LANDING;
             break;
         case ThroStandby:
             g_StabiliCtrlMsg.ThrottleOut = 0;
+            g_StabiliCtrlMsg.HeightZOut = 0;
+            g_StabiliCtrlMsg.VelocityZOut = 0;
             break;
         default:
             g_FlightModeCtrlMsg.ThrottleMode = ThroStandby;
@@ -129,7 +141,7 @@ static void AttitudeControl(void)
             HeadDirectionCal();
             break;
         case HeadLess:
-            HeadLessCtrl();
+            HeadLessCal();
             break;
         case FixedPoint:
             HeadDirectionCal();
@@ -138,6 +150,9 @@ static void AttitudeControl(void)
             HeadDirectionCal();
             break;
         case DirecStandBy:
+            g_StabiliCtrlMsg.AngleOutRoll = 0;
+            g_StabiliCtrlMsg.AngleOutPitch = 0;
+            g_StabiliCtrlMsg.AngleOutYaw = 0;
             g_StabiliCtrlMsg.RateOutRoll = 0;
             g_StabiliCtrlMsg.RateOutPitch = 0;
             g_StabiliCtrlMsg.RateOutYaw = 0;
@@ -156,10 +171,10 @@ static void StabilizerUpdate(void)
     FP32 MotorOut1,MotorOut2,MotorOut3,MotorOut4;
     INT16U ii;
     
-    MotorOut1 = g_StabiliCtrlMsg.ThrottleOut + g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
-    MotorOut2 = g_StabiliCtrlMsg.ThrottleOut + g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
-    MotorOut3 = g_StabiliCtrlMsg.ThrottleOut - g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
-    MotorOut4 = g_StabiliCtrlMsg.ThrottleOut - g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
+    MotorOut1 = g_StabiliCtrlMsg.ThrottleOut + g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
+    MotorOut2 = g_StabiliCtrlMsg.ThrottleOut + g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
+    MotorOut3 = g_StabiliCtrlMsg.ThrottleOut - g_StabiliCtrlMsg.RateOutRoll - g_StabiliCtrlMsg.RateOutPitch - g_StabiliCtrlMsg.RateOutYaw;
+    MotorOut4 = g_StabiliCtrlMsg.ThrottleOut - g_StabiliCtrlMsg.RateOutRoll + g_StabiliCtrlMsg.RateOutPitch + g_StabiliCtrlMsg.RateOutYaw;
 
     MotorOut1 = MyConstrainF(MotorOut1, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
     MotorOut2 = MyConstrainF(MotorOut2, MOTOR_OUT_MIN, MOTOR_OUT_MAX);
@@ -188,25 +203,24 @@ static void FixedHeightCtrl(void)
         {
             PIDResetIntegral(&g_PIDCtrlMsg[VELOCITY_Z]);
         }
+        g_StabiliCtrlMsg.ThrottleBase = FIXEDF_THROTTLE_BASE + (FIXEDF_THROTTLE_DIFF * \
+                                            g_StabiliCtrlMsg.SetThrottleRate);      //油门基础赋初值
         
-        g_StabiliCtrlMsg.TakeOffHeight = g_HeightCtrlMsg.Altitude;
+        g_StabiliCtrlMsg.TakeOffHeight = g_HeightCtrlMsg.Height;
     }
     
-    if(g_StabiliCtrlMsg.SetThrottleRate == 0.5)
+    g_StabiliCtrlMsg.ThrottleBase = FIXEDF_THROTTLE_BASE + (FIXEDF_THROTTLE_DIFF * \
+                                        g_StabiliCtrlMsg.SetThrottleRate);      //更新油门基础比例值
+    
+    if(MyFP32Abs(g_StabiliCtrlMsg.SetThrottleRate - 0.5) <= FLOAT_EQUAL_DELTA)
     {//摇杆回中
         if(g_StabiliCtrlMsg.Status.UpdateFixedHeight)
         {//高度锁定，更新锁定高度
             g_StabiliCtrlMsg.Status.UpdateFixedHeight = 0;
-            g_StabiliCtrlMsg.TakeOffHeight = g_HeightCtrlMsg.Altitude;
+            g_StabiliCtrlMsg.TakeOffHeight = g_HeightCtrlMsg.Height;
         }
-        Error = g_StabiliCtrlMsg.TakeOffHeight - g_HeightCtrlMsg.Altitude;
-        g_StabiliCtrlMsg.HeightZOut = PIDUpdate(&g_PIDCtrlMsg[HEIGHT_Z], Error);
-    }
-    else if(g_StabiliCtrlMsg.SetThrottleRate < 0.5)
-    {
-        //下降
-        g_StabiliCtrlMsg.HeightZOut = (g_StabiliCtrlMsg.SetThrottleRate * 2) * MAX_FALL_VELOCITY;
-        g_StabiliCtrlMsg.Status.UpdateFixedHeight = 1;
+        Error = g_StabiliCtrlMsg.TakeOffHeight - g_HeightCtrlMsg.Height;
+        g_StabiliCtrlMsg.HeightZOut = PIDUpdate(&g_PIDCtrlMsg[POSITION_Z], Error);
     }
     else if(g_StabiliCtrlMsg.SetThrottleRate > 0.5)
     {
@@ -214,22 +228,35 @@ static void FixedHeightCtrl(void)
         g_StabiliCtrlMsg.HeightZOut = ((g_StabiliCtrlMsg.SetThrottleRate - 0.5) * 2) * MAX_RISE_VELOCITY;
         g_StabiliCtrlMsg.Status.UpdateFixedHeight = 1;
     }
+    else if(g_StabiliCtrlMsg.SetThrottleRate < 0.5)
+    {
+        //下降
+        g_StabiliCtrlMsg.HeightZOut = ((g_StabiliCtrlMsg.SetThrottleRate - 0.5) * 2) * MAX_FALL_VELOCITY;
+        g_StabiliCtrlMsg.Status.UpdateFixedHeight = 1;
+    }
     
-    //g_StabiliCtrlMsg.VelocityZOut = PIDUpdate(&g_PIDCtrlMsg[VELOCITY_Z], Error);
+    Error = g_StabiliCtrlMsg.HeightZOut - g_HeightCtrlMsg.Velocity;
+    g_StabiliCtrlMsg.VelocityZOut = PIDUpdate(&g_PIDCtrlMsg[VELOCITY_Z],  Error);
+    g_StabiliCtrlMsg.ThrottleOut = g_StabiliCtrlMsg.VelocityZOut + g_StabiliCtrlMsg.ThrottleBase;
 }
 
-static void HeadLessCtrl(void)
+static void HeadLessCal(void)
 {
     FP32 Error;
     INT16U ii;
     
     //求取横滚、俯仰向量分量
-    FP32 RadDiff = -(g_AttitudeCtrlMsg.Yaw - g_StabiliCtrlMsg.TakeOffYaw) * PI / 180.0f;    //取负号是因为我的电机反着装的
+    FP32 DegreeDiff = g_AttitudeCtrlMsg.Yaw - g_StabiliCtrlMsg.TakeOffYaw;   
+    FP32 RadDiff = DegreeDiff * PI / 180.0f;
     FP32 CosDiff = MyCosApprox(RadDiff);
     FP32 SinDiff = MySinApprox(RadDiff);
-    FP32 SetPitch = (g_StabiliCtrlMsg.SetPitch * CosDiff) + (g_StabiliCtrlMsg.SetRoll * SinDiff);
-    FP32 SetRoll = (g_StabiliCtrlMsg.SetRoll * CosDiff) - (g_StabiliCtrlMsg.SetPitch * SinDiff);
-
+    FP32 SetPitch = (g_StabiliCtrlMsg.SetPitch * CosDiff) - (g_StabiliCtrlMsg.SetRoll * SinDiff);
+    FP32 SetRoll = (g_StabiliCtrlMsg.SetRoll * CosDiff) + (g_StabiliCtrlMsg.SetPitch * SinDiff);
+    
+    //-90°  PITCH = -ROLL    ROLL = PITCH    COS=0   SIN=1
+    //-180° PITCH = -PITCH  ROLL = -ROLL    COS=-1  SIN=0
+    //-270  PITCH = ROLL   ROLL = -PITCH    COS=0   SIN=-1
+    
     //外环（角度）
     g_StabiliCtrlMsg.AngleOutRoll = PIDUpdate(&g_PIDCtrlMsg[ANGLE_ROLL], SetRoll - g_AttitudeCtrlMsg.Roll);
     g_StabiliCtrlMsg.AngleOutPitch = PIDUpdate(&g_PIDCtrlMsg[ANGLE_PITCH], SetPitch - g_AttitudeCtrlMsg.Pitch);
@@ -260,8 +287,8 @@ static void HeadLessCtrl(void)
         }
     }
     g_StabiliCtrlMsg.RateOutRoll = PIDUpdate(&g_PIDCtrlMsg[RATE_ROLL], g_StabiliCtrlMsg.AngleOutRoll - RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisX]));
-    g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch - RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisY]));
-    g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw - RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisZ]));
+    g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch + RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisY]));     //坐标系角速度方向相反
+    g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw + RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisZ]));           //坐标系角速度方向相反
 }
 
 static void HeadDirectionCal(void)
@@ -299,8 +326,8 @@ static void HeadDirectionCal(void)
         }
     }
     g_StabiliCtrlMsg.RateOutRoll = PIDUpdate(&g_PIDCtrlMsg[RATE_ROLL], g_StabiliCtrlMsg.AngleOutRoll - RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisX]));
-    g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch - RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisY]));
-    g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw - RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisZ])); 
+    g_StabiliCtrlMsg.RateOutPitch = PIDUpdate(&g_PIDCtrlMsg[RATE_PITCH], g_StabiliCtrlMsg.AngleOutPitch + RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisY]));     //坐标系角速度方向相反
+    g_StabiliCtrlMsg.RateOutYaw = PIDUpdate(&g_PIDCtrlMsg[RATE_YAW], g_StabiliCtrlMsg.AngleOutYaw + RADIANS_TO_DEGREES(g_AttitudeCtrlMsg.NormailGyro[IMUAxisZ]));           //坐标系角速度方向相反
 }
 
 

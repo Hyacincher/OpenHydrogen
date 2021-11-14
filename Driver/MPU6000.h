@@ -8,7 +8,7 @@
 #define MPU_DISABLE()   GPIOB->ODR |= 1
 #define MPU_DelayMS(x)   Hal_DelayMs(x)
 
-#define MPU_INSTALL_ROTATE  CW90_POSITIVE
+#define MPU_INSTALL_ROTATE     CW90_POSITIVE
 
 /*--------MPUxxxx Register--------*/
 #define MPU9250_WRITE   0x00

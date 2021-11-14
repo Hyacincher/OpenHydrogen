@@ -106,7 +106,8 @@ static void UpdateRawIMU(void)
 		{
 			s_AcceCMSS[axis] = ApplyDeadBand(s_AcceCMSS[axis], 4);//去除4(cm/ss)死区
 			g_PredictorCtrlMsg.RawData.AccelerationNEU[axis] += \
-            (s_AcceCMSS[axis] - g_PredictorCtrlMsg.RawData.AccelerationNEU[axis]) * 0.3f;//一阶低通
+            (s_AcceCMSS[axis] - g_PredictorCtrlMsg.RawData.AccelerationNEU[axis]) * 0.008f;//一阶低通,越高融合数据高速动态性更强，但是收敛速度会慢0.0015
+            //g_PredictorCtrlMsg.RawData.AccelerationNEU[axis] = s_AcceCMSS[axis];
 		}
 	}
 	else 
@@ -129,7 +130,7 @@ static void UpdatePredictor(void)
     FP32 AcceBiasCorr[IMUAxisAll] = {0};
     
     //气压计修正Z轴估算位移与速度
-    const FP32 ZError = g_PredictorCtrlMsg.RawData.Height - g_PredictorCtrlMsg.EstimateData.Position[IMUAxisZ];
+    const FP32 ZError = g_PredictorCtrlMsg.RawData.Height - g_PredictorCtrlMsg.EstiData.Position[IMUAxisZ];
     CorrectPosVeloc(IMUAxisZ, PREDICTOR_UPDATE_DT, ZError, WEIGHT_Z_BARO);
     if(UpdateAccBias)
     {
@@ -154,9 +155,9 @@ static void UpdatePredictor(void)
 //NEU坐标系加速度估算位移和速度
 static void PredictPosVeloc(INT16U Axis, FP32 Dt, FP32 Acc)
 {
-    g_PredictorCtrlMsg.EstimateData.Position[Axis] += (g_PredictorCtrlMsg.EstimateData.Velocity[Axis] * Dt) \
+    g_PredictorCtrlMsg.EstiData.Position[Axis] += (g_PredictorCtrlMsg.EstiData.Velocity[Axis] * Dt) \
                                                         + ((Acc * Dt * Dt) / 2.0f);
-    g_PredictorCtrlMsg.EstimateData.Velocity[Axis] += Acc * Dt;
+    g_PredictorCtrlMsg.EstiData.Velocity[Axis] += Acc * Dt;
 }
 
 //实际传感器修正位移和速度
@@ -164,8 +165,8 @@ static void CorrectPosVeloc(INT16U Axis, FP32 Dt, FP32 Err, FP32 Weight)
 {
     FP32 EWDT = Err * Weight * Dt;
     
-    g_PredictorCtrlMsg.EstimateData.Position[Axis] += EWDT;
-    g_PredictorCtrlMsg.EstimateData.Velocity[Axis] += Weight * EWDT;
+    g_PredictorCtrlMsg.EstiData.Position[Axis] += EWDT;
+    g_PredictorCtrlMsg.EstiData.Velocity[Axis] += Weight * EWDT;
 }
 
 static void PublishNewEstimate(void)
@@ -180,11 +181,10 @@ static void PublishNewEstimate(void)
     //更新预估的位置与速度
     if(g_SysTickTime - s_PublishTime >= 10)
     {
-        g_HeightCtrlMsg.Position = g_PredictorCtrlMsg.EstimateData.Position[IMUAxisZ];
-        g_HeightCtrlMsg.Velocity = g_PredictorCtrlMsg.EstimateData.Velocity[IMUAxisZ];
+        g_HeightCtrlMsg.Position = g_PredictorCtrlMsg.EstiData.Position[IMUAxisZ];
+        g_HeightCtrlMsg.Velocity = g_PredictorCtrlMsg.EstiData.Velocity[IMUAxisZ];
         
         g_HeightCtrlMsg.Velocity = MyConstrainF(g_HeightCtrlMsg.Velocity, -150.0f, 150.0f); //Z轴速度限幅
-        
         
         s_PublishTime = g_SysTickTime;
     }

@@ -16,7 +16,7 @@
 #include "DbgPrint.h"
 #include "FlightMode.h"
 #include "SysStatus.h"
-#include "Predictor.h"
+#include "Predictor2.h"
 
 #endif /* __MAIN_H */
 

@@ -193,7 +193,21 @@ void ANOReceive(INT8U Buff[ANO_RXBUFF_LEN])
         ANOSendCheck(0x11, Buff[20]);
     }
     else if(Buff[ANOFunc] == 0x12)
-    {
+    {//高度环速度PID,高度环高度PID，位置环速度
+        INT16U PIDTable[9];
+        INT16U ii;
+        
+        for(ii = 0 ; ii < 9 ; ii++)
+        {
+            PIDTable[ii] = INT8UToINT16U(Buff + ANOData + (ii * 2));
+        }
+        for(ii = VELOCITY_Z ; ii <= VELOCITY_XY ; ii++)
+        {
+            g_PIDCtrlMsg[ii].kp = (FP32)PIDTable[((ii - VELOCITY_Z) * 3) + 0] / 1000;
+            g_PIDCtrlMsg[ii].ki = (FP32)PIDTable[((ii - VELOCITY_Z) * 3) + 1] / 1000;
+            g_PIDCtrlMsg[ii].kd = (FP32)PIDTable[((ii - VELOCITY_Z) * 3) + 2] / 1000;                
+        }
+        
         ANOSendCheck(0x12, Buff[20]);
     }
     else if(Buff[ANOFunc] == 0x13)

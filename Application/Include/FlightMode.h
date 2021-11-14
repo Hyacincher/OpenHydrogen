@@ -4,6 +4,7 @@
 #include "cpu.h"
 #include "Battery.h"
 #include "PID.h"
+#include "RemoteCtrl.h"
 
 typedef enum
 {

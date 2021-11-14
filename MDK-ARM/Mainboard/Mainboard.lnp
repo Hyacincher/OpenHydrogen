@@ -11,7 +11,7 @@
 ".\mainboard\flightmode.o"
 ".\mainboard\sysstatus.o"
 ".\mainboard\height.o"
-".\mainboard\predictor.o"
+".\mainboard\predictor2.o"
 ".\mainboard\mymath.o"
 ".\mainboard\filter.o"
 ".\mainboard\pid.o"

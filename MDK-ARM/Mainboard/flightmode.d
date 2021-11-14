@@ -42,4 +42,5 @@
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Inc\Mymath.h \
   ..\User\Inc\Filter.h ..\Application\Include\Battery.h \
   ..\Application\Include\Motor.h ..\Application\Include\PID.h \
-  ..\User\Inc\includes.h ..\User\Inc\Mymath.h
+  ..\User\Inc\includes.h ..\User\Inc\Mymath.h \
+  ..\Application\Include\RemoteCtrl.h ..\Driver\NRF24L01.h

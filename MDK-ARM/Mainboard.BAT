@@ -15,7 +15,7 @@ SET CPU_CLOCK=0x0A037A00
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\flightmode.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\sysstatus.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\height.__i"
-"D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\predictor.__i"
+"D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\predictor2.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\mymath.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\filter.__i"
 "D:\Keil MDK\ARM\ARMCLANG\Bin\ArmClang.exe" @".\mainboard\pid.__i"

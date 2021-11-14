@@ -4,7 +4,7 @@ volatile FlightModeInfo  g_FlightModeCtrlMsg;
 
 extern void MotorUnLock(void);
 extern void MotorLock(void);
-extern void SetOriginYaw(void);
+extern void SetOriginFlyPara(void);
 extern BOOLEAN TakeoffCheck(void);
 
 void FlightModeInit(void)
@@ -21,14 +21,26 @@ void FlightModeTask(void)
     if(g_SysTickTime - s_SystemTime > 0)
     {
         s_SystemTime = g_SysTickTime;
-        if(g_BatteryCtrlMsg.Battery == UnVolt)
+        
+        if(g_RemoteCtrlMsg.Status.Connect)
+        {
+            if(g_BatteryCtrlMsg.Battery == UnVolt)
+            {
+                g_FlightModeCtrlMsg.ThrottleMode = AutoLanding;
+            }
+            else if(g_BatteryCtrlMsg.Battery == ShutDownVolt)
+            {
+                g_FlightModeCtrlMsg.ThrottleMode = ThroStandby;
+                g_FlightModeCtrlMsg.DirectionMode = DirecStandBy;
+            }
+            else
+            {
+                g_FlightModeCtrlMsg.ThrottleMode = FixedHeight; //调试用UserManual FixedHeight
+            }
+        }
+        else
         {
             g_FlightModeCtrlMsg.ThrottleMode = AutoLanding;
-        }
-        else if(g_BatteryCtrlMsg.Battery == ShutDownVolt)
-        {
-            g_FlightModeCtrlMsg.ThrottleMode = ThroStandby;
-            g_FlightModeCtrlMsg.DirectionMode = DirecStandBy;
         }
     }
 }
@@ -43,15 +55,15 @@ void FlightWorking(void)
         
         if(TakeoffCheck())//起飞角度检查
         {
-            g_FlightModeCtrlMsg.ThrottleMode = UserManual;      //调试用
-            g_FlightModeCtrlMsg.DirectionMode = HeadDirection;
+            g_FlightModeCtrlMsg.ThrottleMode = FixedHeight;      //调试用UserManual FixedHeight
+            g_FlightModeCtrlMsg.DirectionMode = HeadLess;      //HeadDirection HeadLess
             
-            SetOriginYaw();
+            SetOriginFlyPara();
             for(ii = 0 ; ii < PID_NUM ; ii++)
             {
                 PIDReset(&g_PIDCtrlMsg[ii]);
             }
-            MotorUnLock();        
+            MotorUnLock();
         }
         else
         {

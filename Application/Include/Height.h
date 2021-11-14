@@ -12,10 +12,10 @@ typedef struct
         INT8U Reserve : 7;
     }Status;
     
-    FP32 Altitude;      //气压计原始数据
+    FP32 Altitude;      //气压计原始数据   m
     
-    FP32 Position;      //数据融合后的高度
-    FP32 Velocity;      //Z轴运动速度
+    FP32 Velocity;      //融合后的速度    cm/s
+    FP32 Height;        //融合后的相对高度    cm
 }HeightInfo;
 
 void HeightInit(void);

@@ -46,4 +46,5 @@
   ..\Application\Include\SensorAlign.h ..\Driver\LSM303D.h \
   ..\Application\Include\Height.h ..\Driver\BMP280.h \
   ..\Application\Include\Motor.h ..\Application\Include\FlightMode.h \
-  ..\Application\Include\Battery.h
+  ..\Application\Include\Battery.h ..\Application\Include\RemoteCtrl.h \
+  ..\Driver\NRF24L01.h ..\Application\Include\Predictor2.h

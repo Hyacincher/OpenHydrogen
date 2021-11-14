@@ -32,7 +32,7 @@
 
 #define MAX_TAKEOFF_ANGLE       20.0f
 
-#define IMU_SMALL_ANGLE         15.0f
+#define IMU_SMALL_ANGLE         20.0f
 
 typedef struct
 {

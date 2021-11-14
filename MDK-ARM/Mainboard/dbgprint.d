@@ -47,6 +47,7 @@
   ..\User\Inc\Mymath.h ..\Application\Include\Height.h \
   ..\Driver\BMP280.h ..\Application\Include\Motor.h \
   ..\Application\Include\FlightMode.h ..\Application\Include\Battery.h \
-  ..\Application\Include\Predictor.h ..\Driver\ANOHost.h \
+  ..\Application\Include\RemoteCtrl.h ..\Driver\NRF24L01.h \
+  ..\Application\Include\Predictor2.h ..\Driver\ANOHost.h \
   ..\Driver\LORA433.h ..\Application\Include\PID.h \
   ..\Application\Include\Motor.h

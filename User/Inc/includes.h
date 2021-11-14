@@ -38,6 +38,7 @@ typedef double         FP64; 			 /*  Double precision floating  point*/
 #define RATE_500_HZ 	500
 #define RATE_1000_HZ 	1000
 
+#define FLOAT_EQUAL_DELTA   0.000001f
 /*
 2021.08.29--V0.01
 1、修复串级PID的bug，角速度环单位不统一，err失效，内环失效，重调PID
@@ -57,6 +58,17 @@ typedef double         FP64; 			 /*  Double precision floating  point*/
 2021.10.06--V0.05
 1、解决气压计偶尔失效的问题，与电路地线干扰有关，暂时不焊接LORA调试，下版本电路做地线隔离
 2、调整高度数据融合参数，使曲线更贴合实际变化
+3、修正PWM输出频率
+
+2021.10.xx--V0.06
+1、修改PID输出方向，对齐新的电机方向
+2、微调PID
+
+2021.11.14--V0.07
+1、调整三轴PID
+2、改变高度融合策略，采用APM三阶融合
+3、增加定高功能，当前PID可以进行基本定高，需细化调整
+4、现在丢控之后进自动降落模式，而不是改变打杆量来降落
 
 */
 #endif 
