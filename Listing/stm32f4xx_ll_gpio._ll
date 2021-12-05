@@ -1,0 +1,8 @@
+-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c
+-fno-rtti -funsigned-char -fshort-enums -fshort-wchar
+-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Application -I ../Driver -I ../Library/CMSIS -I ../Library/STM32F4xx_HAL_Driver/Inc -I ../Library/STM32F4xx_HAL_Driver/Inc/Legacy -I ../User
+-I./RTE/_HyTelectrl
+-I"D:/Keil MDK/package/ARM/CMSIS/5.8.0/CMSIS/Core/Include"
+-I"D:/Keil MDK/package/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include"
+-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F429xx
+-S -o ../listing/stm32f4xx_ll_gpio.lst "../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_gpio.c"
