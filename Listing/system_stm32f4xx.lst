@@ -29,7 +29,7 @@
 	.section	.text.SystemInit,"ax",%progbits
 	.hidden	SystemInit                      @ -- Begin function SystemInit
 	.globl	SystemInit
-	.p2align	2
+	.p2align	1
 	.type	SystemInit,%function
 	.code	16                              @ @SystemInit
 	.thumb_func
@@ -40,13 +40,13 @@ SystemInit:
 	.cfi_sections .debug_frame
 	.cfi_startproc
 @ %bb.0:
-	movw	r1, #60808
-	movt	r1, #57344
+	movw	r0, #60808
+	movt	r0, #57344
 .Ltmp0:
 	.loc	2 172 16 prologue_end           @ ../User/system_stm32f4xx.c:172:16
-	ldr	r0, [r1]
-	orr	r0, r0, #15728640
-	str	r0, [r1]
+	ldr	r1, [r0]
+	orr	r1, r1, #15728640
+	str	r1, [r0]
 	.loc	2 183 1                         @ ../User/system_stm32f4xx.c:183:1
 	bx	lr
 .Ltmp1:
@@ -59,7 +59,7 @@ SystemInit:
 	.section	.text.SystemCoreClockUpdate,"ax",%progbits
 	.hidden	SystemCoreClockUpdate           @ -- Begin function SystemCoreClockUpdate
 	.globl	SystemCoreClockUpdate
-	.p2align	2
+	.p2align	1
 	.type	SystemCoreClockUpdate,%function
 	.code	16                              @ @SystemCoreClockUpdate
 	.thumb_func
@@ -69,191 +69,120 @@ SystemCoreClockUpdate:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.pad	#24
-	sub	sp, #24
-	.cfi_def_cfa_offset 24
-	movs	r1, #0
+	movw	r0, #14340
+	movt	r0, #16386
 .Ltmp2:
-	.loc	2 223 12 prologue_end           @ ../User/system_stm32f4xx.c:223:12
-	str	r1, [sp, #20]
-	.loc	2 223 21 is_stmt 0              @ ../User/system_stm32f4xx.c:223:21
-	str	r1, [sp, #16]
-	movs	r0, #2
-	.loc	2 223 33                        @ ../User/system_stm32f4xx.c:223:33
-	str	r0, [sp, #12]
-	.loc	2 223 43                        @ ../User/system_stm32f4xx.c:223:43
-	str	r1, [sp, #8]
-	.loc	2 223 58                        @ ../User/system_stm32f4xx.c:223:58
-	str	r0, [sp, #4]
-	movw	r0, #14344
-	movt	r0, #16386
-	.loc	2 226 14 is_stmt 1              @ ../User/system_stm32f4xx.c:226:14
-	ldr	r0, [r0]
+	.loc	2 226 14 prologue_end           @ ../User/system_stm32f4xx.c:226:14
+	ldr	r1, [r0, #4]
 	.loc	2 226 19 is_stmt 0              @ ../User/system_stm32f4xx.c:226:19
-	and	r0, r0, #12
-	.loc	2 226 7                         @ ../User/system_stm32f4xx.c:226:7
-	str	r0, [sp, #20]
-	.loc	2 228 11 is_stmt 1              @ ../User/system_stm32f4xx.c:228:11
-	ldr	r0, [sp, #20]
-	.loc	2 228 3 is_stmt 0               @ ../User/system_stm32f4xx.c:228:3
-	str	r0, [sp]                        @ 4-byte Spill
-	cbz	r0, .LBB1_3
-	b	.LBB1_1
-.LBB1_1:
-	ldr	r0, [sp]                        @ 4-byte Reload
-	cmp	r0, #4
-	beq	.LBB1_4
-	b	.LBB1_2
-.LBB1_2:
-	ldr	r0, [sp]                        @ 4-byte Reload
-	cmp	r0, #8
-	beq	.LBB1_5
-	b	.LBB1_9
-.LBB1_3:
+	and	r2, r1, #12
 .Ltmp3:
-	.loc	2 231 23 is_stmt 1              @ ../User/system_stm32f4xx.c:231:23
-	movw	r1, :lower16:SystemCoreClock
-	movt	r1, :upper16:SystemCoreClock
-	movw	r0, #9216
-	movt	r0, #244
-	str	r0, [r1]
-	.loc	2 232 7                         @ ../User/system_stm32f4xx.c:232:7
-	b	.LBB1_10
-.LBB1_4:
-	.loc	2 234 23                        @ ../User/system_stm32f4xx.c:234:23
-	movw	r1, :lower16:SystemCoreClock
-	movt	r1, :upper16:SystemCoreClock
-	movw	r0, #30784
-	movt	r0, #381
-	str	r0, [r1]
-	.loc	2 235 7                         @ ../User/system_stm32f4xx.c:235:7
-	b	.LBB1_10
-.LBB1_5:
-	.loc	2 0 7 is_stmt 0                 @ ../User/system_stm32f4xx.c:0:7
-	movw	r0, #14340
-	movt	r0, #16386
-	.loc	2 241 25 is_stmt 1              @ ../User/system_stm32f4xx.c:241:25
-	ldr	r1, [r0]
-	.loc	2 241 55 is_stmt 0              @ ../User/system_stm32f4xx.c:241:55
-	ubfx	r1, r1, #22, #1
-	.loc	2 241 17                        @ ../User/system_stm32f4xx.c:241:17
-	str	r1, [sp, #8]
-	.loc	2 242 19 is_stmt 1              @ ../User/system_stm32f4xx.c:242:19
-	ldr	r0, [r0]
-	.loc	2 242 27 is_stmt 0              @ ../User/system_stm32f4xx.c:242:27
-	and	r0, r0, #63
-	.loc	2 242 12                        @ ../User/system_stm32f4xx.c:242:12
-	str	r0, [sp, #4]
+	@DEBUG_VALUE: SystemCoreClockUpdate:tmp <- $r2
+	.loc	2 0 19                          @ ../User/system_stm32f4xx.c:0:19
+	movw	r1, #9216
+	.loc	2 228 3 is_stmt 1               @ ../User/system_stm32f4xx.c:228:3
+	cmp	r2, #8
+	movt	r1, #244
 .Ltmp4:
-	.loc	2 244 11 is_stmt 1              @ ../User/system_stm32f4xx.c:244:11
-	ldr	r0, [sp, #8]
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllm <- 2
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllsource <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllp <- 2
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllvco <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:tmp <- 0
+	beq	.LBB1_3
 .Ltmp5:
-	.loc	2 244 11 is_stmt 0              @ ../User/system_stm32f4xx.c:244:11
-	cbz	r0, .LBB1_7
-	b	.LBB1_6
-.LBB1_6:
+@ %bb.1:
+	@DEBUG_VALUE: SystemCoreClockUpdate:tmp <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllvco <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllp <- 2
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllsource <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllm <- 2
+	cmp	r2, #4
+	bne	.LBB1_4
 .Ltmp6:
-	.loc	2 247 31 is_stmt 1              @ ../User/system_stm32f4xx.c:247:31
-	ldr	r1, [sp, #4]
-	movw	r0, #30784
-	movt	r0, #381
-	.loc	2 247 29 is_stmt 0              @ ../User/system_stm32f4xx.c:247:29
-	udiv	r0, r0, r1
-	movw	r1, #14340
-	movt	r1, #16386
-	.loc	2 247 46                        @ ../User/system_stm32f4xx.c:247:46
-	ldr	r1, [r1]
-	.loc	2 247 74                        @ ../User/system_stm32f4xx.c:247:74
-	ubfx	r1, r1, #6, #9
-	.loc	2 247 37                        @ ../User/system_stm32f4xx.c:247:37
-	muls	r0, r1, r0
-	.loc	2 247 16                        @ ../User/system_stm32f4xx.c:247:16
-	str	r0, [sp, #16]
-	.loc	2 248 7 is_stmt 1               @ ../User/system_stm32f4xx.c:248:7
-	b	.LBB1_8
+@ %bb.2:
+	@DEBUG_VALUE: SystemCoreClockUpdate:tmp <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllvco <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllp <- 2
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllsource <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllm <- 2
+	.loc	2 0 3 is_stmt 0                 @ ../User/system_stm32f4xx.c:0:3
+	movw	r1, #30784
+	movt	r1, #381
+	b	.LBB1_4
 .Ltmp7:
-.LBB1_7:
-	.loc	2 252 31                        @ ../User/system_stm32f4xx.c:252:31
-	ldr	r1, [sp, #4]
-	movw	r0, #9216
-	movt	r0, #244
-	.loc	2 252 29 is_stmt 0              @ ../User/system_stm32f4xx.c:252:29
-	udiv	r0, r0, r1
-	movw	r1, #14340
-	movt	r1, #16386
-	.loc	2 252 46                        @ ../User/system_stm32f4xx.c:252:46
-	ldr	r1, [r1]
-	.loc	2 252 74                        @ ../User/system_stm32f4xx.c:252:74
-	ubfx	r1, r1, #6, #9
-	.loc	2 252 37                        @ ../User/system_stm32f4xx.c:252:37
-	muls	r0, r1, r0
-	.loc	2 252 16                        @ ../User/system_stm32f4xx.c:252:16
-	str	r0, [sp, #16]
-	b	.LBB1_8
+.LBB1_3:
+	@DEBUG_VALUE: SystemCoreClockUpdate:tmp <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllvco <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllp <- 2
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllsource <- 0
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllm <- 2
+	.loc	2 241 25 is_stmt 1              @ ../User/system_stm32f4xx.c:241:25
+	ldr	r2, [r0]
 .Ltmp8:
-.LBB1_8:
-	.loc	2 0 16                          @ ../User/system_stm32f4xx.c:0:16
-	movw	r0, #14340
-	movt	r0, #16386
-	.loc	2 255 22 is_stmt 1              @ ../User/system_stm32f4xx.c:255:22
-	ldr	r0, [r0]
-	.loc	2 255 30 is_stmt 0              @ ../User/system_stm32f4xx.c:255:30
-	and	r1, r0, #196608
-	movs	r0, #2
-	.loc	2 255 62                        @ ../User/system_stm32f4xx.c:255:62
-	add.w	r0, r0, r1, lsr #15
-	.loc	2 255 12                        @ ../User/system_stm32f4xx.c:255:12
-	str	r0, [sp, #12]
-	.loc	2 256 25 is_stmt 1              @ ../User/system_stm32f4xx.c:256:25
-	ldr	r0, [sp, #16]
-	.loc	2 256 32 is_stmt 0              @ ../User/system_stm32f4xx.c:256:32
-	ldr	r1, [sp, #12]
-	.loc	2 256 31                        @ ../User/system_stm32f4xx.c:256:31
-	udiv	r0, r0, r1
-	.loc	2 256 23                        @ ../User/system_stm32f4xx.c:256:23
-	movw	r1, :lower16:SystemCoreClock
-	movt	r1, :upper16:SystemCoreClock
-	str	r0, [r1]
-	.loc	2 257 7 is_stmt 1               @ ../User/system_stm32f4xx.c:257:7
-	b	.LBB1_10
-.LBB1_9:
-	.loc	2 259 23                        @ ../User/system_stm32f4xx.c:259:23
-	movw	r1, :lower16:SystemCoreClock
-	movt	r1, :upper16:SystemCoreClock
-	movw	r0, #9216
-	movt	r0, #244
-	str	r0, [r1]
-	.loc	2 260 7                         @ ../User/system_stm32f4xx.c:260:7
-	b	.LBB1_10
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllsource <- [DW_OP_constu 22, DW_OP_shr, DW_OP_constu 1, DW_OP_and, DW_OP_stack_value] $r2
+	.loc	2 242 19                        @ ../User/system_stm32f4xx.c:242:19
+	ldr	r3, [r0]
+	.loc	2 244 11                        @ ../User/system_stm32f4xx.c:244:11
+	lsls	r2, r2, #9
 .Ltmp9:
-.LBB1_10:
-	.loc	2 0 7 is_stmt 0                 @ ../User/system_stm32f4xx.c:0:7
-	movw	r0, #14344
-	movt	r0, #16386
-	.loc	2 264 30 is_stmt 1              @ ../User/system_stm32f4xx.c:264:30
-	ldr	r0, [r0]
-	.loc	2 264 35 is_stmt 0              @ ../User/system_stm32f4xx.c:264:35
-	uxtb	r0, r0
-	.loc	2 264 52                        @ ../User/system_stm32f4xx.c:264:52
-	lsrs	r1, r0, #4
-	.loc	2 264 9                         @ ../User/system_stm32f4xx.c:264:9
-	movw	r0, :lower16:AHBPrescTable
-	movt	r0, :upper16:AHBPrescTable
-	ldrb	r0, [r0, r1]
-	.loc	2 264 7                         @ ../User/system_stm32f4xx.c:264:7
-	str	r0, [sp, #20]
-	.loc	2 266 23 is_stmt 1              @ ../User/system_stm32f4xx.c:266:23
-	ldr	r2, [sp, #20]
-	.loc	2 266 19 is_stmt 0              @ ../User/system_stm32f4xx.c:266:19
-	movw	r1, :lower16:SystemCoreClock
-	movt	r1, :upper16:SystemCoreClock
-	ldr	r0, [r1]
-	lsrs	r0, r2
-	str	r0, [r1]
-	.loc	2 267 1 is_stmt 1               @ ../User/system_stm32f4xx.c:267:1
-	add	sp, #24
-	bx	lr
+	.loc	2 0 11 is_stmt 0                @ ../User/system_stm32f4xx.c:0:11
+	movw	r2, #30784
+	movt	r2, #381
+	.loc	2 242 27 is_stmt 1              @ ../User/system_stm32f4xx.c:242:27
+	and	r3, r3, #63
 .Ltmp10:
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllm <- $r3
+	.loc	2 244 11                        @ ../User/system_stm32f4xx.c:244:11
+	it	pl
+	movpl	r2, r1
+.Ltmp11:
+	.loc	2 0 0 is_stmt 0                 @ ../User/system_stm32f4xx.c:0:0
+	ldr	r1, [r0]
+	udiv	r2, r2, r3
+.Ltmp12:
+	.loc	2 255 22 is_stmt 1              @ ../User/system_stm32f4xx.c:255:22
+	ldr	r3, [r0]
+.Ltmp13:
+	.loc	2 0 0 is_stmt 0                 @ ../User/system_stm32f4xx.c:0:0
+	ubfx	r1, r1, #6, #9
+	muls	r1, r2, r1
+.Ltmp14:
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllvco <- $r1
+	.loc	2 255 62                        @ ../User/system_stm32f4xx.c:255:62
+	ubfx	r2, r3, #16, #2
+	movs	r3, #2
+	add.w	r2, r3, r2, lsl #1
+.Ltmp15:
+	@DEBUG_VALUE: SystemCoreClockUpdate:pllp <- $r2
+	.loc	2 256 31 is_stmt 1              @ ../User/system_stm32f4xx.c:256:31
+	udiv	r1, r1, r2
+.Ltmp16:
+.LBB1_4:
+	@DEBUG_VALUE: SystemCoreClockUpdate:tmp <- 0
+	.loc	2 0 0 is_stmt 0                 @ ../User/system_stm32f4xx.c:0:0
+	movw	r2, :lower16:SystemCoreClock
+	movt	r2, :upper16:SystemCoreClock
+	str	r1, [r2]
+.Ltmp17:
+	.loc	2 264 30 is_stmt 1              @ ../User/system_stm32f4xx.c:264:30
+	ldr	r0, [r0, #4]
+	.loc	2 264 9 is_stmt 0               @ ../User/system_stm32f4xx.c:264:9
+	movw	r3, :lower16:AHBPrescTable
+	.loc	2 264 52                        @ ../User/system_stm32f4xx.c:264:52
+	ubfx	r0, r0, #4, #4
+	.loc	2 264 9                         @ ../User/system_stm32f4xx.c:264:9
+	movt	r3, :upper16:AHBPrescTable
+	ldrb	r0, [r3, r0]
+.Ltmp18:
+	@DEBUG_VALUE: SystemCoreClockUpdate:tmp <- $r0
+	.loc	2 266 19 is_stmt 1              @ ../User/system_stm32f4xx.c:266:19
+	lsr.w	r0, r1, r0
+.Ltmp19:
+	str	r0, [r2]
+	.loc	2 267 1                         @ ../User/system_stm32f4xx.c:267:1
+	bx	lr
+.Ltmp20:
 .Lfunc_end1:
 	.size	SystemCoreClockUpdate, .Lfunc_end1-SystemCoreClockUpdate
 	.cfi_endproc
@@ -285,6 +214,87 @@ APBPrescTable:
 	.ascii	"\000\000\000\000\001\002\003\004"
 	.size	APBPrescTable, 8
 
+	.section	.debug_loc,"",%progbits
+.Ldebug_loc0:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp3-.Lfunc_begin1
+	.long	.Ltmp4-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	82                              @ DW_OP_reg2
+	.long	.Ltmp4-.Lfunc_begin1
+	.long	.Ltmp18-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp18-.Lfunc_begin1
+	.long	.Ltmp19-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	0
+	.long	0
+.Ldebug_loc1:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp4-.Lfunc_begin1
+	.long	.Ltmp10-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	50                              @ DW_OP_lit2
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp10-.Lfunc_begin1
+	.long	.Ltmp13-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	83                              @ DW_OP_reg3
+	.long	0
+	.long	0
+.Ldebug_loc2:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp4-.Lfunc_begin1
+	.long	.Ltmp8-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp8-.Lfunc_begin1
+	.long	.Ltmp9-.Lfunc_begin1
+	.short	7                               @ Loc expr size
+	.byte	114                             @ DW_OP_breg2
+	.byte	0                               @ 0
+	.byte	70                              @ DW_OP_lit22
+	.byte	37                              @ DW_OP_shr
+	.byte	49                              @ DW_OP_lit1
+	.byte	26                              @ DW_OP_and
+	.byte	159                             @ DW_OP_stack_value
+	.long	0
+	.long	0
+.Ldebug_loc3:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp4-.Lfunc_begin1
+	.long	.Ltmp15-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	50                              @ DW_OP_lit2
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp15-.Lfunc_begin1
+	.long	.Ltmp16-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	82                              @ DW_OP_reg2
+	.long	0
+	.long	0
+.Ldebug_loc4:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp4-.Lfunc_begin1
+	.long	.Ltmp14-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp14-.Lfunc_begin1
+	.long	.Ltmp16-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	81                              @ DW_OP_reg1
+	.long	0
+	.long	0
 	.section	.debug_abbrev,"",%progbits
 	.byte	1                               @ Abbreviation Code
 	.byte	17                              @ DW_TAG_compile_unit
@@ -442,6 +452,8 @@ APBPrescTable:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -463,6 +475,8 @@ APBPrescTable:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -479,7 +493,7 @@ APBPrescTable:
 	.byte	52                              @ DW_TAG_variable
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
-	.byte	24                              @ DW_FORM_exprloc
+	.byte	23                              @ DW_FORM_sec_offset
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -498,7 +512,7 @@ APBPrescTable:
 	.short	4                               @ DWARF version number
 	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
 	.byte	4                               @ Address Size (in bytes)
-	.byte	1                               @ Abbrev [1] 0xb:0x436 DW_TAG_compile_unit
+	.byte	1                               @ Abbrev [1] 0xb:0x43b DW_TAG_compile_unit
 	.long	.Linfo_string0                  @ DW_AT_producer
 	.short	12                              @ DW_AT_language
 	.long	.Linfo_string1                  @ DW_AT_name
@@ -958,57 +972,49 @@ APBPrescTable:
 	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string65                 @ DW_AT_name
 	.byte	2                               @ DW_AT_decl_file
 	.byte	168                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	15                              @ Abbrev [15] 0x3e8:0x58 DW_TAG_subprogram
+	.byte	15                              @ Abbrev [15] 0x3e8:0x5d DW_TAG_subprogram
 	.long	.Lfunc_begin1                   @ DW_AT_low_pc
 	.long	.Lfunc_end1-.Lfunc_begin1       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string66                 @ DW_AT_name
 	.byte	2                               @ DW_AT_decl_file
 	.byte	221                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	16                              @ Abbrev [16] 0x3f9:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	20
+	.byte	16                              @ Abbrev [16] 0x3f9:0xf DW_TAG_variable
+	.long	.Ldebug_loc0                    @ DW_AT_location
 	.long	.Linfo_string67                 @ DW_AT_name
 	.byte	2                               @ DW_AT_decl_file
 	.byte	223                             @ DW_AT_decl_line
 	.long	55                              @ DW_AT_type
-	.byte	16                              @ Abbrev [16] 0x407:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	16
+	.byte	16                              @ Abbrev [16] 0x408:0xf DW_TAG_variable
+	.long	.Ldebug_loc1                    @ DW_AT_location
 	.long	.Linfo_string68                 @ DW_AT_name
 	.byte	2                               @ DW_AT_decl_file
 	.byte	223                             @ DW_AT_decl_line
 	.long	55                              @ DW_AT_type
-	.byte	16                              @ Abbrev [16] 0x415:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	12
+	.byte	16                              @ Abbrev [16] 0x417:0xf DW_TAG_variable
+	.long	.Ldebug_loc2                    @ DW_AT_location
 	.long	.Linfo_string69                 @ DW_AT_name
 	.byte	2                               @ DW_AT_decl_file
 	.byte	223                             @ DW_AT_decl_line
 	.long	55                              @ DW_AT_type
-	.byte	16                              @ Abbrev [16] 0x423:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	8
+	.byte	16                              @ Abbrev [16] 0x426:0xf DW_TAG_variable
+	.long	.Ldebug_loc3                    @ DW_AT_location
 	.long	.Linfo_string70                 @ DW_AT_name
 	.byte	2                               @ DW_AT_decl_file
 	.byte	223                             @ DW_AT_decl_line
 	.long	55                              @ DW_AT_type
-	.byte	16                              @ Abbrev [16] 0x431:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
+	.byte	16                              @ Abbrev [16] 0x435:0xf DW_TAG_variable
+	.long	.Ldebug_loc4                    @ DW_AT_location
 	.long	.Linfo_string71                 @ DW_AT_name
 	.byte	2                               @ DW_AT_decl_file
 	.byte	223                             @ DW_AT_decl_line
@@ -1162,16 +1168,16 @@ APBPrescTable:
 .Linfo_string67:
 	.asciz	"tmp"                           @ string offset=665
 .Linfo_string68:
-	.asciz	"pllvco"                        @ string offset=669
+	.asciz	"pllm"                          @ string offset=669
 .Linfo_string69:
-	.asciz	"pllp"                          @ string offset=676
+	.asciz	"pllsource"                     @ string offset=674
 .Linfo_string70:
-	.asciz	"pllsource"                     @ string offset=681
+	.asciz	"pllp"                          @ string offset=684
 .Linfo_string71:
-	.asciz	"pllm"                          @ string offset=691
+	.asciz	"pllvco"                        @ string offset=689
 	.ident	"Component: ARM Compiler 6.16 Tool: armclang [5dfeb700]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 6	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 3	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

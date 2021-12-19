@@ -66,6 +66,7 @@ void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef *hsdram)
     GPIO_InitTypeDef GPIO_Initure;
     
     __HAL_RCC_FMC_CLK_ENABLE();                 //使能FMC时钟
+    __HAL_RCC_FMC_CLK_ENABLE();                 //使能FMC时钟
     __HAL_RCC_GPIOC_CLK_ENABLE();               //使能GPIOC时钟
     __HAL_RCC_GPIOD_CLK_ENABLE();               //使能GPIOD时钟
     __HAL_RCC_GPIOE_CLK_ENABLE();               //使能GPIOE时钟

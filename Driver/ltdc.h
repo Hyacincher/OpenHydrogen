@@ -4,9 +4,17 @@
 #include "includes.h"
 #include "stm32f4xx_hal.h"
 #include "font.h"
+#include "ASCII.h"
 //#include "pic.h"
 
 //LCD LTDC重要参数集
+
+typedef enum
+{
+    LCD_DIR_VER = 0,
+    LCD_DIR_HOR
+}DisplyDir_e;
+
 typedef struct  
 {							 
 	INT32U pwidth;      //LCD面板的宽度,固定参数,不随显示方向改变,如果为0,说明没有任何RGB屏接入
@@ -18,7 +26,7 @@ typedef struct
 	INT16U hfp;			//水平前廊
 	INT16U vfp;			//垂直前廊 
 	INT8U activelayer;  //当前层编号:0/1	
-	INT8U dir;          //0,竖屏;1,横屏;
+	DisplyDir_e dir;    //0,竖屏;1,横屏;
 	INT16U width;       //LCD宽度
 	INT16U height;      //LCD高度
 	INT32U pixsize;		//每个像素所占字节数
@@ -37,8 +45,16 @@ extern DMA2D_HandleTypeDef DMA2D_Handler;   //DMA2D句柄
 #define LCD_PIXEL_FORMAT_AL44           0X06     
 #define LCD_PIXEL_FORMAT_AL88           0X07      
 
+#define LCD_COLOR_BLACK                 0x0000
+#define LCD_COLOR_WHITE                 0xFFFF
 ///////////////////////////////////////////////////////////////////////
 //用户修改配置部分:
+
+typedef enum
+{
+    Font_08_16 = 0,
+    Font_16_32
+}FontSize_e;
 
 #define LCD_WIDTH                   480
 #define LCD_HIGHT                   800
@@ -70,8 +86,14 @@ void LTDC_Fill(INT16U sx,INT16U sy,INT16U ex,INT16U ey,INT32U color);			//矩形
 void LTDC_Color_Fill(INT16U sx,INT16U sy,INT16U ex,INT16U ey,INT16U *color);	//矩形彩色填充函数
 void LTDC_Clear(INT32U color);					//清屏函数
 
+void LCD_Fill_Pic(INT16U Sx, INT16U Sy,INT16U PicWidth, INT16U PicHight, INT16U* Pic);
+void LCD_ShowChar0816(INT16U Sx, INT16U Sy, INT8U ASCII, INT16U FontColor, INT16U BackColor, BOOLEAN OpenFontBk);
+void LCD_ShowChar1632(INT16U Sx, INT16U Sy, INT8U ASCII, INT16U FontColor, INT16U BackColor, BOOLEAN OpenFontBk);
+void LCD_ShowString(INT16U Line, INT8U *String, FontSize_e Font, INT16U FontColor, INT16U BackColor);
+
 INT8U LTDC_Clk_Set(INT32U pllsain,INT32U pllsair,INT32U pllsaidivr);//LTDC时钟配置
 void LTDC_Layer_Window_Config(INT8U layerx,INT16U sx,INT16U sy,INT16U width,INT16U height);//LTDC层窗口设置
 void LTDC_Layer_Parameter_Config(INT8U layerx,INT32U bufaddr,INT8U pixformat,INT8U alpha,INT8U alpha0,INT8U bfac1,INT8U bfac2,INT32U bkcolor);//LTDC基本参数设置
 void LTDC_Init(void);						//LTDC初始化函数
 #endif 
+

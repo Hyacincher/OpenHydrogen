@@ -10,6 +10,16 @@ LCD_Info_t g_LCDCtrlMsg;        //管理LCD LTDC的重要参数
 
 static void LTDC_Para_Init(void);
 
+/*
+内存方向
+————————————————————————————
+|   0   480     ……          |触摸接口
+|   1   ……  ……  ……          |
+|   ……  ……  ……  ……          |屏接口
+|   479 ……      383999      |
+————————————————————————————
+*/
+
 //打开LCD开关
 //lcd_switch:1 打开,0，关闭
 void LTDC_Switch(INT8U sw)
@@ -37,17 +47,17 @@ void LTDC_Select_Layer(INT8U layerx)
 
 //设置LCD显示方向
 //dir:0,竖屏；1,横屏
-void LTDC_Display_Dir(INT8U dir)
+void LTDC_Display_Dir(DisplyDir_e dir)
 {
     g_LCDCtrlMsg.dir=dir; 	//显示方向
-	if(dir==0)			//竖屏
+	if(dir == LCD_DIR_VER)			//竖屏
+	{
+        g_LCDCtrlMsg.width=g_LCDCtrlMsg.pwidth;
+		g_LCDCtrlMsg.height=g_LCDCtrlMsg.pheight;
+	}else if(dir == LCD_DIR_HOR)	//横屏
 	{
 		g_LCDCtrlMsg.width=g_LCDCtrlMsg.pheight;
-		g_LCDCtrlMsg.height=g_LCDCtrlMsg.pwidth;	
-	}else if(dir==1)	//横屏
-	{
-		g_LCDCtrlMsg.width=g_LCDCtrlMsg.pwidth;
-		g_LCDCtrlMsg.height=g_LCDCtrlMsg.pheight;
+		g_LCDCtrlMsg.height=g_LCDCtrlMsg.pwidth;		
 	}
 }
 
@@ -58,10 +68,10 @@ void LTDC_Draw_Point(INT16U x,INT16U y,INT32U color)
 {
 	if(g_LCDCtrlMsg.dir)	//横屏
 	{
-        *(INT16U*)((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*y+x))=color;
+        *(INT16U*)((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*x+y))=color;
 	}else 			//竖屏
 	{
-        *(INT16U*)((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*(g_LCDCtrlMsg.pheight-x-1)+y))=color; 
+        *(INT16U*)((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*y+(g_LCDCtrlMsg.pwidth-x-1)))=color; 
 	}
 }
 
@@ -72,10 +82,10 @@ INT32U LTDC_Read_Point(INT16U x,INT16U y)
 {
 	if(g_LCDCtrlMsg.dir)	//横屏
 	{
-		return *(INT16U*)((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*y+x));
+		return *(INT16U*)((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*x+y));
 	}else 			//竖屏
 	{
-		return *(INT16U*)((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*(g_LCDCtrlMsg.pheight-x-1)+y)); 
+		return *(INT16U*)((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*y+(g_LCDCtrlMsg.pwidth-x-1))); 
 	}
 }
 
@@ -93,12 +103,12 @@ void LTDC_Fill(INT16U sx,INT16U sy,INT16U ex,INT16U ey,INT32U color)
 	//坐标系转换
 	if(g_LCDCtrlMsg.dir)	//横屏
 	{
-		psx=sx;psy=sy;
-		pex=ex;pey=ey;
+        psx=sy;pex=ey;
+        psy=sx;pey=ex;
 	}else			//竖屏
 	{
-		psx=sy;psy=g_LCDCtrlMsg.pheight-ex-1;
-		pex=ey;pey=g_LCDCtrlMsg.pheight-sx-1;
+        psx=(g_LCDCtrlMsg.pwidth-ex-1);pex=(g_LCDCtrlMsg.pwidth-sx-1);
+        psy=sy;pey=ey;
 	}
     
 	offline=g_LCDCtrlMsg.pwidth-(pex-psx+1);
@@ -107,10 +117,10 @@ void LTDC_Fill(INT16U sx,INT16U sy,INT16U ex,INT16U ey,INT32U color)
 	DMA2D->CR&=~(DMA2D_CR_START);	//先停止DMA2D
 	DMA2D->CR=DMA2D_R2M;			//寄存器到存储器模式
 	DMA2D->OPFCCR=LCD_PIXFORMAT;	//设置颜色格式
-	DMA2D->OOR=offline;				//设置行偏移 
+	DMA2D->OOR=offline;				//设置行偏移                   //行末尾跳过的点数
 
-	DMA2D->OMAR=addr;				//输出存储器地址
-	DMA2D->NLR=(pey-psy+1)|((pex-psx+1)<<16);	//设定行数寄存器
+	DMA2D->OMAR=addr;				//输出存储器地址               //起始地址
+	DMA2D->NLR=(pey-psy+1)|((pex-psx+1)<<16);	//设定行数寄存器   //高16位是行传输点数，低16位是行数
 	DMA2D->OCOLR=color;						//设定输出颜色寄存器 
 	DMA2D->CR|=DMA2D_CR_START;				//启动DMA2D
 	while((DMA2D->ISR&(DMA2D_FLAG_TC))==0)	//等待传输完成
@@ -135,13 +145,14 @@ void LTDC_Color_Fill(INT16U sx,INT16U sy,INT16U ex,INT16U ey,INT16U *color)
 	//坐标系转换
 	if(g_LCDCtrlMsg.dir)	//横屏
 	{
-		psx=sx;psy=sy;
-		pex=ex;pey=ey;
+        psx=sy;pex=ey;
+        psy=sx;pey=ex;
 	}else			//竖屏
 	{
-		psx=sy;psy=g_LCDCtrlMsg.pheight-ex-1;
-		pex=ey;pey=g_LCDCtrlMsg.pheight-sx-1;
+        psx=(g_LCDCtrlMsg.pwidth-ex-1);pex=(g_LCDCtrlMsg.pwidth-sx-1);
+        psy=sy;pey=ey;
 	}
+    
 	offline=g_LCDCtrlMsg.pwidth-(pex-psx+1);
 	addr=((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*psy+psx));
 	__HAL_RCC_DMA2D_CLK_ENABLE();	//使能DM2D时钟
@@ -179,9 +190,6 @@ void LTDC_Clear(INT32U color)
 //pllsain:SAI时钟倍频系数N,取值范围:50~432.  
 //pllsair:SAI时钟的分频系数R,取值范围:2~7
 //pllsaidivr:LCD时钟分频系数,取值范围:RCC_PLLSAIDIVR_2/4/8/16,对应分频2~16 
-//假设:外部晶振为25M,pllm=25的时候,Fin=1Mhz.
-//例如:要得到20M的LTDC时钟,则可以设置:pllsain=400,pllsair=5,pllsaidivr=RCC_PLLSAIDIVR_4
-//Fdclk=1*400/5/4=400/20=20Mhz
 //返回值:0,成功;1,失败。
 INT8U LTDC_Clk_Set(INT32U pllsain,INT32U pllsair,INT32U pllsaidivr)
 {
@@ -246,7 +254,7 @@ void LTDC_Layer_Parameter_Config(INT8U layerx,INT32U bufaddr,INT8U pixformat,INT
 //LCD初始化函数
 void LTDC_Init(void)
 {   
-    LTDC_Clk_Set(100, 2, RCC_PLLSAIDIVR_2);   //设置像素时钟 25Mhz
+    LTDC_Clk_Set(160, 2, RCC_PLLSAIDIVR_2);   //设置像素时钟 40Mhz
     
     g_LCDCtrlMsg.pwidth=LCD_WIDTH;      //面板宽度,单位:像素
     g_LCDCtrlMsg.pheight=LCD_HIGHT;     //面板高度,单位:像素
@@ -282,7 +290,7 @@ void LTDC_Init(void)
 	LTDC_Layer_Parameter_Config(0,(INT32U)g_LCD_FrameBuff[0],LCD_PIXFORMAT,255,0,6,7,0X000000);//层参数配置
 	LTDC_Layer_Window_Config(0,0,0,g_LCDCtrlMsg.pwidth,g_LCDCtrlMsg.pheight);	//层窗口配置,以LCD面板坐标系为基准,不要随便修改!
 	
- 	LTDC_Display_Dir(1);			//默认竖屏
+ 	LTDC_Display_Dir(1);			//默认横屏
 	LTDC_Select_Layer(0); 			//选择第1层
     LCD_BK_ENABLE();               //点亮背光
     LTDC_Clear(0xffffffff);			//清屏
@@ -537,3 +545,113 @@ static void LTDC_Para_Init(void)
 	SPI_WriteComm(0x3A); SPI_WriteData(0x77);//set_pixel_format
 	SPI_WriteComm(0x36); SPI_WriteData(0x0A);    
 }
+
+
+void LCD_Fill_Pic(INT16U Sx, INT16U Sy,INT16U PicWidth, INT16U PicHight, INT16U* Pic)
+{
+	LTDC_Color_Fill(Sx, Sy, Sx+PicWidth, Sy+PicHight, Pic);
+}
+
+void LCD_ShowChar0816(INT16U Sx, INT16U Sy, INT8U ASCII, INT16U FontColor, INT16U BackColor, BOOLEAN OpenFontBk)
+{
+    INT8U Temp;
+    INT16U Position,ii,jj;
+    
+    ASCII -= ' ';
+    ii = ASCII * 16;
+    
+	for(Position=0;Position<16;Position++)
+    {
+        Temp=FontAscii0816[ii+Position];	
+        for(jj=0;jj<8;jj++)
+       {
+            if(Temp&0x80)
+            {
+                LTDC_Draw_Point(Sx+jj,Sy,FontColor);
+            }
+            else
+            {
+                if(OpenFontBk)
+                {
+                    LTDC_Draw_Point(Sx+jj,Sy,BackColor);
+                }
+            }	
+            Temp<<=1;             
+        }
+         Sy++;
+    }
+}
+
+void LCD_ShowChar1632(INT16U Sx, INT16U Sy, INT8U ASCII, INT16U FontColor, INT16U BackColor, BOOLEAN OpenFontBk)
+{
+    INT8U Temp;
+    INT16U Position,ii,jj;
+    
+    ASCII -= ' ';
+    ii = ASCII * 64;
+    
+	for(Position=0;Position<32;Position++)
+    {
+        Temp=FontAscii1632[ii+(Position*2)];	
+        for(jj=0;jj<8;jj++)
+        {
+            if(Temp&0x80)
+            {
+                LTDC_Draw_Point(Sx+jj,Sy,FontColor);
+            }
+            else
+            {
+                if(OpenFontBk)
+                {
+                    LTDC_Draw_Point(Sx+jj,Sy,BackColor);
+                }
+            }	
+            Temp<<=1;             
+        }
+        Temp=FontAscii1632[ii+(Position*2)+1];	
+        for(jj=8;jj<16;jj++)
+        {
+            if(Temp&0x80)
+            {
+                LTDC_Draw_Point(Sx+jj,Sy,FontColor);
+            }
+            else
+            {
+                if(OpenFontBk)
+                {
+                    LTDC_Draw_Point(Sx+jj,Sy,BackColor);
+                }
+            }	
+            Temp<<=1;             
+        }
+        Sy++;
+    }
+}
+
+//Font_08_16
+//Font_16_32
+void LCD_ShowString(INT16U Line, INT8U *String, FontSize_e Font, INT16U FontColor, INT16U BackColor)
+{
+    INT16U Lenth = strlen((const char *)String);
+    INT16U X,Y;
+    
+    if(Font == Font_08_16)
+    {
+        X = 0;
+        Y = Line * 16;
+        for(INT16U ii = 0 ; ii < Lenth ; ii++)
+        {
+            LCD_ShowChar0816(X+(ii*8), Y, String[ii], FontColor, BackColor, TRUE);
+        }
+    }
+    else if(Font == Font_16_32)
+    {
+        X = 0;
+        Y = Line * 32;
+        for(INT16U ii = 0 ; ii < Lenth ; ii++)
+        {
+            LCD_ShowChar1632(X+(ii*16), Y, String[ii], FontColor, BackColor, TRUE);
+        }
+    }
+}
+

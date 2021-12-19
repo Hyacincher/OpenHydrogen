@@ -16,6 +16,9 @@ typedef unsigned long long  INT64U;         /*  Unsigned 64 bit quantity   */
 typedef float               FP32;           /*  Single precision floating  point*/
 typedef double              FP64;           /*  Double precision floating  point*/
 
+#define     TRUE            1
+#define     FALSE           0
+
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
@@ -40,6 +43,11 @@ typedef double              FP64;           /*  Double precision floating  point
 /*
 2021.12.05--V0.01
 1、建立工程
+
+2021.12.19--V0.02
+1、增加ADC读取驱动
+2、增加LCD驱动，写字符驱动
+3、增加NRF驱动
 
 */
 #endif 

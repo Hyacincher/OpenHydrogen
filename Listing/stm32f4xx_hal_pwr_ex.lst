@@ -30,7 +30,7 @@
 	.section	.text.HAL_PWREx_EnableBkUpReg,"ax",%progbits
 	.hidden	HAL_PWREx_EnableBkUpReg         @ -- Begin function HAL_PWREx_EnableBkUpReg
 	.globl	HAL_PWREx_EnableBkUpReg
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_EnableBkUpReg,%function
 	.code	16                              @ @HAL_PWREx_EnableBkUpReg
 	.thumb_func
@@ -42,77 +42,67 @@ HAL_PWREx_EnableBkUpReg:
 	.cfi_sections .debug_frame
 	.cfi_startproc
 @ %bb.0:
-	.save	{r7, lr}
-	push	{r7, lr}
-	.cfi_def_cfa_offset 8
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
-	.pad	#8
-	sub	sp, #8
-	.cfi_def_cfa_offset 16
-	movs	r0, #0
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	movs	r0, #164
+	movt	r0, #16910
+	movs	r1, #1
 .Ltmp0:
-	.loc	6 145 12 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:145:12
-	str	r0, [sp]
-	movs	r1, #164
-	movt	r1, #16910
-	movs	r0, #1
-	.loc	6 147 33                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:147:33
-	str	r0, [r1]
+	@DEBUG_VALUE: HAL_PWREx_EnableBkUpReg:tickstart <- 0
+	.loc	6 147 33 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:147:33
+	str	r1, [r0]
 	.loc	6 150 15                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:150:15
 	bl	HAL_GetTick
-	.loc	6 150 13 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:150:13
-	str	r0, [sp]
-	.loc	6 153 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:153:3
-	b	.LBB0_1
-.LBB0_1:                                @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movw	r0, #28676
-	movt	r0, #16384
-	.loc	6 153 9                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:153:9
-	ldr	r0, [r0]
-	and	r1, r0, #8
-	movs	r0, #0
-	.loc	6 153 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:153:3
-	cmp.w	r0, r1, lsr #3
-	bne	.LBB0_5
-	b	.LBB0_2
-.LBB0_2:                                @   in Loop: Header=BB0_1 Depth=1
 .Ltmp1:
+	.loc	6 0 15 is_stmt 0                @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:15
+	movw	r5, #28676
+	.loc	6 150 15                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:150:15
+	mov	r4, r0
+.Ltmp2:
+	@DEBUG_VALUE: HAL_PWREx_EnableBkUpReg:tickstart <- $r4
+	.loc	6 0 15                          @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:15
+	movt	r5, #16384
+.Ltmp3:
+	.p2align	2
+.LBB0_1:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_PWREx_EnableBkUpReg:tickstart <- $r4
+	.loc	6 153 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:153:9
+	ldr	r0, [r5]
+	.loc	6 153 3 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:153:3
+	lsls	r0, r0, #28
+	bmi	.LBB0_4
+.Ltmp4:
+@ %bb.2:                                @   in Loop: Header=BB0_1 Depth=1
+	@DEBUG_VALUE: HAL_PWREx_EnableBkUpReg:tickstart <- $r4
 	.loc	6 155 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:155:9
 	bl	HAL_GetTick
-	.loc	6 155 25 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:155:25
-	ldr	r1, [sp]
-	.loc	6 155 23                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:155:23
-	subs	r0, r0, r1
-.Ltmp2:
+.Ltmp5:
+	.loc	6 155 23 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:155:23
+	subs	r0, r0, r4
+.Ltmp6:
 	.loc	6 155 8                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:155:8
 	cmp.w	r0, #1000
-	bls	.LBB0_4
-	b	.LBB0_3
-.LBB0_3:
+	bls	.LBB0_1
+.Ltmp7:
+@ %bb.3:
+	@DEBUG_VALUE: HAL_PWREx_EnableBkUpReg:tickstart <- $r4
 	.loc	6 0 8                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:8
 	movs	r0, #3
-.Ltmp3:
-	.loc	6 157 7 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:157:7
-	strb.w	r0, [sp, #7]
-	b	.LBB0_6
-.Ltmp4:
-.LBB0_4:                                @   in Loop: Header=BB0_1 Depth=1
-	.loc	6 153 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:153:3
-	b	.LBB0_1
-.LBB0_5:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
+	.loc	6 161 1 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:161:1
+	pop	{r4, r5, r7, pc}
+.Ltmp8:
+.LBB0_4:
+	@DEBUG_VALUE: HAL_PWREx_EnableBkUpReg:tickstart <- $r4
+	.loc	6 0 1 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:1
 	movs	r0, #0
-	.loc	6 160 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:160:3
-	strb.w	r0, [sp, #7]
-	b	.LBB0_6
-.LBB0_6:
 	.loc	6 161 1                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:161:1
-	ldrb.w	r0, [sp, #7]
-	add	sp, #8
-	pop	{r7, pc}
-.Ltmp5:
+	pop	{r4, r5, r7, pc}
+.Ltmp9:
 .Lfunc_end0:
 	.size	HAL_PWREx_EnableBkUpReg, .Lfunc_end0-HAL_PWREx_EnableBkUpReg
 	.cfi_endproc
@@ -122,86 +112,77 @@ HAL_PWREx_EnableBkUpReg:
 	.section	.text.HAL_PWREx_DisableBkUpReg,"ax",%progbits
 	.hidden	HAL_PWREx_DisableBkUpReg        @ -- Begin function HAL_PWREx_DisableBkUpReg
 	.globl	HAL_PWREx_DisableBkUpReg
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_DisableBkUpReg,%function
 	.code	16                              @ @HAL_PWREx_DisableBkUpReg
 	.thumb_func
 HAL_PWREx_DisableBkUpReg:
 .Lfunc_begin1:
-	.loc	6 168 0                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:168:0
+	.loc	6 168 0 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:168:0
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.save	{r7, lr}
-	push	{r7, lr}
-	.cfi_def_cfa_offset 8
+	.save	{r4, r5, r7, lr}
+	push	{r4, r5, r7, lr}
+	.cfi_def_cfa_offset 16
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
-	.pad	#8
-	sub	sp, #8
-	.cfi_def_cfa_offset 16
-	movs	r0, #0
-.Ltmp6:
-	.loc	6 169 12 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:169:12
-	str	r0, [sp]
-	movs	r1, #164
-	movt	r1, #16910
-	.loc	6 171 33                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:171:33
-	str	r0, [r1]
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	movs	r0, #164
+	movt	r0, #16910
+	movs	r1, #0
+.Ltmp10:
+	@DEBUG_VALUE: HAL_PWREx_DisableBkUpReg:tickstart <- 0
+	.loc	6 171 33 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:171:33
+	str	r1, [r0]
 	.loc	6 174 15                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:174:15
 	bl	HAL_GetTick
-	.loc	6 174 13 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:174:13
-	str	r0, [sp]
-	.loc	6 177 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:177:3
-	b	.LBB1_1
+.Ltmp11:
+	.loc	6 0 15 is_stmt 0                @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:15
+	movw	r5, #28676
+	.loc	6 174 15                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:174:15
+	mov	r4, r0
+.Ltmp12:
+	@DEBUG_VALUE: HAL_PWREx_DisableBkUpReg:tickstart <- $r4
+	.loc	6 0 15                          @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:15
+	movt	r5, #16384
+.Ltmp13:
+	.p2align	2
 .LBB1_1:                                @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movw	r0, #28676
-	movt	r0, #16384
-	.loc	6 177 9                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:177:9
-	ldr	r0, [r0]
-	and	r1, r0, #8
-	movs	r0, #0
-	.loc	6 177 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:177:3
-	cmp.w	r0, r1, lsr #3
-	beq	.LBB1_5
-	b	.LBB1_2
-.LBB1_2:                                @   in Loop: Header=BB1_1 Depth=1
-.Ltmp7:
+	@DEBUG_VALUE: HAL_PWREx_DisableBkUpReg:tickstart <- $r4
+	.loc	6 177 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:177:9
+	ldr	r0, [r5]
+	.loc	6 177 3 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:177:3
+	lsls	r0, r0, #28
+	bpl	.LBB1_4
+.Ltmp14:
+@ %bb.2:                                @   in Loop: Header=BB1_1 Depth=1
+	@DEBUG_VALUE: HAL_PWREx_DisableBkUpReg:tickstart <- $r4
 	.loc	6 179 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:179:9
 	bl	HAL_GetTick
-	.loc	6 179 25 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:179:25
-	ldr	r1, [sp]
-	.loc	6 179 23                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:179:23
-	subs	r0, r0, r1
-.Ltmp8:
+.Ltmp15:
+	.loc	6 179 23 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:179:23
+	subs	r0, r0, r4
+.Ltmp16:
 	.loc	6 179 8                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:179:8
 	cmp.w	r0, #1000
-	bls	.LBB1_4
-	b	.LBB1_3
-.LBB1_3:
+	bls	.LBB1_1
+.Ltmp17:
+@ %bb.3:
+	@DEBUG_VALUE: HAL_PWREx_DisableBkUpReg:tickstart <- $r4
 	.loc	6 0 8                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:8
 	movs	r0, #3
-.Ltmp9:
-	.loc	6 181 7 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:181:7
-	strb.w	r0, [sp, #7]
-	b	.LBB1_6
-.Ltmp10:
-.LBB1_4:                                @   in Loop: Header=BB1_1 Depth=1
-	.loc	6 177 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:177:3
-	b	.LBB1_1
-.LBB1_5:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
+	.loc	6 185 1 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:185:1
+	pop	{r4, r5, r7, pc}
+.Ltmp18:
+.LBB1_4:
+	@DEBUG_VALUE: HAL_PWREx_DisableBkUpReg:tickstart <- $r4
+	.loc	6 0 1 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:1
 	movs	r0, #0
-	.loc	6 184 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:184:3
-	strb.w	r0, [sp, #7]
-	b	.LBB1_6
-.LBB1_6:
 	.loc	6 185 1                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:185:1
-	ldrb.w	r0, [sp, #7]
-	add	sp, #8
-	pop	{r7, pc}
-.Ltmp11:
+	pop	{r4, r5, r7, pc}
+.Ltmp19:
 .Lfunc_end1:
 	.size	HAL_PWREx_DisableBkUpReg, .Lfunc_end1-HAL_PWREx_DisableBkUpReg
 	.cfi_endproc
@@ -211,25 +192,25 @@ HAL_PWREx_DisableBkUpReg:
 	.section	.text.HAL_PWREx_EnableFlashPowerDown,"ax",%progbits
 	.hidden	HAL_PWREx_EnableFlashPowerDown  @ -- Begin function HAL_PWREx_EnableFlashPowerDown
 	.globl	HAL_PWREx_EnableFlashPowerDown
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_EnableFlashPowerDown,%function
 	.code	16                              @ @HAL_PWREx_EnableFlashPowerDown
 	.thumb_func
 HAL_PWREx_EnableFlashPowerDown:
 .Lfunc_begin2:
-	.loc	6 192 0                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:192:0
+	.loc	6 192 0 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:192:0
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	movs	r1, #36
-	movt	r1, #16910
-	movs	r0, #1
-.Ltmp12:
+	movs	r0, #36
+	movt	r0, #16910
+	movs	r1, #1
+.Ltmp20:
 	.loc	6 193 33 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:193:33
-	str	r0, [r1]
+	str	r1, [r0]
 	.loc	6 194 1                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:194:1
 	bx	lr
-.Ltmp13:
+.Ltmp21:
 .Lfunc_end2:
 	.size	HAL_PWREx_EnableFlashPowerDown, .Lfunc_end2-HAL_PWREx_EnableFlashPowerDown
 	.cfi_endproc
@@ -239,7 +220,7 @@ HAL_PWREx_EnableFlashPowerDown:
 	.section	.text.HAL_PWREx_DisableFlashPowerDown,"ax",%progbits
 	.hidden	HAL_PWREx_DisableFlashPowerDown @ -- Begin function HAL_PWREx_DisableFlashPowerDown
 	.globl	HAL_PWREx_DisableFlashPowerDown
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_DisableFlashPowerDown,%function
 	.code	16                              @ @HAL_PWREx_DisableFlashPowerDown
 	.thumb_func
@@ -249,15 +230,15 @@ HAL_PWREx_DisableFlashPowerDown:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	movs	r1, #36
-	movt	r1, #16910
-	movs	r0, #0
-.Ltmp14:
+	movs	r0, #36
+	movt	r0, #16910
+	movs	r1, #0
+.Ltmp22:
 	.loc	6 202 33 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:202:33
-	str	r0, [r1]
+	str	r1, [r0]
 	.loc	6 203 1                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:203:1
 	bx	lr
-.Ltmp15:
+.Ltmp23:
 .Lfunc_end3:
 	.size	HAL_PWREx_DisableFlashPowerDown, .Lfunc_end3-HAL_PWREx_DisableFlashPowerDown
 	.cfi_endproc
@@ -267,7 +248,7 @@ HAL_PWREx_DisableFlashPowerDown:
 	.section	.text.HAL_PWREx_GetVoltageRange,"ax",%progbits
 	.hidden	HAL_PWREx_GetVoltageRange       @ -- Begin function HAL_PWREx_GetVoltageRange
 	.globl	HAL_PWREx_GetVoltageRange
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_GetVoltageRange,%function
 	.code	16                              @ @HAL_PWREx_GetVoltageRange
 	.thumb_func
@@ -279,14 +260,14 @@ HAL_PWREx_GetVoltageRange:
 @ %bb.0:
 	movw	r0, #28672
 	movt	r0, #16384
-.Ltmp16:
+.Ltmp24:
 	.loc	6 215 16 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:215:16
 	ldr	r0, [r0]
 	.loc	6 215 19 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:215:19
 	and	r0, r0, #49152
 	.loc	6 215 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:215:3
 	bx	lr
-.Ltmp17:
+.Ltmp25:
 .Lfunc_end4:
 	.size	HAL_PWREx_GetVoltageRange, .Lfunc_end4-HAL_PWREx_GetVoltageRange
 	.cfi_endproc
@@ -296,7 +277,7 @@ HAL_PWREx_GetVoltageRange:
 	.section	.text.HAL_PWREx_ControlVoltageScaling,"ax",%progbits
 	.hidden	HAL_PWREx_ControlVoltageScaling @ -- Begin function HAL_PWREx_ControlVoltageScaling
 	.globl	HAL_PWREx_ControlVoltageScaling
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_ControlVoltageScaling,%function
 	.code	16                              @ @HAL_PWREx_ControlVoltageScaling
 	.thumb_func
@@ -306,239 +287,184 @@ HAL_PWREx_ControlVoltageScaling:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.save	{r7, lr}
-	push	{r7, lr}
-	.cfi_def_cfa_offset 8
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r0
+	.save	{r4, r5, r6, r7, r8, lr}
+	push.w	{r4, r5, r6, r7, r8, lr}
+	.cfi_def_cfa_offset 24
 	.cfi_offset lr, -4
-	.cfi_offset r7, -8
-	.pad	#24
-	sub	sp, #24
+	.cfi_offset r8, -8
+	.cfi_offset r7, -12
+	.cfi_offset r6, -16
+	.cfi_offset r5, -20
+	.cfi_offset r4, -24
+	.pad	#8
+	sub	sp, #8
 	.cfi_def_cfa_offset 32
-	str	r0, [sp, #16]
-	movs	r0, #0
-.Ltmp18:
-	.loc	6 292 12 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:292:12
-	str	r0, [sp, #12]
-	.loc	6 297 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:297:3
-	b	.LBB5_1
-.LBB5_1:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r0, #0
-.Ltmp19:
-	.loc	6 297 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:297:3
-	str	r0, [sp, #8]
-	movw	r0, #14400
-	movt	r0, #16386
-	ldr	r1, [r0]
-	orr	r1, r1, #268435456
-	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #268435456
-	str	r0, [sp, #8]
-	ldr	r0, [sp, #8]
-	b	.LBB5_2
-.Ltmp20:
-.LBB5_2:
-	.loc	6 0 3                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movw	r0, #14344
-	movt	r0, #16386
-.Ltmp21:
-	.loc	6 300 6 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:300:6
-	ldr	r0, [r0]
-	and	r0, r0, #12
-.Ltmp22:
+	movw	r6, #14336
+	movs	r1, #0
+.Ltmp26:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- 0
+	movt	r6, #16386
+.Ltmp27:
+	.loc	6 297 3 prologue_end            @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:297:3
+	str	r1, [sp, #4]
+	ldr	r2, [r6, #64]
+	orr	r2, r2, #268435456
+	str	r2, [r6, #64]
+	ldr	r2, [r6, #64]
+	and	r2, r2, #268435456
+	str	r2, [sp, #4]
+	ldr	r2, [sp, #4]
+.Ltmp28:
+	.loc	6 300 6                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:300:6
+	ldr	r2, [r6, #8]
+	and	r2, r2, #12
+.Ltmp29:
 	.loc	6 300 6 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:300:6
-	cmp	r0, #8
-	beq	.LBB5_21
-	b	.LBB5_3
-.LBB5_3:
+	cmp	r2, #8
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r0
+	bne	.LBB5_2
+.Ltmp30:
+@ %bb.1:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r0
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- 0
 	.loc	6 0 6                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:6
-	movs	r1, #96
-	movt	r1, #16967
-	movs	r0, #0
-.Ltmp23:
+	movs	r0, #1
+.Ltmp31:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- [DW_OP_LLVM_entry_value 1] $r0
+	b	.LBB5_9
+.Ltmp32:
+.LBB5_2:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r0
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- 0
+	movw	r8, #96
+	movt	r8, #16967
+	mov	r4, r0
+.Ltmp33:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r4
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r4
 	.loc	6 303 5 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:303:5
-	str	r0, [r1]
+	str.w	r1, [r8]
 	.loc	6 306 17                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:306:17
 	bl	HAL_GetTick
-	.loc	6 306 15 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:306:15
-	str	r0, [sp, #12]
-	.loc	6 308 5 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:308:5
-	b	.LBB5_4
-.LBB5_4:                                @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 5 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:5
-	movw	r0, #14336
-	movt	r0, #16386
+.Ltmp34:
+	mov	r5, r0
+.Ltmp35:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	.p2align	2
+.LBB5_3:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r4
 	.loc	6 308 11                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:308:11
-	ldr	r0, [r0]
-	and	r1, r0, #33554432
-	movs	r0, #0
-	.loc	6 308 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:308:5
-	cmp.w	r0, r1, lsr #25
-	beq	.LBB5_8
-	b	.LBB5_5
-.LBB5_5:                                @   in Loop: Header=BB5_4 Depth=1
-.Ltmp24:
+	ldr	r0, [r6]
+	.loc	6 308 5 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:308:5
+	lsls	r0, r0, #6
+	bpl	.LBB5_5
+.Ltmp36:
+@ %bb.4:                                @   in Loop: Header=BB5_3 Depth=1
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r4
 	.loc	6 310 11 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:310:11
 	bl	HAL_GetTick
-	.loc	6 310 27 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:310:27
-	ldr	r1, [sp, #12]
-	.loc	6 310 25                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:310:25
-	subs	r0, r0, r1
-.Ltmp25:
+.Ltmp37:
+	.loc	6 310 25 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:310:25
+	subs	r0, r0, r5
+.Ltmp38:
 	.loc	6 310 10                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:310:10
-	cmp	r0, #3
-	blo	.LBB5_7
-	b	.LBB5_6
-.LBB5_6:
+	cmp	r0, #2
+	bls	.LBB5_3
+	b	.LBB5_8
+.Ltmp39:
+.LBB5_5:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- $r4
 	.loc	6 0 10                          @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:10
-	movs	r0, #3
-.Ltmp26:
-	.loc	6 312 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:312:9
-	strb.w	r0, [sp, #23]
-	b	.LBB5_23
-.Ltmp27:
-.LBB5_7:                                @   in Loop: Header=BB5_4 Depth=1
-	.loc	6 308 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:308:5
-	b	.LBB5_4
-.LBB5_8:
-	.loc	6 317 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:317:5
-	b	.LBB5_9
-.LBB5_9:
-	.loc	6 0 5 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:5
+	movw	r7, #28672
 	movs	r0, #0
-.Ltmp28:
-	.loc	6 317 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:317:5
-	str	r0, [sp, #4]
-	movw	r0, #28672
-	movt	r0, #16384
-	ldr	r1, [r0]
-	bic	r1, r1, #49152
-	ldr	r2, [sp, #16]
-	orrs	r1, r2
-	str	r1, [r0]
-	ldr	r0, [r0]
+	movt	r7, #16384
+.Ltmp40:
+	.loc	6 317 5 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:317:5
+	str	r0, [sp]
+	ldr	r0, [r7]
+	bic	r0, r0, #49152
+	orrs	r0, r4
+	str	r0, [r7]
+	ldr	r0, [r7]
 	and	r0, r0, #49152
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
-	b	.LBB5_10
-.Ltmp29:
-.LBB5_10:
-	.loc	6 0 5                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:5
-	movs	r1, #96
-	movt	r1, #16967
+	str	r0, [sp]
+	ldr	r0, [sp]
 	movs	r0, #1
-	.loc	6 320 5 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:320:5
-	str	r0, [r1]
+.Ltmp41:
+	.loc	6 320 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:320:5
+	str.w	r0, [r8]
 	.loc	6 323 17                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:323:17
 	bl	HAL_GetTick
-	.loc	6 323 15 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:323:15
-	str	r0, [sp, #12]
-	.loc	6 325 5 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:325:5
-	b	.LBB5_11
-.LBB5_11:                               @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 5 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:5
-	movw	r0, #14336
-	movt	r0, #16386
+.Ltmp42:
+	mov	r5, r0
+.Ltmp43:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	.p2align	2
+.LBB5_6:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
 	.loc	6 325 11                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:325:11
-	ldr	r0, [r0]
-	and	r1, r0, #33554432
-	movs	r0, #0
-	.loc	6 325 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:325:5
-	cmp.w	r0, r1, lsr #25
-	bne	.LBB5_15
-	b	.LBB5_12
-.LBB5_12:                               @   in Loop: Header=BB5_11 Depth=1
-.Ltmp30:
-	.loc	6 327 11 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:327:11
+	ldr	r4, [r6]
+.Ltmp44:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:VoltageScaling <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	6 0 0 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:0
 	bl	HAL_GetTick
-	.loc	6 327 27 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:327:27
-	ldr	r1, [sp, #12]
-	.loc	6 327 25                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:327:25
-	subs	r0, r0, r1
-.Ltmp31:
-	.loc	6 327 10                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:327:10
-	cmp	r0, #3
-	blo	.LBB5_14
-	b	.LBB5_13
-.LBB5_13:
+.Ltmp45:
+	.loc	6 325 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:325:5
+	lsls	r1, r4, #6
+	.loc	6 0 0                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:0
+	mov	r4, r0
+	.loc	6 325 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:325:5
+	bmi	.LBB5_11
+.Ltmp46:
+@ %bb.7:                                @   in Loop: Header=BB5_6 Depth=1
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	.loc	6 327 25 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:327:25
+	subs	r0, r4, r5
+.Ltmp47:
+	.loc	6 327 10 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:327:10
+	cmp	r0, #2
+	bls	.LBB5_6
+.Ltmp48:
+.LBB5_8:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
 	.loc	6 0 10                          @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:10
 	movs	r0, #3
-.Ltmp32:
-	.loc	6 329 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:329:9
-	strb.w	r0, [sp, #23]
-	b	.LBB5_23
-.Ltmp33:
-.LBB5_14:                               @   in Loop: Header=BB5_11 Depth=1
-	.loc	6 325 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:325:5
-	b	.LBB5_11
-.LBB5_15:
-	.loc	6 334 17                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:334:17
+.Ltmp49:
+.LBB5_9:
+	.loc	6 349 1 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:349:1
+	add	sp, #8
+	pop.w	{r4, r5, r6, r7, r8, pc}
+	.p2align	2
+.LBB5_10:                               @   in Loop: Header=BB5_11 Depth=1
+.Ltmp50:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	.loc	6 337 11                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:337:11
 	bl	HAL_GetTick
-	.loc	6 334 15 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:334:15
-	str	r0, [sp, #12]
-	.loc	6 335 5 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:335:5
-	b	.LBB5_16
-.LBB5_16:                               @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 5 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:5
-	movw	r0, #28676
-	movt	r0, #16384
-	.loc	6 335 12                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:335:12
-	ldr	r0, [r0]
-	and	r1, r0, #16384
-	movs	r0, #0
-	.loc	6 335 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:335:5
-	cmp.w	r0, r1, lsr #14
-	bne	.LBB5_20
-	b	.LBB5_17
-.LBB5_17:                               @   in Loop: Header=BB5_16 Depth=1
-.Ltmp34:
-	.loc	6 337 11 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:337:11
-	bl	HAL_GetTick
-	.loc	6 337 27 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:337:27
-	ldr	r1, [sp, #12]
-	.loc	6 337 25                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:337:25
-	subs	r0, r0, r1
-.Ltmp35:
+.Ltmp51:
+	.loc	6 337 25 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:337:25
+	subs	r0, r0, r4
+.Ltmp52:
 	.loc	6 337 10                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:337:10
 	cmp.w	r0, #1000
-	bls	.LBB5_19
-	b	.LBB5_18
-.LBB5_18:
-	.loc	6 0 10                          @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:10
-	movs	r0, #3
-.Ltmp36:
-	.loc	6 339 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:339:9
-	strb.w	r0, [sp, #23]
-	b	.LBB5_23
-.Ltmp37:
-.LBB5_19:                               @   in Loop: Header=BB5_16 Depth=1
-	.loc	6 335 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:335:5
-	b	.LBB5_16
-.LBB5_20:
-	.loc	6 342 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:342:3
-	b	.LBB5_22
-.Ltmp38:
-.LBB5_21:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r0, #1
-.Ltmp39:
-	.loc	6 345 5 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:345:5
-	strb.w	r0, [sp, #23]
-	b	.LBB5_23
-.Ltmp40:
-.LBB5_22:
-	.loc	6 0 5 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:5
+	bhi	.LBB5_8
+.Ltmp53:
+.LBB5_11:                               @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	.loc	6 335 12 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:335:12
+	ldr	r0, [r7, #4]
+	.loc	6 335 5 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:335:5
+	lsls	r0, r0, #17
+	bpl	.LBB5_10
+.Ltmp54:
+@ %bb.12:
+	@DEBUG_VALUE: HAL_PWREx_ControlVoltageScaling:tickstart <- $r5
+	.loc	6 0 5                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:5
 	movs	r0, #0
-	.loc	6 348 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:348:3
-	strb.w	r0, [sp, #23]
-	b	.LBB5_23
-.LBB5_23:
-	.loc	6 349 1                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:349:1
-	ldrb.w	r0, [sp, #23]
-	add	sp, #24
-	pop	{r7, pc}
-.Ltmp41:
+	b	.LBB5_9
 .Lfunc_end5:
 	.size	HAL_PWREx_ControlVoltageScaling, .Lfunc_end5-HAL_PWREx_ControlVoltageScaling
 	.cfi_endproc
@@ -548,155 +474,125 @@ HAL_PWREx_ControlVoltageScaling:
 	.section	.text.HAL_PWREx_EnableOverDrive,"ax",%progbits
 	.hidden	HAL_PWREx_EnableOverDrive       @ -- Begin function HAL_PWREx_EnableOverDrive
 	.globl	HAL_PWREx_EnableOverDrive
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_EnableOverDrive,%function
 	.code	16                              @ @HAL_PWREx_EnableOverDrive
 	.thumb_func
 HAL_PWREx_EnableOverDrive:
 .Lfunc_begin6:
-	.loc	6 416 0                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:416:0
+	.loc	6 416 0 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:416:0
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.save	{r7, lr}
-	push	{r7, lr}
-	.cfi_def_cfa_offset 8
+	.save	{r4, r5, r6, lr}
+	push	{r4, r5, r6, lr}
+	.cfi_def_cfa_offset 16
 	.cfi_offset lr, -4
-	.cfi_offset r7, -8
-	.pad	#16
-	sub	sp, #16
+	.cfi_offset r6, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	.pad	#8
+	sub	sp, #8
 	.cfi_def_cfa_offset 24
 	movs	r0, #0
-.Ltmp42:
-	.loc	6 417 12 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:417:12
-	str	r0, [sp, #8]
-	.loc	6 419 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:419:3
-	b	.LBB6_1
-.LBB6_1:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r0, #0
-.Ltmp43:
-	.loc	6 419 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:419:3
+.Ltmp55:
+	.loc	6 419 3 prologue_end            @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:419:3
 	str	r0, [sp, #4]
 	movw	r0, #14400
 	movt	r0, #16386
 	ldr	r1, [r0]
+	movs	r6, #64
 	orr	r1, r1, #268435456
 	str	r1, [r0]
 	ldr	r0, [r0]
+	movt	r6, #16910
 	and	r0, r0, #268435456
 	str	r0, [sp, #4]
 	ldr	r0, [sp, #4]
-	b	.LBB6_2
-.Ltmp44:
-.LBB6_2:
-	.loc	6 0 3                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r1, #64
-	movt	r1, #16910
+	movw	r5, #28676
 	movs	r0, #1
-	.loc	6 422 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:422:3
-	str	r0, [r1]
+	movt	r5, #16384
+.Ltmp56:
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- 0
+	.loc	6 422 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:422:3
+	str	r0, [r6]
 	.loc	6 425 15                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:425:15
 	bl	HAL_GetTick
-	.loc	6 425 13 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:425:13
-	str	r0, [sp, #8]
-	.loc	6 427 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:427:3
-	b	.LBB6_3
-.LBB6_3:                                @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movw	r0, #28676
-	movt	r0, #16384
+.Ltmp57:
+	mov	r4, r0
+.Ltmp58:
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
+	.p2align	2
+.LBB6_1:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
 	.loc	6 427 10                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:427:10
-	ldr	r0, [r0]
-	and	r0, r0, #65536
-	.loc	6 427 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:427:3
-	cmp.w	r0, #65536
-	beq	.LBB6_7
-	b	.LBB6_4
-.LBB6_4:                                @   in Loop: Header=BB6_3 Depth=1
-.Ltmp45:
+	ldr	r0, [r5]
+	.loc	6 427 3 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:427:3
+	lsls	r0, r0, #15
+	bmi	.LBB6_3
+.Ltmp59:
+@ %bb.2:                                @   in Loop: Header=BB6_1 Depth=1
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
 	.loc	6 429 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:429:9
 	bl	HAL_GetTick
-	.loc	6 429 25 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:429:25
-	ldr	r1, [sp, #8]
-	.loc	6 429 23                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:429:23
-	subs	r0, r0, r1
-.Ltmp46:
+.Ltmp60:
+	.loc	6 429 23 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:429:23
+	subs	r0, r0, r4
+.Ltmp61:
 	.loc	6 429 8                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:429:8
 	cmp.w	r0, #1000
-	bls	.LBB6_6
-	b	.LBB6_5
-.LBB6_5:
+	bls	.LBB6_1
+	b	.LBB6_6
+.Ltmp62:
+.LBB6_3:
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
 	.loc	6 0 8                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:8
-	movs	r0, #3
-.Ltmp47:
-	.loc	6 431 7 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:431:7
-	strb.w	r0, [sp, #15]
-	b	.LBB6_13
-.Ltmp48:
-.LBB6_6:                                @   in Loop: Header=BB6_3 Depth=1
-	.loc	6 427 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:427:3
-	b	.LBB6_3
-.LBB6_7:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r1, #68
-	movt	r1, #16910
 	movs	r0, #1
 	.loc	6 436 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:436:3
-	str	r0, [r1]
+	str	r0, [r6, #4]
 	.loc	6 439 15                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:439:15
 	bl	HAL_GetTick
-	.loc	6 439 13 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:439:13
-	str	r0, [sp, #8]
-	.loc	6 441 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:441:3
-	b	.LBB6_8
-.LBB6_8:                                @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movw	r0, #28676
-	movt	r0, #16384
+.Ltmp63:
+	mov	r4, r0
+.Ltmp64:
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
+	.p2align	2
+.LBB6_4:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
 	.loc	6 441 10                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:441:10
-	ldr	r0, [r0]
-	and	r0, r0, #131072
-	.loc	6 441 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:441:3
-	cmp.w	r0, #131072
-	beq	.LBB6_12
-	b	.LBB6_9
-.LBB6_9:                                @   in Loop: Header=BB6_8 Depth=1
-.Ltmp49:
+	ldr	r0, [r5]
+	.loc	6 441 3 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:441:3
+	lsls	r0, r0, #14
+	bmi	.LBB6_7
+.Ltmp65:
+@ %bb.5:                                @   in Loop: Header=BB6_4 Depth=1
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
 	.loc	6 443 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:443:9
 	bl	HAL_GetTick
-	.loc	6 443 25 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:443:25
-	ldr	r1, [sp, #8]
-	.loc	6 443 23                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:443:23
-	subs	r0, r0, r1
-.Ltmp50:
+.Ltmp66:
+	.loc	6 443 23 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:443:23
+	subs	r0, r0, r4
+.Ltmp67:
 	.loc	6 443 8                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:443:8
 	cmp.w	r0, #1000
-	bls	.LBB6_11
-	b	.LBB6_10
-.LBB6_10:
+	bls	.LBB6_4
+.Ltmp68:
+.LBB6_6:
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
 	.loc	6 0 8                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:8
 	movs	r0, #3
-.Ltmp51:
-	.loc	6 445 7 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:445:7
-	strb.w	r0, [sp, #15]
-	b	.LBB6_13
-.Ltmp52:
-.LBB6_11:                               @   in Loop: Header=BB6_8 Depth=1
-	.loc	6 441 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:441:3
 	b	.LBB6_8
-.LBB6_12:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
+.Ltmp69:
+.LBB6_7:
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
 	movs	r0, #0
-	.loc	6 448 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:448:3
-	strb.w	r0, [sp, #15]
-	b	.LBB6_13
-.LBB6_13:
-	.loc	6 449 1                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:449:1
-	ldrb.w	r0, [sp, #15]
-	add	sp, #16
-	pop	{r7, pc}
-.Ltmp53:
+.Ltmp70:
+.LBB6_8:
+	@DEBUG_VALUE: HAL_PWREx_EnableOverDrive:tickstart <- $r4
+	.loc	6 449 1 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:449:1
+	add	sp, #8
+	pop	{r4, r5, r6, pc}
+.Ltmp71:
 .Lfunc_end6:
 	.size	HAL_PWREx_EnableOverDrive, .Lfunc_end6-HAL_PWREx_EnableOverDrive
 	.cfi_endproc
@@ -706,7 +602,7 @@ HAL_PWREx_EnableOverDrive:
 	.section	.text.HAL_PWREx_DisableOverDrive,"ax",%progbits
 	.hidden	HAL_PWREx_DisableOverDrive      @ -- Begin function HAL_PWREx_DisableOverDrive
 	.globl	HAL_PWREx_DisableOverDrive
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_DisableOverDrive,%function
 	.code	16                              @ @HAL_PWREx_DisableOverDrive
 	.thumb_func
@@ -716,145 +612,114 @@ HAL_PWREx_DisableOverDrive:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.save	{r7, lr}
-	push	{r7, lr}
-	.cfi_def_cfa_offset 8
+	.save	{r4, r5, r6, lr}
+	push	{r4, r5, r6, lr}
+	.cfi_def_cfa_offset 16
 	.cfi_offset lr, -4
-	.cfi_offset r7, -8
-	.pad	#16
-	sub	sp, #16
+	.cfi_offset r6, -8
+	.cfi_offset r5, -12
+	.cfi_offset r4, -16
+	.pad	#8
+	sub	sp, #8
 	.cfi_def_cfa_offset 24
 	movs	r0, #0
-.Ltmp54:
-	.loc	6 464 12 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:464:12
-	str	r0, [sp, #8]
-	.loc	6 466 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:466:3
-	b	.LBB7_1
-.LBB7_1:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r0, #0
-.Ltmp55:
-	.loc	6 466 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:466:3
+	movw	r1, #14400
+.Ltmp72:
+	.loc	6 466 3 prologue_end            @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:466:3
 	str	r0, [sp, #4]
-	movw	r0, #14400
-	movt	r0, #16386
-	ldr	r1, [r0]
-	orr	r1, r1, #268435456
-	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #268435456
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
-	b	.LBB7_2
-.Ltmp56:
-.LBB7_2:
-	.loc	6 0 3                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r1, #68
-	movt	r1, #16910
-	movs	r0, #0
-	.loc	6 469 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:469:3
-	str	r0, [r1]
+	movt	r1, #16386
+	ldr	r2, [r1]
+	movs	r6, #64
+	orr	r2, r2, #268435456
+	str	r2, [r1]
+	ldr	r1, [r1]
+	movt	r6, #16910
+	and	r1, r1, #268435456
+	str	r1, [sp, #4]
+	movw	r5, #28676
+	ldr	r1, [sp, #4]
+	movt	r5, #16384
+.Ltmp73:
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- 0
+	.loc	6 469 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:469:3
+	str	r0, [r6, #4]
 	.loc	6 472 15                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:472:15
 	bl	HAL_GetTick
-	.loc	6 472 13 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:472:13
-	str	r0, [sp, #8]
-	.loc	6 474 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:474:3
-	b	.LBB7_3
-.LBB7_3:                                @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movw	r0, #28676
-	movt	r0, #16384
+.Ltmp74:
+	mov	r4, r0
+.Ltmp75:
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
+	.p2align	2
+.LBB7_1:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
 	.loc	6 474 9                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:474:9
-	ldr	r0, [r0]
-	.loc	6 474 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:474:3
+	ldr	r0, [r5]
+	.loc	6 474 3 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:474:3
 	lsls	r0, r0, #14
-	cmp	r0, #0
-	bpl	.LBB7_7
-	b	.LBB7_4
-.LBB7_4:                                @   in Loop: Header=BB7_3 Depth=1
-.Ltmp57:
+	bpl	.LBB7_3
+.Ltmp76:
+@ %bb.2:                                @   in Loop: Header=BB7_1 Depth=1
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
 	.loc	6 476 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:476:9
 	bl	HAL_GetTick
-	.loc	6 476 25 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:476:25
-	ldr	r1, [sp, #8]
-	.loc	6 476 23                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:476:23
-	subs	r0, r0, r1
-.Ltmp58:
+.Ltmp77:
+	.loc	6 476 23 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:476:23
+	subs	r0, r0, r4
+.Ltmp78:
 	.loc	6 476 8                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:476:8
 	cmp.w	r0, #1000
-	bls	.LBB7_6
-	b	.LBB7_5
-.LBB7_5:
+	bls	.LBB7_1
+	b	.LBB7_6
+.Ltmp79:
+.LBB7_3:
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
 	.loc	6 0 8                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:8
-	movs	r0, #3
-.Ltmp59:
-	.loc	6 478 7 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:478:7
-	strb.w	r0, [sp, #15]
-	b	.LBB7_13
-.Ltmp60:
-.LBB7_6:                                @   in Loop: Header=BB7_3 Depth=1
-	.loc	6 474 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:474:3
-	b	.LBB7_3
-.LBB7_7:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r1, #64
-	movt	r1, #16910
 	movs	r0, #0
 	.loc	6 483 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:483:3
-	str	r0, [r1]
+	str	r0, [r6]
 	.loc	6 486 15                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:486:15
 	bl	HAL_GetTick
-	.loc	6 486 13 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:486:13
-	str	r0, [sp, #8]
-	.loc	6 488 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:488:3
-	b	.LBB7_8
-.LBB7_8:                                @ =>This Inner Loop Header: Depth=1
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movw	r0, #28676
-	movt	r0, #16384
+.Ltmp80:
+	mov	r4, r0
+.Ltmp81:
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
+	.p2align	2
+.LBB7_4:                                @ =>This Inner Loop Header: Depth=1
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
 	.loc	6 488 9                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:488:9
-	ldr	r0, [r0]
-	.loc	6 488 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:488:3
+	ldr	r0, [r5]
+	.loc	6 488 3 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:488:3
 	lsls	r0, r0, #15
-	cmp	r0, #0
-	bpl	.LBB7_12
-	b	.LBB7_9
-.LBB7_9:                                @   in Loop: Header=BB7_8 Depth=1
-.Ltmp61:
+	bpl	.LBB7_7
+.Ltmp82:
+@ %bb.5:                                @   in Loop: Header=BB7_4 Depth=1
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
 	.loc	6 490 9 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:490:9
 	bl	HAL_GetTick
-	.loc	6 490 25 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:490:25
-	ldr	r1, [sp, #8]
-	.loc	6 490 23                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:490:23
-	subs	r0, r0, r1
-.Ltmp62:
+.Ltmp83:
+	.loc	6 490 23 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:490:23
+	subs	r0, r0, r4
+.Ltmp84:
 	.loc	6 490 8                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:490:8
 	cmp.w	r0, #1000
-	bls	.LBB7_11
-	b	.LBB7_10
-.LBB7_10:
+	bls	.LBB7_4
+.Ltmp85:
+.LBB7_6:
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
 	.loc	6 0 8                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:8
 	movs	r0, #3
-.Ltmp63:
-	.loc	6 492 7 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:492:7
-	strb.w	r0, [sp, #15]
-	b	.LBB7_13
-.Ltmp64:
-.LBB7_11:                               @   in Loop: Header=BB7_8 Depth=1
-	.loc	6 488 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:488:3
 	b	.LBB7_8
-.LBB7_12:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
+.Ltmp86:
+.LBB7_7:
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
 	movs	r0, #0
-	.loc	6 496 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:496:3
-	strb.w	r0, [sp, #15]
-	b	.LBB7_13
-.LBB7_13:
-	.loc	6 497 1                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:497:1
-	ldrb.w	r0, [sp, #15]
-	add	sp, #16
-	pop	{r7, pc}
-.Ltmp65:
+.Ltmp87:
+.LBB7_8:
+	@DEBUG_VALUE: HAL_PWREx_DisableOverDrive:tickstart <- $r4
+	.loc	6 497 1 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:497:1
+	add	sp, #8
+	pop	{r4, r5, r6, pc}
+.Ltmp88:
 .Lfunc_end7:
 	.size	HAL_PWREx_DisableOverDrive, .Lfunc_end7-HAL_PWREx_DisableOverDrive
 	.cfi_endproc
@@ -864,7 +729,7 @@ HAL_PWREx_DisableOverDrive:
 	.section	.text.HAL_PWREx_EnterUnderDriveSTOPMode,"ax",%progbits
 	.hidden	HAL_PWREx_EnterUnderDriveSTOPMode @ -- Begin function HAL_PWREx_EnterUnderDriveSTOPMode
 	.globl	HAL_PWREx_EnterUnderDriveSTOPMode
-	.p2align	2
+	.p2align	1
 	.type	HAL_PWREx_EnterUnderDriveSTOPMode,%function
 	.code	16                              @ @HAL_PWREx_EnterUnderDriveSTOPMode
 	.thumb_func
@@ -874,113 +739,258 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.pad	#16
-	sub	sp, #16
-	.cfi_def_cfa_offset 16
-                                        @ kill: def $r2 killed $r1
-	str	r0, [sp, #12]
-	strb.w	r1, [sp, #11]
-	movs	r0, #0
-.Ltmp66:
-	.loc	6 540 12 prologue_end           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:540:12
-	str	r0, [sp, #4]
-	.loc	6 547 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:547:3
-	b	.LBB8_1
-.LBB8_1:
-	.loc	6 0 3 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movs	r0, #0
-.Ltmp67:
-	.loc	6 547 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:547:3
-	str	r0, [sp]
-	movw	r0, #14400
-	movt	r0, #16386
-	ldr	r1, [r0]
-	orr	r1, r1, #268435456
-	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #268435456
-	str	r0, [sp]
-	ldr	r0, [sp]
-	b	.LBB8_2
-.Ltmp68:
-.LBB8_2:
-	.loc	6 0 3                           @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:3
-	movw	r1, #28676
-	movt	r1, #16384
-	.loc	6 550 3 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:550:3
-	ldr	r0, [r1]
-	orr	r0, r0, #786432
-	str	r0, [r1]
-	movw	r1, #28672
-	movt	r1, #16384
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:Regulator <- $r0
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:STOPEntry <- $r1
+	.save	{r7, lr}
+	push	{r7, lr}
+	.cfi_def_cfa_offset 8
+	.cfi_offset lr, -4
+	.cfi_offset r7, -8
+	.pad	#4
+	sub	sp, #4
+	.cfi_def_cfa_offset 12
+	movs	r2, #0
+.Ltmp89:
+	.loc	6 547 3 prologue_end            @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:547:3
+	str	r2, [sp]
+	movw	r2, #14400
+	movt	r2, #16386
+	ldr	r3, [r2]
+	movw	r12, #60688
+	orr	r3, r3, #268435456
+	str	r3, [r2]
+	ldr	r2, [r2]
+	movw	r3, #28672
+	and	r2, r2, #268435456
+	str	r2, [sp]
+	ldr	r2, [sp]
+	movt	r3, #16384
+.Ltmp90:
+	.loc	6 550 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:550:3
+	ldr	r2, [r3, #4]
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:Regulator <- $r0
+	movt	r12, #57344
+.Ltmp91:
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:tmpreg1 <- 0
+	orr	r2, r2, #786432
+	str	r2, [r3, #4]
 	.loc	6 553 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:553:3
-	ldr	r0, [r1]
-	orr	r0, r0, #786432
-	str	r0, [r1]
-	.loc	6 556 18                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:556:18
-	ldr	r0, [r1]
-	.loc	6 556 11 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:556:11
-	str	r0, [sp, #4]
-	.loc	6 558 11 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:558:11
-	ldr	r0, [sp, #4]
-	movw	r2, #3075
-	bics	r0, r2
-	str	r0, [sp, #4]
-	.loc	6 561 14                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:561:14
-	ldr	r2, [sp, #12]
-	.loc	6 561 11 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:561:11
-	ldr	r0, [sp, #4]
-	orrs	r0, r2
-	str	r0, [sp, #4]
-	.loc	6 564 13 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:564:13
-	ldr	r0, [sp, #4]
-	.loc	6 564 11 is_stmt 0              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:564:11
-	str	r0, [r1]
-	movw	r1, #60688
-	movt	r1, #57344
-	.loc	6 567 12 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:567:12
-	ldr	r0, [r1]
-	orr	r0, r0, #4
-	str	r0, [r1]
-.Ltmp69:
+	ldr	r2, [r3]
 	.loc	6 570 6                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:570:6
-	ldrb.w	r0, [sp, #11]
-.Ltmp70:
-	.loc	6 570 6 is_stmt 0               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:570:6
-	cmp	r0, #1
-	bne	.LBB8_4
-	b	.LBB8_3
-.LBB8_3:
-.Ltmp71:
-	.loc	6 573 5 is_stmt 1               @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:573:5
-	wfi
-	.loc	6 574 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:574:3
-	b	.LBB8_5
-.Ltmp72:
-.LBB8_4:
+	cmp	r1, #1
+	.loc	6 553 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:553:3
+	orr	r2, r2, #786432
+	str	r2, [r3]
+	.loc	6 556 18                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:556:18
+	ldr.w	lr, [r3]
+.Ltmp92:
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:tmpreg1 <- $lr
+	.loc	6 0 18 is_stmt 0                @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:18
+	movw	r2, #3075
+	.loc	6 558 11 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:558:11
+	bic.w	r2, lr, r2
+.Ltmp93:
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:tmpreg1 <- $r2
+	.loc	6 561 11                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:561:11
+	orr.w	r0, r0, r2
+.Ltmp94:
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:Regulator <- [DW_OP_LLVM_entry_value 1] $r0
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:tmpreg1 <- $r0
+	.loc	6 564 11                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:564:11
+	str	r0, [r3]
+	.loc	6 567 12                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:567:12
+	ldr.w	r0, [r12]
+.Ltmp95:
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:STOPEntry <- $r1
+	orr	r0, r0, #4
+	str.w	r0, [r12]
+.Ltmp96:
 	.loc	6 578 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:578:5
-	wfe
-	b	.LBB8_5
-.Ltmp73:
-.LBB8_5:
-	.loc	6 0 5 is_stmt 0                 @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:0:5
-	movw	r1, #60688
-	movt	r1, #57344
-	.loc	6 581 12 is_stmt 1              @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:581:12
-	ldr	r0, [r1]
-	bic	r0, r0, #4
-	str	r0, [r1]
-	movs	r0, #0
+	ite	ne
+	wfene
+.Ltmp97:
+	.loc	6 573 5                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:573:5
+	wfieq
+.Ltmp98:
+	.loc	6 581 12                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:581:12
+	ldr.w	r0, [r12]
+	bic	r1, r0, #4
+.Ltmp99:
+	@DEBUG_VALUE: HAL_PWREx_EnterUnderDriveSTOPMode:STOPEntry <- [DW_OP_LLVM_entry_value 1] $r1
 	.loc	6 583 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:583:3
-	add	sp, #16
-	bx	lr
-.Ltmp74:
+	movs	r0, #0
+	.loc	6 581 12                        @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:581:12
+	str.w	r1, [r12]
+	.loc	6 583 3                         @ ../Library/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c:583:3
+	add	sp, #4
+	pop	{r7, pc}
+.Ltmp100:
 .Lfunc_end8:
 	.size	HAL_PWREx_EnterUnderDriveSTOPMode, .Lfunc_end8-HAL_PWREx_EnterUnderDriveSTOPMode
 	.cfi_endproc
 	.cantunwind
 	.fnend
                                         @ -- End function
+	.section	.debug_loc,"",%progbits
+.Ldebug_loc0:
+	.long	-1
+	.long	.Lfunc_begin0                   @   base address
+	.long	.Ltmp0-.Lfunc_begin0
+	.long	.Ltmp2-.Lfunc_begin0
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp2-.Lfunc_begin0
+	.long	.Ltmp9-.Lfunc_begin0
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc1:
+	.long	-1
+	.long	.Lfunc_begin1                   @   base address
+	.long	.Ltmp10-.Lfunc_begin1
+	.long	.Ltmp12-.Lfunc_begin1
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp12-.Lfunc_begin1
+	.long	.Ltmp19-.Lfunc_begin1
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc2:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Lfunc_begin5-.Lfunc_begin5
+	.long	.Ltmp31-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp31-.Lfunc_begin5
+	.long	.Ltmp32-.Lfunc_begin5
+	.short	4                               @ Loc expr size
+	.byte	243                             @ DW_OP_GNU_entry_value
+	.byte	1                               @ 1
+	.byte	80                              @ DW_OP_reg0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp32-.Lfunc_begin5
+	.long	.Ltmp33-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp33-.Lfunc_begin5
+	.long	.Ltmp43-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	.Ltmp44-.Lfunc_begin5
+	.long	.Ltmp46-.Lfunc_begin5
+	.short	4                               @ Loc expr size
+	.byte	243                             @ DW_OP_GNU_entry_value
+	.byte	1                               @ 1
+	.byte	80                              @ DW_OP_reg0
+	.byte	159                             @ DW_OP_stack_value
+	.long	0
+	.long	0
+.Ldebug_loc3:
+	.long	-1
+	.long	.Lfunc_begin5                   @   base address
+	.long	.Ltmp26-.Lfunc_begin5
+	.long	.Ltmp35-.Lfunc_begin5
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp35-.Lfunc_begin5
+	.long	.Ltmp49-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	85                              @ DW_OP_reg5
+	.long	.Ltmp50-.Lfunc_begin5
+	.long	.Lfunc_end5-.Lfunc_begin5
+	.short	1                               @ Loc expr size
+	.byte	85                              @ DW_OP_reg5
+	.long	0
+	.long	0
+.Ldebug_loc4:
+	.long	-1
+	.long	.Lfunc_begin6                   @   base address
+	.long	.Ltmp56-.Lfunc_begin6
+	.long	.Ltmp58-.Lfunc_begin6
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp58-.Lfunc_begin6
+	.long	.Ltmp71-.Lfunc_begin6
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc5:
+	.long	-1
+	.long	.Lfunc_begin7                   @   base address
+	.long	.Ltmp73-.Lfunc_begin7
+	.long	.Ltmp75-.Lfunc_begin7
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp75-.Lfunc_begin7
+	.long	.Ltmp88-.Lfunc_begin7
+	.short	1                               @ Loc expr size
+	.byte	84                              @ DW_OP_reg4
+	.long	0
+	.long	0
+.Ldebug_loc6:
+	.long	-1
+	.long	.Lfunc_begin8                   @   base address
+	.long	.Lfunc_begin8-.Lfunc_begin8
+	.long	.Ltmp94-.Lfunc_begin8
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp94-.Lfunc_begin8
+	.long	.Lfunc_end8-.Lfunc_begin8
+	.short	4                               @ Loc expr size
+	.byte	243                             @ DW_OP_GNU_entry_value
+	.byte	1                               @ 1
+	.byte	80                              @ DW_OP_reg0
+	.byte	159                             @ DW_OP_stack_value
+	.long	0
+	.long	0
+.Ldebug_loc7:
+	.long	-1
+	.long	.Lfunc_begin8                   @   base address
+	.long	.Lfunc_begin8-.Lfunc_begin8
+	.long	.Ltmp99-.Lfunc_begin8
+	.short	1                               @ Loc expr size
+	.byte	81                              @ DW_OP_reg1
+	.long	.Ltmp99-.Lfunc_begin8
+	.long	.Lfunc_end8-.Lfunc_begin8
+	.short	4                               @ Loc expr size
+	.byte	243                             @ DW_OP_GNU_entry_value
+	.byte	1                               @ 1
+	.byte	81                              @ DW_OP_reg1
+	.byte	159                             @ DW_OP_stack_value
+	.long	0
+	.long	0
+.Ldebug_loc8:
+	.long	-1
+	.long	.Lfunc_begin8                   @   base address
+	.long	.Ltmp91-.Lfunc_begin8
+	.long	.Ltmp92-.Lfunc_begin8
+	.short	2                               @ Loc expr size
+	.byte	48                              @ DW_OP_lit0
+	.byte	159                             @ DW_OP_stack_value
+	.long	.Ltmp92-.Lfunc_begin8
+	.long	.Ltmp93-.Lfunc_begin8
+	.short	1                               @ Loc expr size
+	.byte	94                              @ DW_OP_reg14
+	.long	.Ltmp93-.Lfunc_begin8
+	.long	.Ltmp94-.Lfunc_begin8
+	.short	1                               @ Loc expr size
+	.byte	82                              @ DW_OP_reg2
+	.long	.Ltmp94-.Lfunc_begin8
+	.long	.Ltmp95-.Lfunc_begin8
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	0
+	.long	0
 	.section	.debug_abbrev,"",%progbits
 	.byte	1                               @ Abbreviation Code
 	.byte	17                              @ DW_TAG_compile_unit
@@ -1143,6 +1153,8 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1161,7 +1173,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.byte	52                              @ DW_TAG_variable
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
-	.byte	24                              @ DW_FORM_exprloc
+	.byte	23                              @ DW_FORM_sec_offset
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1181,6 +1193,8 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1202,6 +1216,8 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1225,6 +1241,8 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1243,7 +1261,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.byte	5                               @ DW_TAG_formal_parameter
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
-	.byte	24                              @ DW_FORM_exprloc
+	.byte	23                              @ DW_FORM_sec_offset
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1258,7 +1276,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.byte	52                              @ DW_TAG_variable
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
-	.byte	24                              @ DW_FORM_exprloc
+	.byte	23                              @ DW_FORM_sec_offset
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1278,6 +1296,21 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.byte	6                               @ DW_FORM_data4
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
+	.byte	23                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	24                              @ DW_FORM_exprloc
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
 	.byte	0                               @ EOM(3)
 	.section	.debug_info,"",%progbits
 .Lcu_begin0:
@@ -1286,7 +1319,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.short	4                               @ DWARF version number
 	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
 	.byte	4                               @ Address Size (in bytes)
-	.byte	1                               @ Abbrev [1] 0xb:0x5ca DW_TAG_compile_unit
+	.byte	1                               @ Abbrev [1] 0xb:0x5d3 DW_TAG_compile_unit
 	.long	.Linfo_string0                  @ DW_AT_producer
 	.short	12                              @ DW_AT_language
 	.long	.Linfo_string1                  @ DW_AT_name
@@ -1768,242 +1801,233 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.long	648                             @ DW_AT_type
 	.byte	5                               @ DW_AT_count
 	.byte	0                               @ End Of Children Mark
-	.byte	15                              @ Abbrev [15] 0x408:0x24 DW_TAG_subprogram
+	.byte	15                              @ Abbrev [15] 0x408:0x25 DW_TAG_subprogram
 	.long	.Lfunc_begin0                   @ DW_AT_low_pc
 	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string71                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	143                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
-	.long	1481                            @ DW_AT_type
+	.long	1490                            @ DW_AT_type
                                         @ DW_AT_external
-	.byte	16                              @ Abbrev [16] 0x41d:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	0
+	.byte	16                              @ Abbrev [16] 0x41d:0xf DW_TAG_variable
+	.long	.Ldebug_loc0                    @ DW_AT_location
 	.long	.Linfo_string81                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	145                             @ DW_AT_decl_line
 	.long	120                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	15                              @ Abbrev [15] 0x42c:0x24 DW_TAG_subprogram
+	.byte	15                              @ Abbrev [15] 0x42d:0x25 DW_TAG_subprogram
 	.long	.Lfunc_begin1                   @ DW_AT_low_pc
 	.long	.Lfunc_end1-.Lfunc_begin1       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string73                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	167                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
-	.long	1481                            @ DW_AT_type
+	.long	1490                            @ DW_AT_type
                                         @ DW_AT_external
-	.byte	16                              @ Abbrev [16] 0x441:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	0
+	.byte	16                              @ Abbrev [16] 0x442:0xf DW_TAG_variable
+	.long	.Ldebug_loc1                    @ DW_AT_location
 	.long	.Linfo_string81                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	169                             @ DW_AT_decl_line
 	.long	120                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	17                              @ Abbrev [17] 0x450:0x11 DW_TAG_subprogram
+	.byte	17                              @ Abbrev [17] 0x452:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin2                   @ DW_AT_low_pc
 	.long	.Lfunc_end2-.Lfunc_begin2       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string74                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	191                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	17                              @ Abbrev [17] 0x461:0x11 DW_TAG_subprogram
+	.byte	17                              @ Abbrev [17] 0x463:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin3                   @ DW_AT_low_pc
 	.long	.Lfunc_end3-.Lfunc_begin3       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string75                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	200                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	18                              @ Abbrev [18] 0x472:0x15 DW_TAG_subprogram
+	.byte	18                              @ Abbrev [18] 0x474:0x15 DW_TAG_subprogram
 	.long	.Lfunc_begin4                   @ DW_AT_low_pc
 	.long	.Lfunc_end4-.Lfunc_begin4       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string76                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	213                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
 	.long	120                             @ DW_AT_type
                                         @ DW_AT_external
-	.byte	19                              @ Abbrev [19] 0x487:0x67 DW_TAG_subprogram
+	.byte	19                              @ Abbrev [19] 0x489:0x69 DW_TAG_subprogram
 	.long	.Lfunc_begin5                   @ DW_AT_low_pc
 	.long	.Lfunc_end5-.Lfunc_begin5       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string77                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	290                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
-	.long	1481                            @ DW_AT_type
+	.long	1490                            @ DW_AT_type
                                         @ DW_AT_external
-	.byte	20                              @ Abbrev [20] 0x49d:0xf DW_TAG_formal_parameter
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	16
-	.long	.Linfo_string82                 @ DW_AT_name
+	.byte	20                              @ Abbrev [20] 0x49f:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc2                    @ DW_AT_location
+	.long	.Linfo_string83                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	290                             @ DW_AT_decl_line
 	.long	120                             @ DW_AT_type
-	.byte	21                              @ Abbrev [21] 0x4ac:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	12
+	.byte	21                              @ Abbrev [21] 0x4af:0x10 DW_TAG_variable
+	.long	.Ldebug_loc3                    @ DW_AT_location
 	.long	.Linfo_string81                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	292                             @ DW_AT_decl_line
 	.long	120                             @ DW_AT_type
-	.byte	22                              @ Abbrev [22] 0x4bb:0x19 DW_TAG_lexical_block
-	.long	.Ltmp19                         @ DW_AT_low_pc
-	.long	.Ltmp20-.Ltmp19                 @ DW_AT_high_pc
-	.byte	21                              @ Abbrev [21] 0x4c4:0xf DW_TAG_variable
+	.byte	22                              @ Abbrev [22] 0x4bf:0x19 DW_TAG_lexical_block
+	.long	.Ltmp27                         @ DW_AT_low_pc
+	.long	.Ltmp28-.Ltmp27                 @ DW_AT_high_pc
+	.byte	23                              @ Abbrev [23] 0x4c8:0xf DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	8
-	.long	.Linfo_string83                 @ DW_AT_name
+	.byte	4
+	.long	.Linfo_string82                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	297                             @ DW_AT_decl_line
 	.long	143                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	22                              @ Abbrev [22] 0x4d4:0x19 DW_TAG_lexical_block
-	.long	.Ltmp28                         @ DW_AT_low_pc
-	.long	.Ltmp29-.Ltmp28                 @ DW_AT_high_pc
-	.byte	21                              @ Abbrev [21] 0x4dd:0xf DW_TAG_variable
+	.byte	22                              @ Abbrev [22] 0x4d8:0x19 DW_TAG_lexical_block
+	.long	.Ltmp40                         @ DW_AT_low_pc
+	.long	.Ltmp41-.Ltmp40                 @ DW_AT_high_pc
+	.byte	23                              @ Abbrev [23] 0x4e1:0xf DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	4
-	.long	.Linfo_string83                 @ DW_AT_name
+	.byte	0
+	.long	.Linfo_string82                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	317                             @ DW_AT_decl_line
 	.long	143                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
 	.byte	0                               @ End Of Children Mark
-	.byte	19                              @ Abbrev [19] 0x4ee:0x3f DW_TAG_subprogram
+	.byte	19                              @ Abbrev [19] 0x4f2:0x40 DW_TAG_subprogram
 	.long	.Lfunc_begin6                   @ DW_AT_low_pc
 	.long	.Lfunc_end6-.Lfunc_begin6       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string78                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	415                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
-	.long	1481                            @ DW_AT_type
+	.long	1490                            @ DW_AT_type
                                         @ DW_AT_external
-	.byte	21                              @ Abbrev [21] 0x504:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	8
+	.byte	21                              @ Abbrev [21] 0x508:0x10 DW_TAG_variable
+	.long	.Ldebug_loc4                    @ DW_AT_location
 	.long	.Linfo_string81                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	417                             @ DW_AT_decl_line
 	.long	120                             @ DW_AT_type
-	.byte	22                              @ Abbrev [22] 0x513:0x19 DW_TAG_lexical_block
-	.long	.Ltmp43                         @ DW_AT_low_pc
-	.long	.Ltmp44-.Ltmp43                 @ DW_AT_high_pc
-	.byte	21                              @ Abbrev [21] 0x51c:0xf DW_TAG_variable
+	.byte	22                              @ Abbrev [22] 0x518:0x19 DW_TAG_lexical_block
+	.long	.Ltmp55                         @ DW_AT_low_pc
+	.long	.Ltmp56-.Ltmp55                 @ DW_AT_high_pc
+	.byte	23                              @ Abbrev [23] 0x521:0xf DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
 	.byte	4
-	.long	.Linfo_string83                 @ DW_AT_name
+	.long	.Linfo_string82                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	419                             @ DW_AT_decl_line
 	.long	143                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
 	.byte	0                               @ End Of Children Mark
-	.byte	19                              @ Abbrev [19] 0x52d:0x3f DW_TAG_subprogram
+	.byte	19                              @ Abbrev [19] 0x532:0x40 DW_TAG_subprogram
 	.long	.Lfunc_begin7                   @ DW_AT_low_pc
 	.long	.Lfunc_end7-.Lfunc_begin7       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string79                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	462                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
-	.long	1481                            @ DW_AT_type
+	.long	1490                            @ DW_AT_type
                                         @ DW_AT_external
-	.byte	21                              @ Abbrev [21] 0x543:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	8
+	.byte	21                              @ Abbrev [21] 0x548:0x10 DW_TAG_variable
+	.long	.Ldebug_loc5                    @ DW_AT_location
 	.long	.Linfo_string81                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	464                             @ DW_AT_decl_line
 	.long	120                             @ DW_AT_type
-	.byte	22                              @ Abbrev [22] 0x552:0x19 DW_TAG_lexical_block
-	.long	.Ltmp55                         @ DW_AT_low_pc
-	.long	.Ltmp56-.Ltmp55                 @ DW_AT_high_pc
-	.byte	21                              @ Abbrev [21] 0x55b:0xf DW_TAG_variable
+	.byte	22                              @ Abbrev [22] 0x558:0x19 DW_TAG_lexical_block
+	.long	.Ltmp72                         @ DW_AT_low_pc
+	.long	.Ltmp73-.Ltmp72                 @ DW_AT_high_pc
+	.byte	23                              @ Abbrev [23] 0x561:0xf DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
 	.byte	4
-	.long	.Linfo_string83                 @ DW_AT_name
+	.long	.Linfo_string82                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	466                             @ DW_AT_decl_line
 	.long	143                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
 	.byte	0                               @ End Of Children Mark
-	.byte	19                              @ Abbrev [19] 0x56c:0x5d DW_TAG_subprogram
+	.byte	19                              @ Abbrev [19] 0x572:0x60 DW_TAG_subprogram
 	.long	.Lfunc_begin8                   @ DW_AT_low_pc
 	.long	.Lfunc_end8-.Lfunc_begin8       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
+                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string80                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	538                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
-	.long	1481                            @ DW_AT_type
+	.long	1490                            @ DW_AT_type
                                         @ DW_AT_external
-	.byte	20                              @ Abbrev [20] 0x582:0xf DW_TAG_formal_parameter
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	12
+	.byte	20                              @ Abbrev [20] 0x588:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc6                    @ DW_AT_location
 	.long	.Linfo_string84                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	538                             @ DW_AT_decl_line
 	.long	120                             @ DW_AT_type
-	.byte	20                              @ Abbrev [20] 0x591:0xf DW_TAG_formal_parameter
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	11
+	.byte	20                              @ Abbrev [20] 0x598:0x10 DW_TAG_formal_parameter
+	.long	.Ldebug_loc7                    @ DW_AT_location
 	.long	.Linfo_string85                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	538                             @ DW_AT_decl_line
 	.long	655                             @ DW_AT_type
-	.byte	21                              @ Abbrev [21] 0x5a0:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
+	.byte	21                              @ Abbrev [21] 0x5a8:0x10 DW_TAG_variable
+	.long	.Ldebug_loc8                    @ DW_AT_location
 	.long	.Linfo_string86                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	540                             @ DW_AT_decl_line
 	.long	120                             @ DW_AT_type
-	.byte	22                              @ Abbrev [22] 0x5af:0x19 DW_TAG_lexical_block
-	.long	.Ltmp67                         @ DW_AT_low_pc
-	.long	.Ltmp68-.Ltmp67                 @ DW_AT_high_pc
-	.byte	21                              @ Abbrev [21] 0x5b8:0xf DW_TAG_variable
+	.byte	22                              @ Abbrev [22] 0x5b8:0x19 DW_TAG_lexical_block
+	.long	.Ltmp89                         @ DW_AT_low_pc
+	.long	.Ltmp90-.Ltmp89                 @ DW_AT_high_pc
+	.byte	23                              @ Abbrev [23] 0x5c1:0xf DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
 	.byte	0
-	.long	.Linfo_string83                 @ DW_AT_name
+	.long	.Linfo_string82                 @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	547                             @ DW_AT_decl_line
 	.long	143                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
 	.byte	0                               @ End Of Children Mark
-	.byte	5                               @ Abbrev [5] 0x5c9:0xb DW_TAG_typedef
+	.byte	5                               @ Abbrev [5] 0x5d2:0xb DW_TAG_typedef
 	.long	38                              @ DW_AT_type
 	.long	.Linfo_string72                 @ DW_AT_name
 	.byte	1                               @ DW_AT_decl_file
@@ -2198,9 +2222,9 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 .Linfo_string81:
 	.asciz	"tickstart"                     @ string offset=970
 .Linfo_string82:
-	.asciz	"VoltageScaling"                @ string offset=980
+	.asciz	"tmpreg"                        @ string offset=980
 .Linfo_string83:
-	.asciz	"tmpreg"                        @ string offset=995
+	.asciz	"VoltageScaling"                @ string offset=987
 .Linfo_string84:
 	.asciz	"Regulator"                     @ string offset=1002
 .Linfo_string85:
@@ -2209,7 +2233,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 	.asciz	"tmpreg1"                       @ string offset=1022
 	.ident	"Component: ARM Compiler 6.16 Tool: armclang [5dfeb700]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 6	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 3	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:
