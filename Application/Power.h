@@ -5,9 +5,11 @@
 #include "ltdc.h"
 
 #define BATTERY_VOLT_MUTI   4
-#define HIGH_BATTERY_UP
-#define HIGH_BATTERY_DOWN
-#define MID_BATTERY_UP
+
+
+#define HIGH_BATTERY_UP     12.20
+#define HIGH_BATTERY_DOWN   12.00
+#define MID_BATTERY_UP      
 #define MID_BATTERY_DOWN
 #define LOW_BATTERY_UP
 #define LOW_BATTERY_DOWN
@@ -29,6 +31,6 @@ typedef struct
 void PowerInit(void);
 void PowerTask(void);
 
-
+extern volatile PowerInfo_t    g_PowerCtrlMsg;
 #endif
 

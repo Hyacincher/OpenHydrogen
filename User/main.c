@@ -5,16 +5,21 @@
   * @retval int
   */
 int main(void)
-{  
+{
+    INT16U Color[40*40];
+    
     HardwareInit();
     PowerInit();
     CommnuniInit();
     
-    LCD_ShowString(0, (INT8U *)"OpenHydrogen", Font_16_32, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+    lv_init();
+    lv_port_disp_init();
+    LVGLDemoInit();
     
     while (1)
     {
         PowerTask();
         CommnuniTask();
+        lv_task_handler();
     }
 }

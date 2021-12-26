@@ -42,7 +42,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+extern volatile INT8U g_GPUTransStart;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -52,6 +52,7 @@
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+extern void GPUTransCallBack(void);
 
 /* USER CODE END 0 */
 
@@ -190,6 +191,7 @@ void SysTick_Handler(void)
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
     SysTickISR();
+    lv_tick_inc(1);
   /* USER CODE END SysTick_IRQn 1 */
 }
 
@@ -226,6 +228,24 @@ void DMA2_Stream2_IRQHandler(void)
   /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
 
   /* USER CODE END DMA2_Stream2_IRQn 1 */
+}
+
+void DMA2D_IRQHandler(void)
+{
+    /*中断传输完成*/
+    if ((DMA2D->ISR & DMA2D_FLAG_TC) != 0U)
+    {
+        if ((DMA2D->CR & DMA2D_IT_TC) != 0U)
+       {
+            DMA2D->CR &= ~DMA2D_IT_TC;  /*关闭中断*/
+            DMA2D->IFCR = DMA2D_FLAG_TC;/*清除传输完成中断*/
+            if (g_GPUTransStart == 1)
+            {
+                g_GPUTransStart = 0;
+                GPUTransCallBack();
+            }
+        }
+    }
 }
 
 /* USER CODE BEGIN 1 */

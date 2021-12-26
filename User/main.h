@@ -5,6 +5,11 @@
 #include "Power.h"
 #include "Communi.h"
 
+#include "lvgl.h"
+
+
+#include "GUI_Main.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -49,6 +49,10 @@ typedef double              FP64;           /*  Double precision floating  point
 2、增加LCD驱动，写字符驱动
 3、增加NRF驱动
 
+2021.12.20--V0.03
+1、移植LVGL，DMA2D+中断刷新
+2、增加电源电压轮盘DEMO
+
 */
 #endif 
 

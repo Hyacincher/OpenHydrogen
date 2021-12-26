@@ -4,6 +4,8 @@ volatile PowerInfo_t    g_PowerCtrlMsg;
 
 static void UpdateBatteryVolt(void);
 
+extern void SetPowerValue(INT32U Value);
+
 void PowerInit(void)
 {
     memset((void *)&g_PowerCtrlMsg, 0, sizeof(g_PowerCtrlMsg));
@@ -21,11 +23,8 @@ void PowerTask(void)
         case 1:
             if((g_SystemTime - g_PowerCtrlMsg.TaskTimer) >= 200)
             {
-                INT8U Str[20];
-                
                 UpdateBatteryVolt();
-                sprintf((char *)Str, "Battery:%dmV", g_PowerCtrlMsg.BatteryVolt);
-                LCD_ShowString(1, Str, Font_16_32, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+                SetPowerValue(g_PowerCtrlMsg.BatteryVolt);
                 g_PowerCtrlMsg.TaskStage++;
             }
             break;

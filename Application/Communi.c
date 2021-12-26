@@ -20,7 +20,7 @@ void CommnuniTask(void)
         case 1:
             if((g_SystemTime - g_CommuniCtrlMsg.TaskTime) > 0)
             {
-                NRFTransmitData();
+                NRFTransmitData();        //改成DMA
                 g_CommuniCtrlMsg.TaskStage++;
             }
             break;

@@ -142,36 +142,33 @@ void LTDC_Color_Fill(INT16U sx,INT16U sy,INT16U ex,INT16U ey,INT16U *color)
 	INT32U timeout=0; 
 	INT16U offline;
 	INT32U addr; 
-	//坐标系转换
-	if(g_LCDCtrlMsg.dir)	//横屏
-	{
-        psx=sy;pex=ey;
-        psy=sx;pey=ex;
-	}else			//竖屏
-	{
-        psx=(g_LCDCtrlMsg.pwidth-ex-1);pex=(g_LCDCtrlMsg.pwidth-sx-1);
-        psy=sy;pey=ey;
-	}
+    
+    //DMA2D，M2M不能旋转屏幕，对齐方向
+    psx=sx;pex=ex;
+    psy=sy;pey=ey;
     
 	offline=g_LCDCtrlMsg.pwidth-(pex-psx+1);
 	addr=((INT32U)g_LCD_FrameBuff[g_LCDCtrlMsg.activelayer]+g_LCDCtrlMsg.pixsize*(g_LCDCtrlMsg.pwidth*psy+psx));
 	__HAL_RCC_DMA2D_CLK_ENABLE();	//使能DM2D时钟
 	DMA2D->CR&=~(DMA2D_CR_START);	//先停止DMA2D
 	DMA2D->CR=DMA2D_M2M;			//存储器到存储器模式
+    DMA2D->OPFCCR=LCD_PIXFORMAT;
 	DMA2D->FGPFCCR=LCD_PIXFORMAT;	//设置颜色格式
 	DMA2D->FGOR=0;					//前景层行偏移为0
 	DMA2D->OOR=offline;				//设置行偏移 
 
 	DMA2D->FGMAR=(INT32U)color;		//源地址
 	DMA2D->OMAR=addr;				//输出存储器地址
-	DMA2D->NLR=(pey-psy+1)|((pex-psx+1)<<16);	//设定行数寄存器 
+	DMA2D->NLR=(pey-psy+1)|((pex-psx+1)<<16);	//设定行数寄存器   //高16位是行传输点数，低16位是行数
+    DMA2D->CR|=DMA2D_CR_TCIE;                   //开启完成中断
+    DMA2D->IFCR = DMA2D_FLAG_TC;                //清除传输完成中断
 	DMA2D->CR|=DMA2D_CR_START;					//启动DMA2D
-	while((DMA2D->ISR&(DMA2D_FLAG_TC))==0)		//等待传输完成
-	{
-		timeout++;
-		if(timeout>0X1FFFFF)break;	//超时退出
-	} 
-	DMA2D->IFCR|=DMA2D_FLAG_TC;				//清除传输完成标志  	
+//	while((DMA2D->ISR&(DMA2D_FLAG_TC))==0)		//等待传输完成
+//	{
+//		timeout++;
+//		if(timeout>0X1FFFFF)break;	//超时退出
+//	}
+//	DMA2D->IFCR|=DMA2D_FLAG_TC;				//清除传输完成标志
 }  
 
 //LCD清屏
@@ -543,7 +540,7 @@ static void LTDC_Para_Init(void)
 	LCD_Delay(10);
 	
 	SPI_WriteComm(0x3A); SPI_WriteData(0x77);//set_pixel_format
-	SPI_WriteComm(0x36); SPI_WriteData(0x0A);    
+	SPI_WriteComm(0x36); SPI_WriteData(0x00);    /*只能翻转XY方向，不能将XY交换。RGB，竖屏从左往右，从上往下刷*/
 }
 
 

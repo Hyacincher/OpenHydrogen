@@ -95,5 +95,7 @@ INT8U LTDC_Clk_Set(INT32U pllsain,INT32U pllsair,INT32U pllsaidivr);//LTDC时钟
 void LTDC_Layer_Window_Config(INT8U layerx,INT16U sx,INT16U sy,INT16U width,INT16U height);//LTDC层窗口设置
 void LTDC_Layer_Parameter_Config(INT8U layerx,INT32U bufaddr,INT8U pixformat,INT8U alpha,INT8U alpha0,INT8U bfac1,INT8U bfac2,INT32U bkcolor);//LTDC基本参数设置
 void LTDC_Init(void);						//LTDC初始化函数
+
+extern LCD_Info_t g_LCDCtrlMsg;        //管理LCD LTDC的重要参数
 #endif 
 

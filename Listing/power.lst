@@ -25,8 +25,7 @@
 	.file	1 "C:\\Users\\Hyacincher\\Desktop\\HyTelectrl\\Code\\Project" "../User\\includes.h"
 	.file	2 "C:\\Users\\Hyacincher\\Desktop\\HyTelectrl\\Code\\Project" "../Application/Power.h"
 	.file	3 "C:\\Users\\Hyacincher\\Desktop\\HyTelectrl\\Code\\Project" "../Application/Power.c"
-	.file	4 "C:\\Users\\Hyacincher\\Desktop\\HyTelectrl\\Code\\Project" "../Driver\\ltdc.h"
-	.file	5 "C:\\Users\\Hyacincher\\Desktop\\HyTelectrl\\Code\\Project" "../User\\cpu.h"
+	.file	4 "C:\\Users\\Hyacincher\\Desktop\\HyTelectrl\\Code\\Project" "../User\\cpu.h"
 	.section	.text.PowerInit,"ax",%progbits
 	.hidden	PowerInit                       @ -- Begin function PowerInit
 	.globl	PowerInit
@@ -36,18 +35,18 @@
 	.thumb_func
 PowerInit:
 .Lfunc_begin0:
-	.loc	3 8 0                           @ ../Application/Power.c:8:0
+	.loc	3 10 0                          @ ../Application/Power.c:10:0
 	.fnstart
 	.cfi_sections .debug_frame
 	.cfi_startproc
 @ %bb.0:
-	.loc	3 9 5 prologue_end              @ ../Application/Power.c:9:5
+	.loc	3 11 5 prologue_end             @ ../Application/Power.c:11:5
 	movw	r0, :lower16:g_PowerCtrlMsg
 	movt	r0, :upper16:g_PowerCtrlMsg
 	movs	r1, #0
 	strd	r1, r1, [r0]
 	str	r1, [r0, #8]
-	.loc	3 10 1                          @ ../Application/Power.c:10:1
+	.loc	3 12 1                          @ ../Application/Power.c:12:1
 	bx	lr
 .Ltmp0:
 .Lfunc_end0:
@@ -59,32 +58,27 @@ PowerInit:
 	.section	.text.PowerTask,"ax",%progbits
 	.hidden	PowerTask                       @ -- Begin function PowerTask
 	.globl	PowerTask
-	.p2align	2
+	.p2align	1
 	.type	PowerTask,%function
 	.code	16                              @ @PowerTask
 	.thumb_func
 PowerTask:
 .Lfunc_begin1:
-	.loc	3 13 0                          @ ../Application/Power.c:13:0
+	.loc	3 15 0                          @ ../Application/Power.c:15:0
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.save	{r4, r5, r7, lr}
-	push	{r4, r5, r7, lr}
-	.cfi_def_cfa_offset 16
+	.save	{r4, lr}
+	push	{r4, lr}
+	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
-	.cfi_offset r7, -8
-	.cfi_offset r5, -12
-	.cfi_offset r4, -16
-	.pad	#24
-	sub	sp, #24
-	.cfi_def_cfa_offset 40
+	.cfi_offset r4, -8
 .Ltmp1:
-	.loc	3 15 27 prologue_end            @ ../Application/Power.c:15:27
-	movw	r5, :lower16:g_PowerCtrlMsg
-	movt	r5, :upper16:g_PowerCtrlMsg
-	ldrb	r0, [r5, #4]
-	.loc	3 15 5 is_stmt 0                @ ../Application/Power.c:15:5
+	.loc	3 17 27 prologue_end            @ ../Application/Power.c:17:27
+	movw	r4, :lower16:g_PowerCtrlMsg
+	movt	r4, :upper16:g_PowerCtrlMsg
+	ldrb	r0, [r4, #4]
+	.loc	3 17 5 is_stmt 0                @ ../Application/Power.c:17:5
 	cmp	r0, #2
 	beq	.LBB1_4
 @ %bb.1:
@@ -94,12 +88,12 @@ PowerTask:
 	cbnz	r0, .LBB1_9
 @ %bb.3:
 .Ltmp2:
-	.loc	3 18 40 is_stmt 1               @ ../Application/Power.c:18:40
+	.loc	3 20 40 is_stmt 1               @ ../Application/Power.c:20:40
 	movw	r0, :lower16:g_SystemTime
 	movt	r0, :upper16:g_SystemTime
 	ldr	r0, [r0]
-	.loc	3 18 38 is_stmt 0               @ ../Application/Power.c:18:38
-	str	r0, [r5, #8]
+	.loc	3 20 38 is_stmt 0               @ ../Application/Power.c:20:38
+	str	r0, [r4, #8]
 	b	.LBB1_7
 .LBB1_4:
 	.loc	3 0 38                          @ ../Application/Power.c:0:38
@@ -107,76 +101,62 @@ PowerTask:
 	b	.LBB1_8
 .LBB1_5:
 .Ltmp3:
-	.loc	3 22 17 is_stmt 1               @ ../Application/Power.c:22:17
+	.loc	3 24 17 is_stmt 1               @ ../Application/Power.c:24:17
 	movw	r0, :lower16:g_SystemTime
 	movt	r0, :upper16:g_SystemTime
 	ldr	r0, [r0]
-	.loc	3 22 47 is_stmt 0               @ ../Application/Power.c:22:47
-	ldr	r1, [r5, #8]
-	.loc	3 22 30                         @ ../Application/Power.c:22:30
+	.loc	3 24 47 is_stmt 0               @ ../Application/Power.c:24:47
+	ldr	r1, [r4, #8]
+	.loc	3 24 30                         @ ../Application/Power.c:24:30
 	subs	r0, r0, r1
 .Ltmp4:
-	.loc	3 22 16                         @ ../Application/Power.c:22:16
+	.loc	3 24 16                         @ ../Application/Power.c:24:16
 	cmp	r0, #200
-	blo	.LBB1_10
-@ %bb.6:
 .Ltmp5:
-	.loc	3 44 34 is_stmt 1               @ ../Application/Power.c:44:34
+	.loc	3 39 1 is_stmt 1                @ ../Application/Power.c:39:1
+	it	lo
+	poplo	{r4, pc}
+.LBB1_6:
+.Ltmp6:
+	.loc	3 43 34                         @ ../Application/Power.c:43:34
 	movw	r0, :lower16:g_ADC1Volt
 	movt	r0, :upper16:g_ADC1Volt
 	ldrh	r0, [r0, #8]
-	add	r4, sp, #4
-	.loc	3 44 55 is_stmt 0               @ ../Application/Power.c:44:55
+	.loc	3 43 55 is_stmt 0               @ ../Application/Power.c:43:55
 	lsls	r0, r0, #2
-	.loc	3 44 32                         @ ../Application/Power.c:44:32
-	strh	r0, [r5, #2]
-.Ltmp6:
-	.loc	3 27 69 is_stmt 1               @ ../Application/Power.c:27:69
-	ldrh	r2, [r5, #2]
-	.loc	3 27 17 is_stmt 0               @ ../Application/Power.c:27:17
-	adr	r1, .LCPI1_0
-	mov	r0, r4
-	bl	__2sprintf
+	.loc	3 43 32                         @ ../Application/Power.c:43:32
+	strh	r0, [r4, #2]
 .Ltmp7:
-	.loc	3 0 17                          @ ../Application/Power.c:0:17
-	movw	r12, #65535
-	.loc	3 28 17 is_stmt 1               @ ../Application/Power.c:28:17
-	movs	r0, #1
-	mov	r1, r4
-	movs	r2, #1
-	movs	r3, #0
-	str.w	r12, [sp]
-	bl	LCD_ShowString
+	.loc	3 27 46 is_stmt 1               @ ../Application/Power.c:27:46
+	ldrh	r0, [r4, #2]
+	.loc	3 27 17 is_stmt 0               @ ../Application/Power.c:27:17
+	bl	SetPowerValue
 .Ltmp8:
 .LBB1_7:
-	.loc	3 0 0 is_stmt 0                 @ ../Application/Power.c:0:0
-	ldrb	r0, [r5, #4]
+	.loc	3 0 0                           @ ../Application/Power.c:0:0
+	ldrb	r0, [r4, #4]
 	adds	r0, #1
 .LBB1_8:
-	strb	r0, [r5, #4]
-	b	.LBB1_10
+	strb	r0, [r4, #4]
+.Ltmp9:
+	.loc	3 39 1 is_stmt 1                @ ../Application/Power.c:39:1
+	pop	{r4, pc}
 .LBB1_9:
+	.loc	3 0 1 is_stmt 0                 @ ../Application/Power.c:0:1
 	movs	r0, #0
-	.loc	3 36 38 is_stmt 1               @ ../Application/Power.c:36:38
-	strb	r0, [r5, #4]
-	.loc	3 37 40                         @ ../Application/Power.c:37:40
+.Ltmp10:
+	.loc	3 35 38 is_stmt 1               @ ../Application/Power.c:35:38
+	strb	r0, [r4, #4]
+	.loc	3 36 40                         @ ../Application/Power.c:36:40
 	movw	r0, :lower16:g_SystemTime
 	movt	r0, :upper16:g_SystemTime
 	ldr	r0, [r0]
-	.loc	3 37 38 is_stmt 0               @ ../Application/Power.c:37:38
-	str	r0, [r5, #8]
-.Ltmp9:
-.LBB1_10:
-	.loc	3 40 1 is_stmt 1                @ ../Application/Power.c:40:1
-	add	sp, #24
-	pop	{r4, r5, r7, pc}
-.Ltmp10:
-	.p2align	2
-@ %bb.11:
-	.loc	3 0 1 is_stmt 0                 @ ../Application/Power.c:0:1
-.LCPI1_0:
-.L.str:
-	.asciz	"Battery:%dmV\000\000\000"
+	.loc	3 36 38 is_stmt 0               @ ../Application/Power.c:36:38
+	str	r0, [r4, #8]
+.Ltmp11:
+	.loc	3 39 1 is_stmt 1                @ ../Application/Power.c:39:1
+	pop	{r4, pc}
+.Ltmp12:
 .Lfunc_end1:
 	.size	PowerTask, .Lfunc_end1-PowerTask
 	.cfi_endproc
@@ -192,12 +172,6 @@ g_PowerCtrlMsg:
 	.zero	12
 	.size	g_PowerCtrlMsg, 12
 
-	.globl	_printf_percent
-	.globl	_printf_d
-	.globl	_printf_int_dec
-	.hidden	_printf_percent
-	.hidden	_printf_d
-	.hidden	_printf_int_dec
 	.section	.debug_abbrev,"",%progbits
 	.byte	1                               @ Abbreviation Code
 	.byte	17                              @ DW_TAG_compile_unit
@@ -341,13 +315,6 @@ g_PowerCtrlMsg:
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
 	.byte	12                              @ Abbreviation Code
-	.byte	15                              @ DW_TAG_pointer_type
-	.byte	0                               @ DW_CHILDREN_no
-	.byte	73                              @ DW_AT_type
-	.byte	19                              @ DW_FORM_ref4
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	13                              @ Abbreviation Code
 	.byte	46                              @ DW_TAG_subprogram
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	17                              @ DW_AT_low_pc
@@ -370,7 +337,7 @@ g_PowerCtrlMsg:
 	.byte	25                              @ DW_FORM_flag_present
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	14                              @ Abbreviation Code
+	.byte	13                              @ Abbreviation Code
 	.byte	46                              @ DW_TAG_subprogram
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	3                               @ DW_AT_name
@@ -385,7 +352,7 @@ g_PowerCtrlMsg:
 	.byte	11                              @ DW_FORM_data1
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	15                              @ Abbreviation Code
+	.byte	14                              @ Abbreviation Code
 	.byte	46                              @ DW_TAG_subprogram
 	.byte	1                               @ DW_CHILDREN_yes
 	.byte	17                              @ DW_AT_low_pc
@@ -408,31 +375,7 @@ g_PowerCtrlMsg:
 	.byte	25                              @ DW_FORM_flag_present
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	16                              @ Abbreviation Code
-	.byte	11                              @ DW_TAG_lexical_block
-	.byte	1                               @ DW_CHILDREN_yes
-	.byte	17                              @ DW_AT_low_pc
-	.byte	1                               @ DW_FORM_addr
-	.byte	18                              @ DW_AT_high_pc
-	.byte	6                               @ DW_FORM_data4
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	17                              @ Abbreviation Code
-	.byte	52                              @ DW_TAG_variable
-	.byte	0                               @ DW_CHILDREN_no
-	.byte	2                               @ DW_AT_location
-	.byte	24                              @ DW_FORM_exprloc
-	.byte	3                               @ DW_AT_name
-	.byte	14                              @ DW_FORM_strp
-	.byte	58                              @ DW_AT_decl_file
-	.byte	11                              @ DW_FORM_data1
-	.byte	59                              @ DW_AT_decl_line
-	.byte	11                              @ DW_FORM_data1
-	.byte	73                              @ DW_AT_type
-	.byte	19                              @ DW_FORM_ref4
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	18                              @ Abbreviation Code
+	.byte	15                              @ Abbreviation Code
 	.byte	29                              @ DW_TAG_inlined_subroutine
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	49                              @ DW_AT_abstract_origin
@@ -449,33 +392,6 @@ g_PowerCtrlMsg:
 	.byte	11                              @ DW_FORM_data1
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	19                              @ Abbreviation Code
-	.byte	1                               @ DW_TAG_array_type
-	.byte	1                               @ DW_CHILDREN_yes
-	.byte	73                              @ DW_AT_type
-	.byte	19                              @ DW_FORM_ref4
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	20                              @ Abbreviation Code
-	.byte	33                              @ DW_TAG_subrange_type
-	.byte	0                               @ DW_CHILDREN_no
-	.byte	73                              @ DW_AT_type
-	.byte	19                              @ DW_FORM_ref4
-	.byte	55                              @ DW_AT_count
-	.byte	11                              @ DW_FORM_data1
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	21                              @ Abbreviation Code
-	.byte	36                              @ DW_TAG_base_type
-	.byte	0                               @ DW_CHILDREN_no
-	.byte	3                               @ DW_AT_name
-	.byte	14                              @ DW_FORM_strp
-	.byte	11                              @ DW_AT_byte_size
-	.byte	11                              @ DW_FORM_data1
-	.byte	62                              @ DW_AT_encoding
-	.byte	11                              @ DW_FORM_data1
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
 	.byte	0                               @ EOM(3)
 	.section	.debug_info,"",%progbits
 .Lcu_begin0:
@@ -484,7 +400,7 @@ g_PowerCtrlMsg:
 	.short	4                               @ DWARF version number
 	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
 	.byte	4                               @ Address Size (in bytes)
-	.byte	1                               @ Abbrev [1] 0xb:0x180 DW_TAG_compile_unit
+	.byte	1                               @ Abbrev [1] 0xb:0x134 DW_TAG_compile_unit
 	.long	.Linfo_string0                  @ DW_AT_producer
 	.short	12                              @ DW_AT_language
 	.long	.Linfo_string1                  @ DW_AT_name
@@ -507,26 +423,26 @@ g_PowerCtrlMsg:
 	.long	71                              @ DW_AT_type
 	.long	.Linfo_string16                 @ DW_AT_name
 	.byte	2                               @ DW_AT_decl_file
-	.byte	27                              @ DW_AT_decl_line
+	.byte	29                              @ DW_AT_decl_line
 	.byte	5                               @ Abbrev [5] 0x47:0x58 DW_TAG_structure_type
 	.byte	12                              @ DW_AT_byte_size
 	.byte	2                               @ DW_AT_decl_file
-	.byte	15                              @ DW_AT_decl_line
+	.byte	17                              @ DW_AT_decl_line
 	.byte	6                               @ Abbrev [6] 0x4b:0xc DW_TAG_member
 	.long	.Linfo_string4                  @ DW_AT_name
 	.long	87                              @ DW_AT_type
 	.byte	2                               @ DW_AT_decl_file
-	.byte	21                              @ DW_AT_decl_line
+	.byte	23                              @ DW_AT_decl_line
 	.byte	0                               @ DW_AT_data_member_location
 	.byte	5                               @ Abbrev [5] 0x57:0x23 DW_TAG_structure_type
 	.byte	1                               @ DW_AT_byte_size
 	.byte	2                               @ DW_AT_decl_file
-	.byte	17                              @ DW_AT_decl_line
+	.byte	19                              @ DW_AT_decl_line
 	.byte	7                               @ Abbrev [7] 0x5b:0xf DW_TAG_member
 	.long	.Linfo_string5                  @ DW_AT_name
 	.long	159                             @ DW_AT_type
 	.byte	2                               @ DW_AT_decl_file
-	.byte	19                              @ DW_AT_decl_line
+	.byte	21                              @ DW_AT_decl_line
 	.byte	1                               @ DW_AT_byte_size
 	.byte	1                               @ DW_AT_bit_size
 	.byte	7                               @ DW_AT_bit_offset
@@ -535,7 +451,7 @@ g_PowerCtrlMsg:
 	.long	.Linfo_string8                  @ DW_AT_name
 	.long	159                             @ DW_AT_type
 	.byte	2                               @ DW_AT_decl_file
-	.byte	20                              @ DW_AT_decl_line
+	.byte	22                              @ DW_AT_decl_line
 	.byte	1                               @ DW_AT_byte_size
 	.byte	7                               @ DW_AT_bit_size
 	.byte	0                               @ DW_AT_bit_offset
@@ -545,19 +461,19 @@ g_PowerCtrlMsg:
 	.long	.Linfo_string9                  @ DW_AT_name
 	.long	177                             @ DW_AT_type
 	.byte	2                               @ DW_AT_decl_file
-	.byte	22                              @ DW_AT_decl_line
+	.byte	24                              @ DW_AT_decl_line
 	.byte	2                               @ DW_AT_data_member_location
 	.byte	6                               @ Abbrev [6] 0x86:0xc DW_TAG_member
 	.long	.Linfo_string12                 @ DW_AT_name
 	.long	159                             @ DW_AT_type
 	.byte	2                               @ DW_AT_decl_file
-	.byte	24                              @ DW_AT_decl_line
+	.byte	26                              @ DW_AT_decl_line
 	.byte	4                               @ DW_AT_data_member_location
 	.byte	6                               @ Abbrev [6] 0x92:0xc DW_TAG_member
 	.long	.Linfo_string13                 @ DW_AT_name
 	.long	195                             @ DW_AT_type
 	.byte	2                               @ DW_AT_decl_file
-	.byte	25                              @ DW_AT_decl_line
+	.byte	27                              @ DW_AT_decl_line
 	.byte	8                               @ DW_AT_data_member_location
 	.byte	0                               @ End Of Children Mark
 	.byte	4                               @ Abbrev [4] 0x9f:0xb DW_TAG_typedef
@@ -587,107 +503,67 @@ g_PowerCtrlMsg:
 	.long	.Linfo_string14                 @ DW_AT_name
 	.byte	7                               @ DW_AT_encoding
 	.byte	4                               @ DW_AT_byte_size
-	.byte	9                               @ Abbrev [9] 0xd5:0x15 DW_TAG_enumeration_type
+	.byte	9                               @ Abbrev [9] 0xd5:0x2d DW_TAG_enumeration_type
 	.long	170                             @ DW_AT_type
 	.byte	1                               @ DW_AT_byte_size
 	.byte	4                               @ DW_AT_decl_file
-	.byte	53                              @ DW_AT_decl_line
+	.byte	93                              @ DW_AT_decl_line
 	.byte	10                              @ Abbrev [10] 0xdd:0x6 DW_TAG_enumerator
 	.long	.Linfo_string17                 @ DW_AT_name
 	.byte	0                               @ DW_AT_const_value
 	.byte	10                              @ Abbrev [10] 0xe3:0x6 DW_TAG_enumerator
 	.long	.Linfo_string18                 @ DW_AT_name
 	.byte	1                               @ DW_AT_const_value
-	.byte	0                               @ End Of Children Mark
-	.byte	9                               @ Abbrev [9] 0xea:0x2d DW_TAG_enumeration_type
-	.long	170                             @ DW_AT_type
-	.byte	1                               @ DW_AT_byte_size
-	.byte	5                               @ DW_AT_decl_file
-	.byte	93                              @ DW_AT_decl_line
-	.byte	10                              @ Abbrev [10] 0xf2:0x6 DW_TAG_enumerator
+	.byte	10                              @ Abbrev [10] 0xe9:0x6 DW_TAG_enumerator
 	.long	.Linfo_string19                 @ DW_AT_name
-	.byte	0                               @ DW_AT_const_value
-	.byte	10                              @ Abbrev [10] 0xf8:0x6 DW_TAG_enumerator
-	.long	.Linfo_string20                 @ DW_AT_name
-	.byte	1                               @ DW_AT_const_value
-	.byte	10                              @ Abbrev [10] 0xfe:0x6 DW_TAG_enumerator
-	.long	.Linfo_string21                 @ DW_AT_name
 	.byte	2                               @ DW_AT_const_value
-	.byte	10                              @ Abbrev [10] 0x104:0x6 DW_TAG_enumerator
-	.long	.Linfo_string22                 @ DW_AT_name
+	.byte	10                              @ Abbrev [10] 0xef:0x6 DW_TAG_enumerator
+	.long	.Linfo_string20                 @ DW_AT_name
 	.byte	3                               @ DW_AT_const_value
-	.byte	10                              @ Abbrev [10] 0x10a:0x6 DW_TAG_enumerator
-	.long	.Linfo_string23                 @ DW_AT_name
+	.byte	10                              @ Abbrev [10] 0xf5:0x6 DW_TAG_enumerator
+	.long	.Linfo_string21                 @ DW_AT_name
 	.byte	4                               @ DW_AT_const_value
-	.byte	10                              @ Abbrev [10] 0x110:0x6 DW_TAG_enumerator
-	.long	.Linfo_string24                 @ DW_AT_name
+	.byte	10                              @ Abbrev [10] 0xfb:0x6 DW_TAG_enumerator
+	.long	.Linfo_string22                 @ DW_AT_name
 	.byte	5                               @ DW_AT_const_value
 	.byte	0                               @ End Of Children Mark
-	.byte	11                              @ Abbrev [11] 0x117:0x1 DW_TAG_pointer_type
-	.byte	12                              @ Abbrev [12] 0x118:0x5 DW_TAG_pointer_type
-	.long	285                             @ DW_AT_type
-	.byte	8                               @ Abbrev [8] 0x11d:0x7 DW_TAG_base_type
-	.long	.Linfo_string25                 @ DW_AT_name
-	.byte	8                               @ DW_AT_encoding
-	.byte	1                               @ DW_AT_byte_size
-	.byte	13                              @ Abbrev [13] 0x124:0x11 DW_TAG_subprogram
+	.byte	11                              @ Abbrev [11] 0x102:0x1 DW_TAG_pointer_type
+	.byte	12                              @ Abbrev [12] 0x103:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin0                   @ DW_AT_low_pc
 	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
                                         @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string27                 @ DW_AT_name
+	.long	.Linfo_string24                 @ DW_AT_name
 	.byte	3                               @ DW_AT_decl_file
-	.byte	7                               @ DW_AT_decl_line
+	.byte	9                               @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	14                              @ Abbrev [14] 0x135:0x8 DW_TAG_subprogram
-	.long	.Linfo_string26                 @ DW_AT_name
+	.byte	13                              @ Abbrev [13] 0x114:0x8 DW_TAG_subprogram
+	.long	.Linfo_string23                 @ DW_AT_name
 	.byte	3                               @ DW_AT_decl_file
-	.byte	42                              @ DW_AT_decl_line
+	.byte	41                              @ DW_AT_decl_line
                                         @ DW_AT_prototyped
 	.byte	1                               @ DW_AT_inline
-	.byte	15                              @ Abbrev [15] 0x13d:0x3a DW_TAG_subprogram
+	.byte	14                              @ Abbrev [14] 0x11c:0x22 DW_TAG_subprogram
 	.long	.Lfunc_begin1                   @ DW_AT_low_pc
 	.long	.Lfunc_end1-.Lfunc_begin1       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
                                         @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string28                 @ DW_AT_name
+	.long	.Linfo_string25                 @ DW_AT_name
 	.byte	3                               @ DW_AT_decl_file
-	.byte	12                              @ DW_AT_decl_line
+	.byte	14                              @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	16                              @ Abbrev [16] 0x14e:0x28 DW_TAG_lexical_block
-	.long	.Ltmp5                          @ DW_AT_low_pc
-	.long	.Ltmp8-.Ltmp5                   @ DW_AT_high_pc
-	.byte	17                              @ Abbrev [17] 0x157:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string29                 @ DW_AT_name
-	.byte	3                               @ DW_AT_decl_file
-	.byte	24                              @ DW_AT_decl_line
-	.long	375                             @ DW_AT_type
-	.byte	18                              @ Abbrev [18] 0x165:0x10 DW_TAG_inlined_subroutine
-	.long	309                             @ DW_AT_abstract_origin
-	.long	.Ltmp5                          @ DW_AT_low_pc
-	.long	.Ltmp6-.Ltmp5                   @ DW_AT_high_pc
+	.byte	15                              @ Abbrev [15] 0x12d:0x10 DW_TAG_inlined_subroutine
+	.long	276                             @ DW_AT_abstract_origin
+	.long	.Ltmp6                          @ DW_AT_low_pc
+	.long	.Ltmp7-.Ltmp6                   @ DW_AT_high_pc
 	.byte	3                               @ DW_AT_call_file
 	.byte	26                              @ DW_AT_call_line
 	.byte	17                              @ DW_AT_call_column
 	.byte	0                               @ End Of Children Mark
-	.byte	0                               @ End Of Children Mark
-	.byte	19                              @ Abbrev [19] 0x177:0xc DW_TAG_array_type
-	.long	159                             @ DW_AT_type
-	.byte	20                              @ Abbrev [20] 0x17c:0x6 DW_TAG_subrange_type
-	.long	387                             @ DW_AT_type
-	.byte	20                              @ DW_AT_count
-	.byte	0                               @ End Of Children Mark
-	.byte	21                              @ Abbrev [21] 0x183:0x7 DW_TAG_base_type
-	.long	.Linfo_string30                 @ DW_AT_name
-	.byte	8                               @ DW_AT_byte_size
-	.byte	7                               @ DW_AT_encoding
 	.byte	0                               @ End Of Children Mark
 .Ldebug_info_end0:
 	.section	.debug_ranges,"",%progbits
@@ -734,33 +610,23 @@ g_PowerCtrlMsg:
 .Linfo_string16:
 	.asciz	"PowerInfo_t"                   @ string offset=262
 .Linfo_string17:
-	.asciz	"Font_08_16"                    @ string offset=274
+	.asciz	"L_AIO_0"                       @ string offset=274
 .Linfo_string18:
-	.asciz	"Font_16_32"                    @ string offset=285
+	.asciz	"L_AIO_1"                       @ string offset=282
 .Linfo_string19:
-	.asciz	"L_AIO_0"                       @ string offset=296
+	.asciz	"L_AIO_2"                       @ string offset=290
 .Linfo_string20:
-	.asciz	"L_AIO_1"                       @ string offset=304
+	.asciz	"L_AIO_3"                       @ string offset=298
 .Linfo_string21:
-	.asciz	"L_AIO_2"                       @ string offset=312
+	.asciz	"BAT_VOLT"                      @ string offset=306
 .Linfo_string22:
-	.asciz	"L_AIO_3"                       @ string offset=320
+	.asciz	"ADC1_Channel"                  @ string offset=315
 .Linfo_string23:
-	.asciz	"BAT_VOLT"                      @ string offset=328
+	.asciz	"UpdateBatteryVolt"             @ string offset=328
 .Linfo_string24:
-	.asciz	"ADC1_Channel"                  @ string offset=337
+	.asciz	"PowerInit"                     @ string offset=346
 .Linfo_string25:
-	.asciz	"char"                          @ string offset=350
-.Linfo_string26:
-	.asciz	"UpdateBatteryVolt"             @ string offset=355
-.Linfo_string27:
-	.asciz	"PowerInit"                     @ string offset=373
-.Linfo_string28:
-	.asciz	"PowerTask"                     @ string offset=383
-.Linfo_string29:
-	.asciz	"Str"                           @ string offset=393
-.Linfo_string30:
-	.asciz	"__ARRAY_SIZE_TYPE__"           @ string offset=397
+	.asciz	"PowerTask"                     @ string offset=356
 	.ident	"Component: ARM Compiler 6.16 Tool: armclang [5dfeb700]"
 	.section	".note.GNU-stack","",%progbits
 	.eabi_attribute	30, 3	@ Tag_ABI_optimization_goals
