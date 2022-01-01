@@ -34,3 +34,7 @@ void CommnuniTask(void)
     }
 }
 
+void SetMotorLock(BOOLEAN Lock)
+{
+    
+}

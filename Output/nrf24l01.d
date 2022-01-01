@@ -3,7 +3,7 @@
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\math.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Mymath.h \
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\User\stm32f4xx_hal_conf.h \
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \

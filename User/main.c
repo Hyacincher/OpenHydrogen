@@ -11,6 +11,8 @@ int main(void)
     HardwareInit();
     PowerInit();
     CommnuniInit();
+    RockerInit();
+    DigitalPortInit();
     
     lv_init();
     lv_port_disp_init();
@@ -20,6 +22,8 @@ int main(void)
     {
         PowerTask();
         CommnuniTask();
+        RockerTask();
+        DigitalPortTask();
         lv_task_handler();
     }
 }

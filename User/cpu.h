@@ -90,6 +90,20 @@
 
 #define ADC_AVE_LENTH       20
 
+#define READL_PLUG_CHECK()      HAL_GPIO_ReadPin(L_PLUG_GPIO_Port, L_PLUG_Pin)
+#define READL_KEY_TKOF()        HAL_GPIO_ReadPin(L_DIO_1_GPIO_Port, L_DIO_1_Pin)
+#define READL_KEY_1()           HAL_GPIO_ReadPin(L_DIO_2_GPIO_Port, L_DIO_2_Pin)
+#define READL_KEY_2()           HAL_GPIO_ReadPin(L_DIO_3_GPIO_Port, L_DIO_3_Pin)
+#define READL_LOCK_MOTOR()      HAL_GPIO_ReadPin(L_DIO_4_GPIO_Port, L_DIO_4_Pin)
+#define READL_LOCK_ROCKER()     HAL_GPIO_ReadPin(L_DIO_5_GPIO_Port, L_DIO_5_Pin)
+
+#define READR_PLUG_CHECK()      HAL_GPIO_ReadPin(R_PLUG_GPIO_Port, R_PLUG_Pin)
+#define READR_SW_HEIGHT()       HAL_GPIO_ReadPin(R_DIO_4_GPIO_Port, R_DIO_4_Pin)
+#define READR_SW_DRIEC()        HAL_GPIO_ReadPin(R_DIO_5_GPIO_Port, R_DIO_5_Pin)
+#define READR_KEY_MODE()        HAL_GPIO_ReadPin(R_DIO_6_GPIO_Port, R_DIO_6_Pin)
+#define READR_KEY_1()           HAL_GPIO_ReadPin(R_DIO_7_GPIO_Port, R_DIO_7_Pin)
+#define READR_KEY_2()           HAL_GPIO_ReadPin(R_DIO_8_GPIO_Port, R_DIO_8_Pin)
+
 typedef enum
 {
     L_AIO_0 = 0,
@@ -109,7 +123,6 @@ typedef enum
     R_AIO_0,
     ADC2_Channel
 }ADC2Channel_e;
-
 
 extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc2;

@@ -419,6 +419,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\cpu.c</FilePath>
             </File>
+            <File>
+              <FileName>Mymath.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Mymath.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -619,6 +624,11 @@
               <FileType>1</FileType>
               <FilePath>..\Driver\NRF24L01.c</FilePath>
             </File>
+            <File>
+              <FileName>Flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\Flash.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -633,6 +643,16 @@
               <FileName>Communi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Application\Communi.c</FilePath>
+            </File>
+            <File>
+              <FileName>Rocker.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Rocker.c</FilePath>
+            </File>
+            <File>
+              <FileName>DPort.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\DPort.c</FilePath>
             </File>
           </Files>
         </Group>

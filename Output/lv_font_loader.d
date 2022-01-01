@@ -86,8 +86,8 @@
   ..\GUILib\src\lv_api_map.h ..\User\includes.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\math.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  ..\GUILib\lv_port_disp.h ..\GUILib\lvgl.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Mymath.h \
+  ..\User\includes.h ..\GUILib\lv_port_disp.h ..\GUILib\lvgl.h \
   ..\GUILib\src\extra\lv_extra.h \
   ..\GUILib\src\extra\widgets\lv_widgets.h \
   ..\GUILib\src\extra\widgets\animimg\lv_animimg.h \

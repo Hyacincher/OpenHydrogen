@@ -4,6 +4,8 @@
 #include "cpu.h"
 #include "Power.h"
 #include "Communi.h"
+#include "Rocker.h"
+#include "DPort.h"
 
 #include "lvgl.h"
 

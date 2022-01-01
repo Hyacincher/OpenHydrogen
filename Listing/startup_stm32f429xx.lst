@@ -885,13 +885,13 @@ ARM Macro Assembler    Page 14
               0000F000 
               00000800 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --depen
-d=..\output\startup_stm32f429xx.d -o..\output\startup_stm32f429xx.o -I.\RTE\_Hy
-Telectrl -I"D:\Keil MDK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include" -I"D:\Keil 
-MDK\package\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
-" --predefine="__UVISION_VERSION SETA 535" --predefine="_RTE_ SETA 1" --predefi
-ne="STM32F429xx SETA 1" --predefine="_RTE_ SETA 1" --list=..\listing\startup_st
-m32f429xx.lst ..\User\startup_stm32f429xx.s
+Command Line: --debug --xref --cpu=Cortex-M4.fp.sp --depend=..\output\startup_s
+tm32f429xx.d -o..\output\startup_stm32f429xx.o -I.\RTE\_HyTelectrl -I"D:\Keil M
+DK\package\ARM\CMSIS\5.8.0\CMSIS\Core\Include" -I"D:\Keil MDK\package\Keil\STM3
+2F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include" --predefine="__UVIS
+ION_VERSION SETA 535" --predefine="_RTE_ SETA 1" --predefine="STM32F429xx SETA 
+1" --predefine="_RTE_ SETA 1" --list=..\listing\startup_stm32f429xx.lst ..\User
+\startup_stm32f429xx.s
 
 
 

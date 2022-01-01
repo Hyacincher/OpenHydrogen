@@ -24,6 +24,8 @@ typedef double              FP64;           /*  Double precision floating  point
 #include <math.h>
 #include <stdlib.h>
 
+#include "Mymath.h"
+
 #define DEBUG_MODE  1
 
 #define RATE_5_HZ		5
@@ -52,6 +54,9 @@ typedef double              FP64;           /*  Double precision floating  point
 2021.12.20--V0.03
 1、移植LVGL，DMA2D+中断刷新
 2、增加电源电压轮盘DEMO
+
+2022.01.01--V0.04
+1、增加通用数字端口驱动
 
 */
 #endif 

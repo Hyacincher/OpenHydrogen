@@ -15,6 +15,7 @@ typedef struct
 
 void CommnuniInit(void);
 void CommnuniTask(void);
+void SetMotorLock(BOOLEAN Lock);
 
 #endif
 

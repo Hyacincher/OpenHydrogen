@@ -54,7 +54,7 @@ void LVGLDemoInit(void)
 //    lv_anim_set_playback_time(&a, 500);
 //    lv_anim_set_playback_delay(&a, 100);
 //    lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
-//    lv_anim_start(&a); 
+//    lv_anim_start(&a);
 }
 
 void SetPowerValue(INT32U Value)

@@ -2,7 +2,7 @@
   ..\User\includes.h D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\math.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\string.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdlib.h ..\User\Mymath.h \
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\User\stm32f4xx_hal_conf.h \
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -48,8 +48,9 @@
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_wwdg.h \
   ..\Driver\sdram.h ..\User\includes.h ..\Driver\ltdc.h ..\Driver\font.h \
   ..\Driver\ASCII.h ..\Application\Power.h ..\Driver\ADC.h ..\User\cpu.h \
-  ..\Application\Communi.h ..\Driver\NRF24L01.h ..\GUILib\lvgl.h \
-  ..\GUILib\src\misc\lv_log.h ..\GUILib\src\misc\..\lv_conf_internal.h \
+  ..\Application\Communi.h ..\Driver\NRF24L01.h ..\Application\Rocker.h \
+  ..\Application\DPort.h ..\GUILib\lvgl.h ..\GUILib\src\misc\lv_log.h \
+  ..\GUILib\src\misc\..\lv_conf_internal.h \
   ..\GUILib\src\misc\..\lv_conf_kconfig.h ..\GUILib\lv_conf.h \
   ..\GUILib\src\misc\lv_types.h ..\GUILib\src\misc\lv_timer.h \
   D:\Keil\ MDK\ARM\ARMCLANG\Bin\..\include\stdbool.h \
