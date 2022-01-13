@@ -2,8 +2,12 @@
 
 volatile DPortInfo_t    g_DPortCtrlMsg;
 
-extern void SetMotorLock(BOOLEAN Lock);
+extern void SetMotorUnLock(BOOLEAN Lock);
 extern void SetRockerMode(INT8U Index, BOOLEAN Status);
+extern void SetAutoTakeoff(BOOLEAN Takeoff);
+extern void UpdateModeTrans(INT8U Index, INT8U Mode);
+
+extern void GUISetMotorLock(BOOLEAN Bin);
 
 static void DPortTrigger(void);
 static void DPortScan(void);
@@ -59,15 +63,52 @@ static void DPortTrigger(void)
     if(g_DPortCtrlMsg.DPort[L_KEY_TKOF].Status.TriggerLong)
     {//自动起飞/降落
         g_DPortCtrlMsg.DPort[L_KEY_TKOF].Status.TriggerLong = 0;
-        
+        SetAutoTakeoff(TRUE);
     }
     
     //电机解锁状态设置
-    SetMotorLock(g_DPortCtrlMsg.DPort[L_LOCK_MOTOR].Status.Activity);
+    SetMotorUnLock(g_DPortCtrlMsg.DPort[L_UNLOCK_MOTOR].Status.Activity);
     
     SetRockerMode(0, g_DPortCtrlMsg.DPort[L_LOCK_ROCKER].Status.Activity);
     
-    
+    if(g_DPortCtrlMsg.DPort[R_SW_HEIGHT].Status.Activity)
+    {//妞子开关拨到高度模式
+        if(g_DPortCtrlMsg.DPort[R_KEY_MODE].Status.TriggerShort)
+        {
+            g_DPortCtrlMsg.DPort[R_KEY_MODE].Status.TriggerShort = 0;
+            g_DPortCtrlMsg.SelectHeight++;
+            if(g_DPortCtrlMsg.SelectHeight >= AllHeightMode)
+            {
+                g_DPortCtrlMsg.SelectHeight = 0;
+            }
+        }
+    }
+    else if(g_DPortCtrlMsg.DPort[R_SW_DRIEC].Status.Activity)
+    {//妞子开关拨到方向模式
+        if(g_DPortCtrlMsg.DPort[R_KEY_MODE].Status.TriggerShort)
+        {
+            g_DPortCtrlMsg.DPort[R_KEY_MODE].Status.TriggerShort = 0;
+            g_DPortCtrlMsg.SelectDirection++;
+            if(g_DPortCtrlMsg.SelectDirection >= AllDirectMode)
+            {
+                g_DPortCtrlMsg.SelectDirection = 0;
+            }
+        }        
+    }
+    else
+    {
+        //锁存选择的模式
+        g_DPortCtrlMsg.HeightMode = g_DPortCtrlMsg.SelectHeight;
+        g_DPortCtrlMsg.DirectionMode = g_DPortCtrlMsg.SelectDirection;
+        
+        if(g_DPortCtrlMsg.DPort[R_KEY_MODE].Status.TriggerShort)
+        {//切换按键无效，清除
+            g_DPortCtrlMsg.DPort[R_KEY_MODE].Status.TriggerShort = 0;
+        }
+        
+        UpdateModeTrans(0, g_DPortCtrlMsg.HeightMode);
+        UpdateModeTrans(1, g_DPortCtrlMsg.DirectionMode);
+    }
 }
 
 static void DPortScan(void)
@@ -176,7 +217,7 @@ static DPortLevel_e GetDPortLevel(DPortChannel_e Port)
         case L_KEY_2:
             Level = (DPortLevel_e)(READL_KEY_2() ^ L_KEY_2_NTRIG);
             break;
-        case L_LOCK_MOTOR:
+        case L_UNLOCK_MOTOR:
             Level = (DPortLevel_e)(READL_LOCK_MOTOR() ^ L_LOCK_MOTOR_TRIG);
             break;
         case L_LOCK_ROCKER:

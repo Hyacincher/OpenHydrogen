@@ -199,4 +199,4 @@
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_wwdg.h \
-  ..\Driver\font.h ..\Driver\ASCII.h
+  ..\Driver\font.h ..\Driver\ASCII.h ..\User\cpu.h ..\Driver\sdram.h

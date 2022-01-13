@@ -104,6 +104,9 @@
 #define READR_KEY_1()           HAL_GPIO_ReadPin(R_DIO_7_GPIO_Port, R_DIO_7_Pin)
 #define READR_KEY_2()           HAL_GPIO_ReadPin(R_DIO_8_GPIO_Port, R_DIO_8_Pin)
 
+#define LCD_BK_ENABLE()         HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2)
+#define LCD_BK_DISABLE()        HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_2)
+
 typedef enum
 {
     L_AIO_0 = 0,

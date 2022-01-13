@@ -735,7 +735,7 @@ g_ADC2Volt:
 	.long	135                             @ DW_AT_type
 	.byte	1                               @ DW_AT_byte_size
 	.byte	6                               @ DW_AT_decl_file
-	.byte	107                             @ DW_AT_decl_line
+	.byte	110                             @ DW_AT_decl_line
 	.byte	10                              @ Abbrev [10] 0xd8:0x6 DW_TAG_enumerator
 	.long	.Linfo_string19                 @ DW_AT_name
 	.byte	0                               @ DW_AT_const_value
@@ -759,7 +759,7 @@ g_ADC2Volt:
 	.long	135                             @ DW_AT_type
 	.byte	1                               @ DW_AT_byte_size
 	.byte	6                               @ DW_AT_decl_file
-	.byte	117                             @ DW_AT_decl_line
+	.byte	120                             @ DW_AT_decl_line
 	.byte	10                              @ Abbrev [10] 0x105:0x6 DW_TAG_enumerator
 	.long	.Linfo_string25                 @ DW_AT_name
 	.byte	0                               @ DW_AT_const_value

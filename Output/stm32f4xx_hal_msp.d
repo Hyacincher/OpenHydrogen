@@ -48,7 +48,7 @@
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_wwdg.h \
   ..\Driver\sdram.h ..\User\includes.h ..\Driver\ltdc.h ..\Driver\font.h \
-  ..\Driver\ASCII.h ..\Application\Power.h ..\Driver\ADC.h ..\User\cpu.h \
+  ..\Driver\ASCII.h ..\User\cpu.h ..\Application\Power.h ..\Driver\ADC.h \
   ..\Application\Communi.h ..\Driver\NRF24L01.h ..\Application\Rocker.h \
   ..\Application\DPort.h ..\GUILib\lvgl.h ..\GUILib\src\misc\lv_log.h \
   ..\GUILib\src\misc\..\lv_conf_internal.h \
@@ -203,4 +203,5 @@
   ..\GUILib\src\extra\libs\freetype\lv_freetype.h \
   ..\GUILib\src\extra\libs\freetype\..\..\..\lvgl.h \
   ..\GUILib\src\extra\libs\rlottie\lv_rlottie.h \
-  ..\GUILib\src\extra\libs\rlottie\..\..\..\lvgl.h ..\GUIApp\GUI_Main.h
+  ..\GUILib\src\extra\libs\rlottie\..\..\..\lvgl.h ..\GUIApp\GUI_Main.h \
+  ..\User\main.h

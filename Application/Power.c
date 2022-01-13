@@ -4,7 +4,7 @@ volatile PowerInfo_t    g_PowerCtrlMsg;
 
 static void UpdateBatteryVolt(void);
 
-extern void SetPowerValue(INT32U Value);
+extern void GUISetPowerValue(INT32U Value);
 
 void PowerInit(void)
 {
@@ -24,7 +24,7 @@ void PowerTask(void)
             if((g_SystemTime - g_PowerCtrlMsg.TaskTimer) >= 200)
             {
                 UpdateBatteryVolt();
-                SetPowerValue(g_PowerCtrlMsg.BatteryVolt);
+                GUISetPowerValue(g_PowerCtrlMsg.BatteryVolt);
                 g_PowerCtrlMsg.TaskStage++;
             }
             break;

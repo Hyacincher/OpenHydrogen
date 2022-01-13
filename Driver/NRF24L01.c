@@ -162,15 +162,6 @@ void NRFInit(void)
         return;
     }
     
-    g_NRFCtrlMsg.TxBuff[8] = 50;
-    g_NRFCtrlMsg.TxBuff[9] = 0;
-    g_NRFCtrlMsg.TxBuff[10] = 50;
-    g_NRFCtrlMsg.TxBuff[11] = 0;
-    g_NRFCtrlMsg.TxBuff[12] = 50;
-    g_NRFCtrlMsg.TxBuff[13] = 0;    
-    g_NRFCtrlMsg.TxBuff[14] = 50;
-    g_NRFCtrlMsg.TxBuff[15] = 0;
-    
     NRF_DelayMS(100);
 }
 
@@ -179,7 +170,7 @@ void NRFTransmitData(void)
     INT8U Status;
 
     NRF_MODE_LOW();
-    NRFWriteContinul(WR_TX_PLOAD, g_NRFCtrlMsg.TxBuff, TX_PLOAD_WIDTH);
+    NRFWriteContinul(WR_TX_PLOAD, g_NRFCtrlMsg.TxBuff, TX_PLOAD_WIDTH);//20MHZ
     NRF_MODE_HIGH();
     
     Status = NRFReadReg(STATUS);

@@ -127,10 +127,10 @@ PowerTask:
 	.loc	3 43 32                         @ ../Application/Power.c:43:32
 	strh	r0, [r4, #2]
 .Ltmp7:
-	.loc	3 27 46 is_stmt 1               @ ../Application/Power.c:27:46
+	.loc	3 27 49 is_stmt 1               @ ../Application/Power.c:27:49
 	ldrh	r0, [r4, #2]
 	.loc	3 27 17 is_stmt 0               @ ../Application/Power.c:27:17
-	bl	SetPowerValue
+	bl	GUISetPowerValue
 .Ltmp8:
 .LBB1_7:
 	.loc	3 0 0                           @ ../Application/Power.c:0:0
@@ -507,7 +507,7 @@ g_PowerCtrlMsg:
 	.long	170                             @ DW_AT_type
 	.byte	1                               @ DW_AT_byte_size
 	.byte	4                               @ DW_AT_decl_file
-	.byte	107                             @ DW_AT_decl_line
+	.byte	110                             @ DW_AT_decl_line
 	.byte	10                              @ Abbrev [10] 0xdd:0x6 DW_TAG_enumerator
 	.long	.Linfo_string17                 @ DW_AT_name
 	.byte	0                               @ DW_AT_const_value

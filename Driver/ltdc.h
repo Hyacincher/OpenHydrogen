@@ -5,7 +5,7 @@
 #include "stm32f4xx_hal.h"
 #include "font.h"
 #include "ASCII.h"
-//#include "pic.h"
+#include "cpu.h"
 
 //LCD LTDC重要参数集
 
@@ -67,9 +67,6 @@ typedef enum
 #define LCD_FRAME_BUF_ADDR			0XC0000000  
 
 //LCD IO操作
-#define LCD_BK_ENABLE()             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET)
-#define LCD_BK_DISABLE()            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET)
-
 #define LCD_SPI_CS(status)          HAL_GPIO_WritePin(GPIOH, GPIO_PIN_7, status)
 #define LCD_Delay(MS)               HAL_Delay(MS)
 //#define LCD_RESET()               接的单片机复位
@@ -95,6 +92,7 @@ INT8U LTDC_Clk_Set(INT32U pllsain,INT32U pllsair,INT32U pllsaidivr);//LTDC时钟
 void LTDC_Layer_Window_Config(INT8U layerx,INT16U sx,INT16U sy,INT16U width,INT16U height);//LTDC层窗口设置
 void LTDC_Layer_Parameter_Config(INT8U layerx,INT32U bufaddr,INT8U pixformat,INT8U alpha,INT8U alpha0,INT8U bfac1,INT8U bfac2,INT32U bkcolor);//LTDC基本参数设置
 void LTDC_Init(void);						//LTDC初始化函数
+void SetLCDBK(FP32 Rate);
 
 extern LCD_Info_t g_LCDCtrlMsg;        //管理LCD LTDC的重要参数
 #endif 

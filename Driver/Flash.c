@@ -21,6 +21,7 @@
 BOOLEAN FlashSaveRocker(INT8U Index, INT16S Max, INT16S Mid, INT16S Min)
 {
     //HAL_FLASH_Program
+    return TRUE;
 }
 
 

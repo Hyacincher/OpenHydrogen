@@ -5,13 +5,15 @@ volatile RockerInfo_t   g_RockerCtrlMsg;
 static void GetOriginRocker(void);
 static void RockerTransform(void);
 
+extern void UpdateRockerTrans(INT16S Throttle, INT16S Yaw, INT16S Picth, INT16S Roll);
+
 void RockerInit(void)
 {
     memset((void *)&g_RockerCtrlMsg, 0, sizeof(g_RockerCtrlMsg));
     
     //FLASH参数读取
     g_RockerCtrlMsg.Throttle.Max = 2870;//1598  2870  325
-    g_RockerCtrlMsg.Throttle.Mid = 1598;
+    g_RockerCtrlMsg.Throttle.Mid = 1635;
     g_RockerCtrlMsg.Throttle.Min = 325;
 
     g_RockerCtrlMsg.Yaw.Max = 2856; //1668   2856   438
@@ -40,6 +42,9 @@ void RockerTask(void)
             {
                 GetOriginRocker();
                 RockerTransform();
+                UpdateRockerTrans(g_RockerCtrlMsg.Throttle.Value, g_RockerCtrlMsg.Yaw.Value, \
+                                    g_RockerCtrlMsg.Pitch.Value, g_RockerCtrlMsg.Roll.Value);
+                g_RockerCtrlMsg.TaskStage++;
             }
             break;
         case 2:

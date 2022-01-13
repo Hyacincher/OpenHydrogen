@@ -30,7 +30,7 @@
 
 #define TRIGGER_INTERVAL_TIME   500     //MS    按键不松手触发间隔
 
-#define TRIGGER_SHORT_TIME      60      //MS
+#define TRIGGER_SHORT_TIME      20      //MS
 #define TRIGGER_LONG_TIME       2000    //MS
 
 
@@ -46,7 +46,7 @@ typedef enum
     L_KEY_TKOF,
     L_KEY_1,
     L_KEY_2,
-    L_LOCK_MOTOR,
+    L_UNLOCK_MOTOR,
     L_LOCK_ROCKER,
     R_PLUG_CHECK,
     R_SW_HEIGHT,
@@ -56,6 +56,24 @@ typedef enum
     R_KEY_2,
     AllDPort
 }DPortChannel_e;
+
+typedef enum
+{
+    UserManual = 0,         //手动模式，开环油门，摇杆直接控制PWM输出
+    FixedHeight,            //定高模式，高度环闭环控制油门，摇杆控制定高位置
+    AutoTakeoff,            //自动起飞，自动起飞至一定高度切换定高
+    AutoLanding,            //自动降落，自动降落至地面关闭油门
+    AllHeightMode
+}HeightMode_e;
+
+typedef enum
+{
+    HeadDirection = 0,      //有头飞行，yaw控制飞机头转向并保持，前后左右以机体正向为标准
+    HeadLess,               //无头飞行，起飞后保持起飞前航向，yaw控制回中自动回中。前后左右以大地坐标系为准
+    FixedPoint,             //定点模式，自动保持当前位置，前后左右不断改变停止位置
+    PointCruise,            //航点模式，制定航点，自动巡航
+    AllDirectMode
+}DirectionMode_e;
 
 typedef struct
 {
@@ -83,6 +101,13 @@ typedef struct
 typedef struct
 {
     PortStatus_t DPort[AllDPort];
+    
+    HeightMode_e  HeightMode;           //高度模式
+    HeightMode_e  SelectHeight;         //当前选中项（在模式摇杆置中的时候锁存到当前模式）
+    
+    DirectionMode_e DirectionMode;      //方向模式
+    DirectionMode_e SelectDirection;    //当前选中项（在模式摇杆置中的时候锁存到当前模式）
+    
     INT32U TaskTimer;
     INT8U TaskStage;
 }DPortInfo_t;
@@ -91,5 +116,6 @@ typedef struct
 void DigitalPortInit(void);
 void DigitalPortTask(void);
 
+extern volatile DPortInfo_t g_DPortCtrlMsg;
 #endif
 

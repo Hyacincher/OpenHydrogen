@@ -2,9 +2,11 @@
 #define GUI_MAIN_H
 
 #include "lvgl.h"
+#include "main.h"
 
 void LVGLDemoInit(void);
-void SetPowerValue(INT32U Value);
+void LVGLDemoTask(void);
+void GUISetPowerValue(INT32U Value);
 
 #endif
 

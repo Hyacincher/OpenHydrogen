@@ -47,4 +47,4 @@
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h \
   ..\Library\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_wwdg.h \
   ..\Driver\sdram.h ..\User\includes.h ..\Driver\ltdc.h ..\Driver\font.h \
-  ..\Driver\ASCII.h
+  ..\Driver\ASCII.h ..\User\cpu.h

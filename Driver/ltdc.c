@@ -290,6 +290,7 @@ void LTDC_Init(void)
  	LTDC_Display_Dir(1);			//默认横屏
 	LTDC_Select_Layer(0); 			//选择第1层
     LCD_BK_ENABLE();               //点亮背光
+    SetLCDBK(0.4);
     LTDC_Clear(0xffffffff);			//清屏
     LTDC_Para_Init();
 }
@@ -308,14 +309,6 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef* hltdc)
     __HAL_RCC_GPIOG_CLK_ENABLE();               //使能GPIOG时钟
     __HAL_RCC_GPIOH_CLK_ENABLE();               //使能GPIOH时钟
     __HAL_RCC_GPIOI_CLK_ENABLE();               //使能GPIOI时钟
-    
-    //初始化PB5，背光引脚
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);   //暂时关闭背光
-    GPIO_Initure.Pin=GPIO_PIN_5;                //PB5推挽输出，控制背光
-    GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;      //推挽输出
-    GPIO_Initure.Pull=GPIO_NOPULL;              //上拉        
-    GPIO_Initure.Speed=GPIO_SPEED_HIGH;         //高速
-    HAL_GPIO_Init(GPIOB,&GPIO_Initure);
     
     //LCD参数控制脚
     HAL_GPIO_WritePin(GPIOI, GPIO_PIN_8, GPIO_PIN_SET);     //SCK
@@ -351,6 +344,19 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef* hltdc)
     GPIO_Initure.Pin=GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_4|GPIO_PIN_5|\
                      GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_9|GPIO_PIN_10;
     HAL_GPIO_Init(GPIOI,&GPIO_Initure); 
+}
+
+//0~1
+void SetLCDBK(FP32 Rate)
+{
+    INT32U CCR,ARR;
+    
+    htim3.Instance->CR1 &= ~1;
+    ARR = htim3.Instance->ARR + 1;
+    CCR = ARR * Rate;
+    htim3.Instance->CCR2 = CCR;
+    htim3.Instance->CNT = 0;
+    htim3.Instance->CR1 |= ~1;
 }
 
 static void LCD_WriteByteSPI(unsigned char byte)

@@ -58,6 +58,11 @@ typedef double              FP64;           /*  Double precision floating  point
 2022.01.01--V0.04
 1、增加通用数字端口驱动
 
+2022.01.03--V0.05
+1、完成基础遥控器控制逻辑
+2、主从同步协议完成
+3、增加背光PWM设置
+
 */
 #endif 
 

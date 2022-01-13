@@ -24,6 +24,8 @@ int main(void)
         CommnuniTask();
         RockerTask();
         DigitalPortTask();
+        
+        LVGLDemoTask();
         lv_task_handler();
     }
 }

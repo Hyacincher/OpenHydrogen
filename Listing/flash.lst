@@ -41,8 +41,8 @@ FlashSaveRocker:
 	@DEBUG_VALUE: FlashSaveRocker:Max <- $r1
 	@DEBUG_VALUE: FlashSaveRocker:Mid <- $r2
 	@DEBUG_VALUE: FlashSaveRocker:Min <- $r3
-	.loc	1 24 1 prologue_end             @ ../Driver/Flash.c:24:1
-	movs	r0, #0
+	.loc	1 24 5 prologue_end             @ ../Driver/Flash.c:24:5
+	movs	r0, #1
 .Ltmp0:
 	@DEBUG_VALUE: FlashSaveRocker:Index <- [DW_OP_LLVM_entry_value 1] $r0
 	bx	lr
